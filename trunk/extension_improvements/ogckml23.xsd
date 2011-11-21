@@ -25,6 +25,9 @@
   <!-- KML field types (simple content) -->
   
   <!-- Sean: Proposed simple content type with attributes for extension -->
+  <attributeGroup name="extensionOtherAttributes">
+    <anyAttribute namespace="##other" processContents="strict"/>
+  </attributeGroup>
   
   <complexType name="AbstractComplexTypeNoContentExtensionType" abstract="true">
     <attributeGroup ref="kml:extensionOtherAttributes"/>
@@ -342,12 +345,6 @@
   <element name="x" type="double" default="1.0"/>
   <element name="y" type="double" default="1.0"/>
   <element name="z" type="double" default="1.0"/>
-  
-  <!-- Sean: new extension attribute group for other namespaces -->
-  <attributeGroup name="extensionOtherAttributes">
-    <anyAttribute namespace="##other" processContents="strict"/>
-  </attributeGroup>
-  <!-- end Sean -->
 
   <element name="AbstractObjectGroup" type="kml:AbstractObjectType"
     abstract="true"/>
