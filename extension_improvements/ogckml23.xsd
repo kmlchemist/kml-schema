@@ -231,14 +231,18 @@
       <enumeration value="insetPixels"/>
     </restriction>
   </simpleType>
-
+  
   <complexType name="vec2Type" abstract="false">
-    <attribute name="x" type="double" default="1.0"/>
-    <attribute name="y" type="double" default="1.0"/>
-    <attribute name="xunits" type="kml:unitsEnumType" use="optional"
-      default="fraction"/>
-    <attribute name="yunits" type="kml:unitsEnumType" use="optional"
-      default="fraction"/>
+    <complexContent>
+      <extension base="kml:AbstractComplexTypeNoContentExtensionType">
+        <attribute name="x" type="double" default="1.0"/>
+        <attribute name="y" type="double" default="1.0"/>
+        <attribute name="xunits" type="kml:unitsEnumType" use="optional"
+          default="fraction"/>
+        <attribute name="yunits" type="kml:unitsEnumType" use="optional"
+          default="fraction"/>
+      </extension>
+    </complexContent>
   </complexType>
 
   <element name="address" type="string"/>
@@ -414,9 +418,10 @@
     type="anySimpleType"/>
 
   <element name="Snippet" type="kml:SnippetType"/>
+  <!-- Sean: converted SnippetType to extend from StringWithAttributesType -->
   <complexType name="SnippetType" final="#all">
     <simpleContent>
-      <extension base="string">
+      <extension base="kml:StringWithAttributesType">
         <attribute name="maxLines" type="int" use="optional" default="2"/>
       </extension>
     </simpleContent>
@@ -681,6 +686,8 @@
         maxOccurs="unbounded"/>
     </sequence>
     <attribute name="hint" type="string"/>
+    <!-- Sean: added extension attributes to <kml> -->
+    <attributeGroup ref="kml:extensionOtherAttributes" />
   </complexType>
   <element name="KmlSimpleExtensionGroup" abstract="true" type="anySimpleType"/>
   <element name="KmlObjectExtensionGroup" abstract="true"
@@ -732,6 +739,7 @@
   <element name="DocumentObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
 
+  <!-- TODO: Why is <Schema> not extended from AbstractObjectType?? -->
   <element name="Schema" type="kml:SchemaType"/>
   <complexType name="SchemaType" final="#all">
     <sequence>
@@ -743,6 +751,7 @@
   </complexType>
   <element name="SchemaExtension" abstract="true"/>
 
+  <!-- TODO: Why is <SimpleField> not extended from AbstractObjectType?? -->
   <element name="SimpleField" type="kml:SimpleFieldType"/>
   <complexType name="SimpleFieldType" final="#all">
     <sequence>
@@ -753,6 +762,7 @@
     <attribute name="type" type="string"/>
     <attribute name="name" type="string"/>
   </complexType>
+  <!-- TODO: What is SimpleFieldExtension?? -->
   <element name="SimpleFieldExtension" abstract="true"/>
 
   <element name="Folder" type="kml:FolderType"

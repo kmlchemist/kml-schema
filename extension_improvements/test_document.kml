@@ -14,7 +14,7 @@
     <open>1</open>
     
     <!-- Declare the type "TrailHeadType" with 3 fields -->
-    <Schema name="TrailHeadType" id="TrailHeadTypeId">     
+    <Schema name="TrailHeadType" id="TrailHeadTypeId" gx:foobar="sean">     
       <SimpleField type="string" name="TrailHeadName">       
         <displayName><![CDATA[<b>Trail Head Name</b>]]></displayName>     
       </SimpleField>     
@@ -25,22 +25,12 @@
         <displayName><![CDATA[<i>Change in altitude</i>]]></displayName>     
       </SimpleField>   
     </Schema> 
-    
-    <!-- This is analogous to adding three fields to a new element of type TrailHead:
-      
-      <TrailHeadType>        
-      <TrailHeadName>...</TrailHeadName>        
-      <TrailLength>...</TrailLength>        
-      <ElevationGain>...</ElevationGain>    
-      </TrailHeadType>
-    -->      
-    
-    <!-- Instantiate some Placemarks extended with TrailHeadType fields -->    
+   
     <Placemark>     
       <name>Easy trail</name>
       <ExtendedData>       
-        <SchemaData schemaUrl="#TrailHeadTypeId">         
-          <SimpleData gx:foobar="sean" name="TrailHeadName">Pi in the sky</SimpleData>         
+        <SchemaData schemaUrl="#TrailHeadTypeId" gx:foobar="sean">         
+          <SimpleData name="TrailHeadName" gx:foobar="sean">Pi in the sky</SimpleData>         
           <SimpleData name="TrailLength">3.14159</SimpleData>         
           <SimpleData name="ElevationGain">10</SimpleData>       
         </SchemaData>     
@@ -48,19 +38,17 @@
       <Point>       
         <coordinates>-122.000,37.002</coordinates>     
       </Point>   
-    </Placemark>    
-    <Placemark>     
-      <name>Difficult trail</name>
-      <ExtendedData>
-        <SchemaData schemaUrl="#TrailHeadTypeId">         
-          <SimpleData name="TrailHeadName">Mount Everest</SimpleData>        
-          <SimpleData name="TrailLength">347.45</SimpleData>         
-          <SimpleData name="ElevationGain">10000</SimpleData>       
-        </SchemaData>     
-      </ExtendedData>    
-      <Point>       
-        <coordinates>-121.998,37.0078</coordinates>     
-      </Point>   
-    </Placemark>   
+    </Placemark>
+    <ScreenOverlay>
+      <name>Absolute Positioning: Top left</name>
+      <Snippet maxLines="2" gx:foobar="sean">foobar</Snippet>
+      <Icon>
+        <href>http://code.google.com/apis/kml/documentation/top_left.jpg</href>
+      </Icon>
+      <overlayXY x="0" y="1" xunits="fraction" yunits="fraction" gx:foobar="sean"/>
+      <screenXY x="0" y="1" xunits="fraction" yunits="fraction"/>
+      <rotationXY x="0" y="0" xunits="fraction" yunits="fraction"/>
+      <size x="0" y="0" xunits="fraction" yunits="fraction"/>
+    </ScreenOverlay>
   </Document> 
 </kml>
