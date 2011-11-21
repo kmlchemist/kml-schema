@@ -28,7 +28,7 @@
   <complexType name="AbstractComplexTypeSimpleContentType" abstract="true">
     <simpleContent>
       <extension base="anySimpleType">
-        <anyAttribute namespace="##any" processContents="strict"/>
+        <attributeGroup ref="kml:extensionAttributes"/>
       </extension>
     </simpleContent>
   </complexType>
@@ -36,7 +36,7 @@
   <complexType name="AbstractComplexTypeSimpleContentExtensionType" abstract="true">
     <simpleContent>
       <extension base="anySimpleType">
-        <anyAttribute namespace="##other" processContents="strict"/>
+        <attributeGroup ref="kml:extensionAttributes"/>
       </extension>
     </simpleContent>
   </complexType>
@@ -44,7 +44,7 @@
   <complexType name="AnyURIWithAttributesType">
     <simpleContent>
       <extension base="anyURI">
-        <anyAttribute namespace="##other" processContents="strict"/>
+        <attributeGroup ref="kml:extensionAttributes"/>
       </extension>
     </simpleContent>
   </complexType>
@@ -52,7 +52,7 @@
   <complexType name="BooleanWithAttributesType">
     <simpleContent>
       <extension base="boolean">
-        <anyAttribute namespace="##other" processContents="strict"/>
+        <attributeGroup ref="kml:extensionAttributes"/>
       </extension>
     </simpleContent>
   </complexType>
@@ -60,7 +60,7 @@
   <complexType name="DoubleWithAttributesType">
     <simpleContent>
       <extension base="double">
-        <anyAttribute namespace="##other" processContents="strict"/>
+        <attributeGroup ref="kml:extensionAttributes"/>
       </extension>
     </simpleContent>
   </complexType>
@@ -68,7 +68,7 @@
   <complexType name="IntWithAttributesType">
     <simpleContent>
       <extension base="int">
-        <anyAttribute namespace="##other" processContents="strict"/>
+        <attributeGroup ref="kml:extensionAttributes"/>
       </extension>
     </simpleContent>
   </complexType>
@@ -76,7 +76,7 @@
   <complexType name="StringWithAttributesType">
     <simpleContent>
       <extension base="string">
-        <anyAttribute namespace="##other" processContents="strict"/>
+        <attributeGroup ref="kml:extensionAttributes"/>
       </extension>
     </simpleContent>
   </complexType>
@@ -341,6 +341,12 @@
   <element name="x" type="double" default="1.0"/>
   <element name="y" type="double" default="1.0"/>
   <element name="z" type="double" default="1.0"/>
+  
+  <!-- Sean: new extension attribute group for other namespaces -->
+  <attributeGroup name="extensionAttributes">
+    <anyAttribute namespace="##other" processContents="strict"/>
+  </attributeGroup>
+  <!-- end Sean -->
 
   <element name="AbstractObjectGroup" type="kml:AbstractObjectType"
     abstract="true"/>
@@ -350,6 +356,9 @@
         maxOccurs="unbounded"/>
     </sequence>
     <attributeGroup ref="kml:idAttributes"/>
+    <!-- Sean: allow attributes in other namespaces in all KML Objects -->
+    <attributeGroup ref="kml:extensionAttributes"/>
+    <!-- end Sean -->
   </complexType>
   <element name="ObjectSimpleExtensionGroup" abstract="true"
     type="anySimpleType"/>
@@ -529,11 +538,14 @@
   </complexType>
   <element name="SchemaDataExtension" abstract="true"/>
 
+  <!-- TODO: Extend from a complex Type, simple content type -->
   <element name="SimpleData" type="kml:SimpleDataType"/>
   <complexType name="SimpleDataType" final="#all">
     <simpleContent>
       <extension base="string">
         <attribute name="name" type="string" use="required"/>
+        <!-- Sean: temp add ext attribs here until type conversion complete -->
+        <attributeGroup ref="kml:extensionAttributes"/>
       </extension>
     </simpleContent>
   </complexType>
