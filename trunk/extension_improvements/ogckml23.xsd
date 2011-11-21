@@ -8,9 +8,9 @@
   version="2.3.0">
   
   <annotation>
-    <appinfo>ogckml22.xsd 2008-01-23</appinfo>
+    <appinfo>draft ogckml23.xsd 2011-11-19</appinfo>
     <documentation>XML Schema Document for OGC KML version 2.3. Copyright (c)
-      2008 Open Geospatial Consortium, Inc. All Rights Reserved.
+      2011 Open Geospatial Consortium, Inc. All Rights Reserved.
     </documentation>
   </annotation>  
 
@@ -23,6 +23,66 @@
     schemaLocation="http://docs.oasis-open.org/election/external/xAL.xsd"/>
 
   <!-- KML field types (simple content) -->
+  
+  <!-- Sean: Proposed simple content type with attributes for extension -->
+  <complexType name="AbstractComplexTypeSimpleContentType" abstract="true">
+    <simpleContent>
+      <extension base="anySimpleType">
+        <anyAttribute namespace="##any" processContents="strict"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+  
+  <complexType name="AbstractComplexTypeSimpleContentExtensionType" abstract="true">
+    <simpleContent>
+      <extension base="anySimpleType">
+        <anyAttribute namespace="##other" processContents="strict"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+  
+  <complexType name="AnyURIWithAttributesType">
+    <simpleContent>
+      <extension base="anyURI">
+        <anyAttribute namespace="##other" processContents="strict"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+  
+  <complexType name="BooleanWithAttributesType">
+    <simpleContent>
+      <extension base="boolean">
+        <anyAttribute namespace="##other" processContents="strict"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+  
+  <complexType name="DoubleWithAttributesType">
+    <simpleContent>
+      <extension base="double">
+        <anyAttribute namespace="##other" processContents="strict"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+  
+  <complexType name="IntWithAttributesType">
+    <simpleContent>
+      <extension base="int">
+        <anyAttribute namespace="##other" processContents="strict"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+  
+  <complexType name="StringWithAttributesType">
+    <simpleContent>
+      <extension base="string">
+        <anyAttribute namespace="##other" processContents="strict"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+  <!-- end Sean -->
+  
+  
 
   <simpleType name="anglepos90Type">
     <restriction base="double">
