@@ -27,7 +27,7 @@
 
   <!-- Import the language we are extending: OGC KML 2.3 -->
   <import namespace="http://www.opengis.net/kml/2.3"
-    schemaLocation="ogckml22.xsd"/>
+    schemaLocation="ogckml23.xsd"/>
 
    <!-- Simple types -->
   <simpleType name="altitudeModeEnumType">
