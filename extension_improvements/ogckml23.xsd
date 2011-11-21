@@ -81,8 +81,6 @@
     </simpleContent>
   </complexType>
   <!-- end Sean -->
-  
-  
 
   <simpleType name="anglepos90Type">
     <restriction base="double">

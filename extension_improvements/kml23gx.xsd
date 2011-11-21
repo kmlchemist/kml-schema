@@ -117,6 +117,28 @@
 
   <!-- Complex types and elements -->
   
+  <element name="FakeComplexElement" type="gx:FakeComplexElementType"
+    substitutionGroup="kml:PlacemarkObjectExtensionGroup"/>
+  <complexType name="FakeComplexElementType">
+    <complexContent>
+      <extension base="kml:AbstractObjectType">
+        <attributeGroup ref="kml:extensionOtherAttributes"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  <!--
+  <element name="FakeComplexElement" type="gx:FakeComplexElementType"
+     substitutionGroup="kml:AbstractObjectGroup"/>
+  <complexType name="FakeComplexElementType">
+    <complexContent>
+      <extension base="kml:AbstractObjectType">
+        <attributeGroup ref="kml:extensionOtherAttributes"/>
+      </extension>
+    </complexContent>
+  </complexType>
+  -->
+  
   <element name="AbstractTourPrimitiveGroup" type="gx:AbstractTourPrimitiveType"
     abstract="true" substitutionGroup="kml:AbstractObjectGroup"/>
   <element name="AbstractTourPrimitive" type="gx:AbstractTourPrimitiveType"/>
