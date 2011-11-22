@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema xmlns="http://www.w3.org/2001/XMLSchema"
-  xmlns:kml="http://www.opengis.net/kml/2.2"
+  xmlns:kml="http://www.opengis.net/kml/2.3"
   xmlns:atom="http://www.w3.org/2005/Atom"
   xmlns:xal="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
-  targetNamespace="http://www.opengis.net/kml/2.2"
+  targetNamespace="http://www.opengis.net/kml/2.3"
   elementFormDefault="qualified"
-  version="2.2.0">
+  version="2.3.0">
   
   <annotation>
-    <appinfo>ogckml22.xsd 2008-01-23</appinfo>
-    <documentation>XML Schema Document for OGC KML version 2.2. Copyright (c)
+    <appinfo>draft ogckml23.xsd 2011-11-22</appinfo>
+    <documentation>XML Schema Document for OGC KML version 2.3. Copyright (c)
       2008 Open Geospatial Consortium, Inc. All Rights Reserved.
     </documentation>
   </annotation>  
