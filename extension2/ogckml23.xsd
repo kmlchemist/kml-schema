@@ -664,11 +664,11 @@
       <element ref="kml:NetworkLinkControlSimpleExtensionGroup" minOccurs="0"
         maxOccurs="unbounded"/>
       <element ref="kml:NetworkLinkControlObjectExtensionGroup" minOccurs="0"
-        maxOccurs="unbounded"/>       
-      <!-- Proposed by Sean Askay: 2011-11-22 -->
-      <attributeGroup ref="kml:extensionOtherAttributes"/>
-      <!-- End Sean Askay: 2011-11-22 -->
-    </sequence>
+        maxOccurs="unbounded"/>  
+    </sequence>     
+    <!-- Proposed by Sean Askay: 2011-11-22 -->
+    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <!-- End Sean Askay: 2011-11-22 -->
   </complexType>
   <element name="NetworkLinkControlSimpleExtensionGroup" abstract="true"
     type="anySimpleType"/>
