@@ -24,24 +24,13 @@
 
   <!-- KML field types (simple content) -->
   
-  <!-- Sean: Proposed simple content type with attributes for extension -->
+  <!-- Sean: Proposed simple content type with attributes for extension -->  
+    
   <attributeGroup name="extensionOtherAttributes">
     <anyAttribute namespace="##other" processContents="strict"/>
   </attributeGroup>
   
-  <complexType name="AbstractComplexTypeNoContentExtensionType" abstract="true">
-    <attributeGroup ref="kml:extensionOtherAttributes"/>
-  </complexType>
-  
-  <complexType name="AbstractComplexTypeSimpleContentExtensionType" abstract="true">
-    <simpleContent>
-      <extension base="anySimpleType">
-        <attributeGroup ref="kml:extensionOtherAttributes"/>
-      </extension>
-    </simpleContent>
-  </complexType>
-  
-  <complexType name="AnyURIWithAttributesType">
+  <complexType name="anyURIWithAttributesType">
     <simpleContent>
       <extension base="anyURI">
         <attributeGroup ref="kml:extensionOtherAttributes"/>
@@ -49,7 +38,7 @@
     </simpleContent>
   </complexType>
   
-  <complexType name="BooleanWithAttributesType">
+  <complexType name="booleanWithAttributesType">
     <simpleContent>
       <extension base="boolean">
         <attributeGroup ref="kml:extensionOtherAttributes"/>
@@ -57,7 +46,7 @@
     </simpleContent>
   </complexType>
   
-  <complexType name="DoubleWithAttributesType">
+  <complexType name="doubleWithAttributesType">
     <simpleContent>
       <extension base="double">
         <attributeGroup ref="kml:extensionOtherAttributes"/>
@@ -65,7 +54,15 @@
     </simpleContent>
   </complexType>
   
-  <complexType name="IntWithAttributesType">
+  <complexType name="hex4WithAttributesType">
+    <simpleContent>
+      <extension base="hexBinary">
+        <attributeGroup ref="kml:extensionOtherAttributes"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+  
+  <complexType name="intWithAttributesType">
     <simpleContent>
       <extension base="int">
         <attributeGroup ref="kml:extensionOtherAttributes"/>
@@ -73,7 +70,7 @@
     </simpleContent>
   </complexType>
   
-  <complexType name="StringWithAttributesType">
+  <complexType name="stringWithAttributesType">
     <simpleContent>
       <extension base="string">
         <attributeGroup ref="kml:extensionOtherAttributes"/>
@@ -82,41 +79,59 @@
   </complexType>
   <!-- end Sean -->
 
-  <simpleType name="anglepos90Type">
-    <restriction base="double">
-      <minInclusive value="0.0"/>
-      <maxInclusive value="90.0"/>
-    </restriction>
-  </simpleType>
+  <!-- TODO: anglepos90Type ppears to be unused -->  
+  <complexType name="anglepos90Type">
+    <simpleContent>
+      <restriction base="kml:doubleWithAttributesType">
+        <minInclusive value="0.0"/>
+        <maxInclusive value="90.0"/>
+        <attributeGroup ref="kml:extensionOtherAttributes"/>
+      </restriction>
+    </simpleContent>
+  </complexType>
+  <!-- end TODO -->
+  
+  <complexType name="angle90Type">
+    <simpleContent>
+      <restriction base="kml:doubleWithAttributesType">
+        <minInclusive value="-90"/>
+        <maxInclusive value="90.0"/>
+        <attributeGroup ref="kml:extensionOtherAttributes"/>
+      </restriction>
+    </simpleContent>
+  </complexType>
+  
+  <complexType name="anglepos180Type">
+    <simpleContent>
+      <restriction base="kml:doubleWithAttributesType">
+        <minInclusive value="0.0"/>
+        <maxInclusive value="180.0"/>
+        <attributeGroup ref="kml:extensionOtherAttributes"/>
+      </restriction>
+    </simpleContent>
+  </complexType>
+  
+  <complexType name="angle180Type">
+    <simpleContent>
+      <restriction base="kml:doubleWithAttributesType">
+        <minInclusive value="-180.0"/>
+        <maxInclusive value="180.0"/>
+        <attributeGroup ref="kml:extensionOtherAttributes"/>
+      </restriction>
+    </simpleContent>
+  </complexType>
+  
+  <complexType name="angle360Type">
+    <simpleContent>
+      <restriction base="kml:doubleWithAttributesType">
+        <minInclusive value="-360.0"/>
+        <maxInclusive value="360.0"/>
+        <attributeGroup ref="kml:extensionOtherAttributes"/>
+      </restriction>
+    </simpleContent>
+  </complexType>
 
-  <simpleType name="angle90Type">
-    <restriction base="double">
-      <minInclusive value="-90"/>
-      <maxInclusive value="90.0"/>
-    </restriction>
-  </simpleType>
-
-  <simpleType name="anglepos180Type">
-    <restriction base="double">
-      <minInclusive value="0.0"/>
-      <maxInclusive value="180.0"/>
-    </restriction>
-  </simpleType>
-
-  <simpleType name="angle180Type">
-    <restriction base="double">
-      <minInclusive value="-180.0"/>
-      <maxInclusive value="180.0"/>
-    </restriction>
-  </simpleType>
-
-  <simpleType name="angle360Type">
-    <restriction base="double">
-      <minInclusive value="-360.0"/>
-      <maxInclusive value="360.0"/>
-    </restriction>
-  </simpleType>
-
+  <!-- TODO: Convert -->
   <simpleType name="altitudeModeEnumType">
     <restriction base="string">
       <enumeration value="clampToGround"/>
@@ -124,10 +139,12 @@
       <enumeration value="absolute"/>
     </restriction>
   </simpleType>
-
-  <simpleType name="colorType">
-    <annotation>
-      <documentation><![CDATA[
+  
+  <complexType name="colorType">
+    <simpleContent>
+      <restriction base="kml:hex4WithAttributesType">
+        <annotation>
+          <documentation><![CDATA[
         
         aabbggrr
         
@@ -135,16 +152,44 @@
         ff000000: opaque black
         
         ]]></documentation>
-    </annotation>
-    <restriction base="hexBinary">
-      <length value="4"/>
-    </restriction>
-  </simpleType>
-
-  <simpleType name="coordinatesType">
+        </annotation>
+        <length value="4"/>
+        <attributeGroup ref="kml:extensionOtherAttributes"/>
+      </restriction>
+    </simpleContent>
+  </complexType>
+  
+  <!-- 
+    TODO: Is there a better way to do this? 
+    
+    Like this?
+      
+    <complexType name="coordinatesType">
+      <simpleContent>
+        <restriction base="anyType">
+          <simpleType>
+            <list itemType="string"/>
+          </simpleType>
+          <attributeGroup ref="kml:extensionOtherAttributes"/>
+        </restriction>
+      </simpleContent>
+    </complexType>  
+  -->
+  
+  <simpleType name="stringList">
     <list itemType="string"/>
   </simpleType>
+  
+  <complexType name="coordinatesType">
+    <simpleContent>
+      <extension base="kml:stringList">
+        <attributeGroup ref="kml:extensionOtherAttributes"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+  
 
+  <!-- TODO: Convert -->
   <simpleType name="colorModeEnumType">
     <restriction base="string">
       <enumeration value="normal"/>
@@ -152,10 +197,38 @@
     </restriction>
   </simpleType>
 
-  <simpleType name="dateTimeType">
+
+  <!-- 
+    TODO: Is there a better way to do this? 
+    
+    Like this?
+    
+    <complexType name="dateTimeType">
+      <simpleContent>
+        <restriction base="anyType">
+         <simpleType>
+            <union memberTypes="dateTime date gYearMonth gYear"/>
+         </simpleType>
+         <attributeGroup ref="kml:extensionOtherAttributes"/>
+        </restriction>
+      </simpleContent>
+    </complexType>  
+    
+  -->
+  
+  <simpleType name="dateTimeUnionType">
     <union memberTypes="dateTime date gYearMonth gYear"/>
   </simpleType>
-
+  
+  <complexType name="dateTimeType">
+    <simpleContent>
+      <extension base="kml:dateTimeUnionType">
+        <attributeGroup ref="kml:extensionOtherAttributes"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+  
+  <!-- TODO: Convert -->
   <simpleType name="displayModeEnumType">
     <restriction base="string">
       <enumeration value="default"/>
@@ -163,6 +236,7 @@
     </restriction>
   </simpleType>
 
+  <!-- TODO: Convert -->
   <simpleType name="gridOriginEnumType">
     <restriction base="string">
       <enumeration value="lowerLeft"/>
@@ -173,6 +247,7 @@
     <list itemType="kml:itemIconStateEnumType"/>
   </simpleType>
 
+  <!-- TODO: Convert -->
   <simpleType name="itemIconStateEnumType">
     <restriction base="string">
       <enumeration value="open"/>
@@ -184,6 +259,7 @@
     </restriction>
   </simpleType>
 
+  <!-- TODO: Convert -->
   <simpleType name="listItemTypeEnumType">
     <restriction base="string">
       <enumeration value="radioFolder"/>
@@ -193,6 +269,7 @@
     </restriction>
   </simpleType>
 
+  <!-- TODO: Convert -->
   <simpleType name="refreshModeEnumType">
     <restriction base="string">
       <enumeration value="onChange"/>
@@ -200,7 +277,8 @@
       <enumeration value="onExpire"/>
     </restriction>
   </simpleType>
-
+  
+  <!-- TODO: Convert -->
   <simpleType name="viewRefreshModeEnumType">
     <restriction base="string">
       <enumeration value="never"/>
@@ -209,7 +287,8 @@
       <enumeration value="onRegion"/>
     </restriction>
   </simpleType>
-
+  
+  <!-- TODO: Convert -->
   <simpleType name="shapeEnumType">
     <restriction base="string">
       <enumeration value="rectangle"/>
@@ -217,7 +296,8 @@
       <enumeration value="sphere"/>
     </restriction>
   </simpleType>
-
+  
+  <!-- TODO: Convert -->
   <simpleType name="styleStateEnumType">
     <restriction base="string">
       <enumeration value="normal"/>
@@ -225,6 +305,7 @@
     </restriction>
   </simpleType>
 
+  <!-- TODO: Convert -->
   <simpleType name="unitsEnumType">
     <restriction base="string">
       <enumeration value="fraction"/>
@@ -233,21 +314,17 @@
     </restriction>
   </simpleType>
   
+  <!-- Does vec2Type need an Extension Group, so allow child elements -->
   <complexType name="vec2Type" abstract="false">
-    <complexContent>
-      <extension base="kml:AbstractComplexTypeNoContentExtensionType">
-        <attribute name="x" type="double" default="1.0"/>
-        <attribute name="y" type="double" default="1.0"/>
-        <attribute name="xunits" type="kml:unitsEnumType" use="optional"
-          default="fraction"/>
-        <attribute name="yunits" type="kml:unitsEnumType" use="optional"
-          default="fraction"/>
-      </extension>
-    </complexContent>
+    <attribute name="x" type="double" default="1.0"/>
+    <attribute name="y" type="double" default="1.0"/>
+    <attribute name="xunits" type="kml:unitsEnumType" use="optional" default="fraction"/>
+    <attribute name="yunits" type="kml:unitsEnumType" use="optional" default="fraction"/>
+    <attributeGroup ref="kml:extensionOtherAttributes" />
   </complexType>
-
-  <element name="address" type="string"/>
-  <element name="altitude" type="double" default="0.0"/>
+  
+  <element name="address" type="kml:stringWithAttributesType"/>
+  <element name="altitude" type="kml:doubleWithAttributesType" default="0.0"/>
   <element name="altitudeModeGroup" abstract="true"/>
   <element name="altitudeMode" type="kml:altitudeModeEnumType"
     default="clampToGround" substitutionGroup="kml:altitudeModeGroup"/>
@@ -256,93 +333,93 @@
   <element name="bottomFov" type="kml:angle90Type" default="0.0"/>
   <element name="color" type="kml:colorType" default="ffffffff"/>
   <element name="colorMode" type="kml:colorModeEnumType" default="normal"/>
-  <element name="cookie" type="string"/>
+  <element name="cookie" type="kml:stringWithAttributesType"/>
   <element name="coordinates" type="kml:coordinatesType"/>
-  <element name="description" type="string"/>
-  <element name="displayName" type="string"/>
+  <element name="description" type="kml:stringWithAttributesType"/>
+  <element name="displayName" type="kml:stringWithAttributesType"/>
   <element name="displayMode" type="kml:displayModeEnumType" default="default"/>
-  <element name="drawOrder" type="int" default="0"/>
+  <element name="drawOrder" type="kml:intWithAttributesType" default="0"/>
   <element name="east" type="kml:angle180Type" default="180.0"/>
   <element name="end" type="kml:dateTimeType"/>
   <element name="expires" type="kml:dateTimeType"/>
-  <element name="extrude" type="boolean" default="0"/>
-  <element name="fill" type="boolean" default="1"/>
-  <element name="flyToView" type="boolean" default="0"/>
+  <element name="extrude" type="kml:booleanWithAttributesType" default="0"/>
+  <element name="fill" type="kml:booleanWithAttributesType" default="1"/>
+  <element name="flyToView" type="kml:booleanWithAttributesType" default="0"/>
   <element name="gridOrigin" type="kml:gridOriginEnumType" default="lowerLeft"/>
   <element name="heading" type="kml:angle360Type" default="0.0"/>
-  <element name="href" type="string">
+  <element name="href" type="kml:stringWithAttributesType">
     <annotation>
       <documentation>not anyURI due to $[x] substitution in
       PhotoOverlay</documentation>
     </annotation>
   </element>
-  <element name="httpQuery" type="string"/>
+  <element name="httpQuery" type="kml:stringWithAttributesType"/>
   <element name="hotSpot" type="kml:vec2Type"/>
   <element name="key" type="kml:styleStateEnumType" default="normal"/>
   <element name="latitude" type="kml:angle90Type" default="0.0"/>
   <element name="leftFov" type="kml:angle180Type" default="0.0"/>
-  <element name="linkDescription" type="string"/>
-  <element name="linkName" type="string"/>
+  <element name="linkDescription" type="kml:stringWithAttributesType"/>
+  <element name="linkName" type="kml:stringWithAttributesType"/>
   <element name="linkSnippet" type="kml:SnippetType"/>
   <element name="listItemType" type="kml:listItemTypeEnumType" default="check"/>
   <element name="longitude" type="kml:angle180Type" default="0.0"/>
-  <element name="maxSnippetLines" type="int" default="2"/>
-  <element name="maxSessionLength" type="double" default="-1.0"/>
-  <element name="message" type="string"/>
-  <element name="minAltitude" type="double" default="0.0"/>
-  <element name="minFadeExtent" type="double" default="0.0"/>
-  <element name="minLodPixels" type="double" default="0.0"/>
-  <element name="minRefreshPeriod" type="double" default="0.0"/>
-  <element name="maxAltitude" type="double" default="0.0"/>
-  <element name="maxFadeExtent" type="double" default="0.0"/>
-  <element name="maxLodPixels" type="double" default="-1.0"/>
-  <element name="maxHeight" type="int" default="0"/>
-  <element name="maxWidth" type="int" default="0"/>
-  <element name="name" type="string"/>
-  <element name="near" type="double" default="0.0"/>
+  <element name="maxSnippetLines" type="kml:intWithAttributesType" default="2"/>
+  <element name="maxSessionLength" type="kml:doubleWithAttributesType" default="-1.0"/>
+  <element name="message" type="kml:stringWithAttributesType"/>
+  <element name="minAltitude" type="kml:doubleWithAttributesType" default="0.0"/>
+  <element name="minFadeExtent" type="kml:doubleWithAttributesType" default="0.0"/>
+  <element name="minLodPixels" type="kml:doubleWithAttributesType" default="0.0"/>
+  <element name="minRefreshPeriod" type="kml:doubleWithAttributesType" default="0.0"/>
+  <element name="maxAltitude" type="kml:doubleWithAttributesType" default="0.0"/>
+  <element name="maxFadeExtent" type="kml:doubleWithAttributesType" default="0.0"/>
+  <element name="maxLodPixels" type="kml:doubleWithAttributesType" default="-1.0"/>
+  <element name="maxHeight" type="kml:intWithAttributesType" default="0"/>
+  <element name="maxWidth" type="kml:intWithAttributesType" default="0"/>
+  <element name="name" type="kml:stringWithAttributesType"/>
+  <element name="near" type="kml:doubleWithAttributesType" default="0.0"/>
   <element name="north" type="kml:angle180Type" default="180.0"/>
-  <element name="open" type="boolean" default="0"/>
-  <element name="outline" type="boolean" default="1"/>
+  <element name="open" type="kml:booleanWithAttributesType" default="0"/>
+  <element name="outline" type="kml:booleanWithAttributesType" default="1"/>
   <element name="overlayXY" type="kml:vec2Type"/>
-  <element name="phoneNumber" type="string"/>
-  <element name="range" type="double" default="0.0"/>
+  <element name="phoneNumber" type="kml:stringWithAttributesType"/>
+  <element name="range" type="kml:doubleWithAttributesType" default="0.0"/>
   <element name="refreshMode" type="kml:refreshModeEnumType"
     default="onChange"/>
-  <element name="refreshInterval" type="double" default="4.0"/>
-  <element name="refreshVisibility" type="boolean" default="0"/>
+  <element name="refreshInterval" type="kml:doubleWithAttributesType" default="4.0"/>
+  <element name="refreshVisibility" type="kml:booleanWithAttributesType" default="0"/>
   <element name="rightFov" type="kml:angle180Type" default="0.0"/>
   <element name="roll" type="kml:angle180Type" default="0.0"/>
   <element name="rotation" type="kml:angle180Type" default="0.0"/>
   <element name="rotationXY" type="kml:vec2Type"/>
-  <element name="scale" type="double" default="1.0"/>
+  <element name="scale" type="kml:doubleWithAttributesType" default="1.0"/>
   <element name="screenXY" type="kml:vec2Type"/>
   <element name="shape" type="kml:shapeEnumType" default="rectangle"/>
   <element name="size" type="kml:vec2Type"/>
   <element name="south" type="kml:angle180Type" default="-180.0"/>
-  <element name="sourceHref" type="anyURI"/>
-  <element name="snippet" type="string"/>
+  <element name="sourceHref" type="kml:anyURIWithAttributesType"/>
+  <element name="snippet" type="kml:stringWithAttributesType"/>
   <element name="state" type="kml:itemIconStateType"/>
-  <element name="styleUrl" type="anyURI"/>
-  <element name="targetHref" type="anyURI"/>
-  <element name="tessellate" type="boolean" default="0"/>
-  <element name="text" type="string"/>
+  <element name="styleUrl" type="kml:anyURIWithAttributesType"/>
+  <element name="targetHref" type="kml:anyURIWithAttributesType"/>
+  <element name="tessellate" type="kml:booleanWithAttributesType" default="0"/>
+  <element name="text" type="kml:stringWithAttributesType"/>
   <element name="textColor" type="kml:colorType" default="ff000000"/>
-  <element name="tileSize" type="int" default="256"/>
+  <element name="tileSize" type="kml:intWithAttributesType" default="256"/>
   <element name="tilt" type="kml:anglepos180Type" default="0.0"/>
   <element name="topFov" type="kml:angle90Type" default="0.0"/>
-  <element name="value" type="string"/>
-  <element name="viewBoundScale" type="double" default="1.0"/>
-  <element name="viewFormat" type="string"/>
+  <element name="value" type="kml:stringWithAttributesType"/>
+  <element name="viewBoundScale" type="kml:doubleWithAttributesType" default="1.0"/>
+  <element name="viewFormat" type="kml:stringWithAttributesType"/>
   <element name="viewRefreshMode" type="kml:viewRefreshModeEnumType"
     default="never"/>
-  <element name="viewRefreshTime" type="double" default="4.0"/>
-  <element name="visibility" type="boolean" default="1"/>
+  <element name="viewRefreshTime" type="kml:doubleWithAttributesType" default="4.0"/>
+  <element name="visibility" type="kml:booleanWithAttributesType" default="1"/>
   <element name="west" type="kml:angle180Type" default="-180.0"/>
   <element name="when" type="kml:dateTimeType"/>
-  <element name="width" type="double" default="1.0"/>
-  <element name="x" type="double" default="1.0"/>
-  <element name="y" type="double" default="1.0"/>
-  <element name="z" type="double" default="1.0"/>
+  <element name="width" type="kml:doubleWithAttributesType" default="1.0"/>
+  <element name="x" type="kml:doubleWithAttributesType" default="1.0"/>
+  <element name="y" type="kml:doubleWithAttributesType" default="1.0"/>
+  <element name="z" type="kml:doubleWithAttributesType" default="1.0"/>
 
   <element name="AbstractObjectGroup" type="kml:AbstractObjectType"
     abstract="true"/>
@@ -413,10 +490,10 @@
     type="anySimpleType"/>
 
   <element name="Snippet" type="kml:SnippetType"/>
-  <!-- Sean: converted SnippetType to extend from StringWithAttributesType -->
+  <!-- Sean: converted SnippetType to extend from stringWithAttributesType -->
   <complexType name="SnippetType" final="#all">
     <simpleContent>
-      <extension base="kml:StringWithAttributesType">
+      <extension base="kml:stringWithAttributesType">
         <attribute name="maxLines" type="int" use="optional" default="2"/>
       </extension>
     </simpleContent>
@@ -535,11 +612,11 @@
   </complexType>
   <element name="SchemaDataExtension" abstract="true"/>
 
-  <!-- Sean: Extended from new StringWithAttributesType -->
+  <!-- Sean: Extended from new stringWithAttributesType -->
   <element name="SimpleData" type="kml:SimpleDataType"/>
   <complexType name="SimpleDataType" final="#all">
     <simpleContent>
-      <extension base="kml:StringWithAttributesType">
+      <extension base="kml:stringWithAttributesType">
         <attribute name="name" type="string" use="required"/>
       </extension>
     </simpleContent>

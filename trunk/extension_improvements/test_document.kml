@@ -14,7 +14,7 @@
     <open>1</open>
     
     <!-- Declare the type "TrailHeadType" with 3 fields -->
-    <Schema name="TrailHeadType" id="TrailHeadTypeId" gx:foobar="sean">     
+    <Schema name="TrailHeadType" id="TrailHeadTypeId">     
       <SimpleField type="string" name="TrailHeadName">       
         <displayName><![CDATA[<b>Trail Head Name</b>]]></displayName>     
       </SimpleField>     
@@ -25,20 +25,34 @@
         <displayName><![CDATA[<i>Change in altitude</i>]]></displayName>     
       </SimpleField>   
     </Schema> 
+
    
     <Placemark>     
-      <name>Easy trail</name>
+      <name gx:foobar="sean">Easy trail</name>      
+      <LookAt gx:foobar="sean">
+        <longitude gx:foobar="sean">-95.2654834970317</longitude>
+        <latitude gx:foobar="sean">38.9593881461874</latitude>
+        <altitude>0</altitude>
+        <heading gx:foobar="sean">-1.904600742039187e-007</heading>
+        <tilt gx:foobar="sean">0</tilt>
+        <range>11004254.33701526</range>
+        <gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+      </LookAt>
       <ExtendedData>       
         <SchemaData schemaUrl="#TrailHeadTypeId" gx:foobar="sean">         
           <SimpleData name="TrailHeadName" gx:foobar="sean">Pi in the sky</SimpleData>         
           <SimpleData name="TrailLength">3.14159</SimpleData>         
           <SimpleData name="ElevationGain">10</SimpleData>       
-        </SchemaData>     
+        </SchemaData>  
+        <gx:bob targetId="bar" id="foo">string</gx:bob>
       </ExtendedData>     
       <Point>       
         <coordinates>-122.000,37.002</coordinates>     
       </Point>   
     </Placemark>
+    <gx:Tour gx:foobar="sean">
+      <name gx:foobar="sean">asdasd</name>
+    </gx:Tour>
     <ScreenOverlay>
       <name>Absolute Positioning: Top left</name>
       <Snippet maxLines="2" gx:foobar="sean">foobar</Snippet>
@@ -46,9 +60,10 @@
         <href>http://code.google.com/apis/kml/documentation/top_left.jpg</href>
       </Icon>
       <overlayXY x="0" y="1" xunits="fraction" yunits="fraction" gx:foobar="sean"/>
-      <screenXY x="0" y="1" xunits="fraction" yunits="fraction"/>
-      <rotationXY x="0" y="0" xunits="fraction" yunits="fraction"/>
-      <size x="0" y="0" xunits="fraction" yunits="fraction"/>
+      <screenXY x="0" y="1" xunits="fraction" yunits="fraction"  gx:foobar="sean" />
+      <rotationXY x="0" y="0" xunits="fraction" yunits="fraction"  gx:foobar="sean"/>
+      <size x="0" y="0" xunits="fraction" yunits="fraction"  gx:foobar="sean"/>
     </ScreenOverlay>
+    
   </Document> 
 </kml>
