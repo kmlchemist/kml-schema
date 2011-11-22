@@ -22,6 +22,20 @@
   <import namespace="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
     schemaLocation="http://docs.oasis-open.org/election/external/xAL.xsd"/>
 
+  <!-- 
+    Proposed by Sean Askay: 2011-11-22
+    
+    Addition of an attributeGroup containing anyAttribute which allows
+    new attributes in ##other namespaces. For inclusion in a nummber
+    of ComplexTypes including: AbstractObjectType, kmlType, and vec2Type.
+    Will also add to SchemaType and SimpleFieldType if those cannot be
+    changed to derive from AbstractObjectType.
+  -->
+  <attributeGroup name="extensionOtherAttributes">
+    <anyAttribute namespace="##other" processContents="strict"/>
+  </attributeGroup>
+  <!-- End Sean Askay: 2011-11-22 -->
+
   <!-- KML field types (simple content) -->
 
   <simpleType name="anglepos90Type">
@@ -181,7 +195,10 @@
     <attribute name="xunits" type="kml:unitsEnumType" use="optional"
       default="fraction"/>
     <attribute name="yunits" type="kml:unitsEnumType" use="optional"
-      default="fraction"/>
+      default="fraction"/>    
+    <!-- Proposed by Sean Askay: 2011-11-22 -->
+    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <!-- End Sean Askay: 2011-11-22 -->
   </complexType>
 
   <element name="address" type="string"/>
@@ -290,6 +307,9 @@
         maxOccurs="unbounded"/>
     </sequence>
     <attributeGroup ref="kml:idAttributes"/>
+    <!-- Proposed by Sean Askay: 2011-11-22 -->
+    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <!-- End Sean Askay: 2011-11-22 -->
   </complexType>
   <element name="ObjectSimpleExtensionGroup" abstract="true"
     type="anySimpleType"/>
@@ -443,6 +463,10 @@
     </sequence>
   </complexType>
 
+  <!-- 
+    TODO: Sean Askay - is there a  good reason ExtendedData
+    doesn't inherit from AbstractObjectType?
+  -->
   <element name="ExtendedData" type="kml:ExtendedDataType"/>
   <complexType name="ExtendedDataType" final="#all">
     <sequence>
@@ -473,7 +497,10 @@
   <complexType name="SimpleDataType" final="#all">
     <simpleContent>
       <extension base="string">
-        <attribute name="name" type="string" use="required"/>
+        <attribute name="name" type="string" use="required"/>        
+        <!-- Proposed by Sean Askay: 2011-11-22 -->
+        <attributeGroup ref="kml:extensionOtherAttributes"/>
+        <!-- End Sean Askay: 2011-11-22 -->
       </extension>
     </simpleContent>
   </complexType>
@@ -613,6 +640,9 @@
         maxOccurs="unbounded"/>
     </sequence>
     <attribute name="hint" type="string"/>
+    <!-- Proposed by Sean Askay: 2011-11-22 -->
+    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <!-- End Sean Askay: 2011-11-22 -->
   </complexType>
   <element name="KmlSimpleExtensionGroup" abstract="true" type="anySimpleType"/>
   <element name="KmlObjectExtensionGroup" abstract="true"
@@ -634,7 +664,10 @@
       <element ref="kml:NetworkLinkControlSimpleExtensionGroup" minOccurs="0"
         maxOccurs="unbounded"/>
       <element ref="kml:NetworkLinkControlObjectExtensionGroup" minOccurs="0"
-        maxOccurs="unbounded"/>
+        maxOccurs="unbounded"/>       
+      <!-- Proposed by Sean Askay: 2011-11-22 -->
+      <attributeGroup ref="kml:extensionOtherAttributes"/>
+      <!-- End Sean Askay: 2011-11-22 -->
     </sequence>
   </complexType>
   <element name="NetworkLinkControlSimpleExtensionGroup" abstract="true"
@@ -671,7 +704,10 @@
       <element ref="kml:SchemaExtension" minOccurs="0" maxOccurs="unbounded"/>
     </sequence>
     <attribute name="name" type="string"/>
-    <attribute name="id" type="ID"/>
+    <attribute name="id" type="ID"/>       
+    <!-- Proposed by Sean Askay: 2011-11-22 -->
+    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <!-- End Sean Askay: 2011-11-22 -->
   </complexType>
   <element name="SchemaExtension" abstract="true"/>
 
@@ -683,7 +719,10 @@
         maxOccurs="unbounded"/>
     </sequence>
     <attribute name="type" type="string"/>
-    <attribute name="name" type="string"/>
+    <attribute name="name" type="string"/>       
+    <!-- Proposed by Sean Askay: 2011-11-22 -->
+    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <!-- End Sean Askay: 2011-11-22 -->
   </complexType>
   <element name="SimpleFieldExtension" abstract="true"/>
 
@@ -969,6 +1008,11 @@
   <element name="PolygonObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
 
+  <!--
+    TODO: Sean Askay - Since outerBoundaryIs isn't derived
+    from AbstractObject, it can't have id/targetIs and would
+    need an explicit reference to the extension attributeGroup
+    -->    
   <element name="outerBoundaryIs" type="kml:BoundaryType"/>
   <element name="innerBoundaryIs" type="kml:BoundaryType"/>
   <complexType name="BoundaryType" final="#all">
@@ -1610,7 +1654,10 @@
       </choice>
       <element ref="kml:UpdateExtensionGroup" minOccurs="0"
         maxOccurs="unbounded"/>
-    </sequence>
+    </sequence> 
+    <!-- Proposed by Sean Askay: 2011-11-22 -->
+    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <!-- End Sean Askay: 2011-11-22 -->
   </complexType>
   <element name="UpdateOpExtensionGroup" abstract="true"/>
   <element name="UpdateExtensionGroup" abstract="true"/>
@@ -1620,7 +1667,10 @@
     <sequence>
       <element ref="kml:AbstractContainerGroup" minOccurs="0"
         maxOccurs="unbounded"/>
-    </sequence>
+    </sequence> 
+    <!-- Proposed by Sean Askay: 2011-11-22 -->
+    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <!-- End Sean Askay: 2011-11-22 -->
   </complexType>
 
   <element name="Delete" type="kml:DeleteType"/>
@@ -1628,7 +1678,10 @@
     <sequence>
       <element ref="kml:AbstractFeatureGroup" minOccurs="0"
         maxOccurs="unbounded"/>
-    </sequence>
+    </sequence> 
+    <!-- Proposed by Sean Askay: 2011-11-22 -->
+    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <!-- End Sean Askay: 2011-11-22 -->
   </complexType>
 
   <element name="Change" type="kml:ChangeType"/>
@@ -1636,7 +1689,10 @@
     <sequence>
       <element ref="kml:AbstractObjectGroup" minOccurs="0"
         maxOccurs="unbounded"/>
-    </sequence>
+    </sequence> 
+    <!-- Proposed by Sean Askay: 2011-11-22 -->
+    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <!-- End Sean Askay: 2011-11-22 -->
   </complexType>
 
 </schema>
