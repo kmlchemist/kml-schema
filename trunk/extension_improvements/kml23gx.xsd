@@ -117,12 +117,13 @@
 
   <!-- Complex types and elements -->
   
-  <element name="FakeComplexElement" type="gx:FakeComplexElementType"
-    substitutionGroup="kml:PlacemarkObjectExtensionGroup"/>
+  <element name="abstractSubGroup" abstract="true"/>
+  <element name="FakeComplexElement" substitutionGroup="gx:abstractSubGroup"/>
+  
   <complexType name="FakeComplexElementType">
     <complexContent>
-      <extension base="kml:AbstractObjectType">
-        <attributeGroup ref="kml:extensionOtherAttributes"/>
+      <extension base="anyType">
+        <attributeGroup ref="kml:idAttributes"/>
       </extension>
     </complexContent>
   </complexType>
