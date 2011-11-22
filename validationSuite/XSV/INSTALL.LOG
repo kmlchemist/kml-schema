@@ -1,0 +1,43 @@
+***  Installation Started 11/21/11 12:21  ***
+Title: XSV 3.1 Installation
+Source: C:\Program Files\Oxygen XML Editor 10\xsv\XSV31.EXE
+INI New: Created INI
+INI File: C:\Program Files\Oxygen XML Editor 10\xsv\CUSTDATA.INI
+INI Sect: Registration
+INI Item: NAME
+INI Val: db
+INI File: C:\Program Files\Oxygen XML Editor 10\xsv\CUSTDATA.INI
+INI Sect: Registration
+INI Item: COMPANY
+INI Val: .
+Made Dir: C:\Program Files\Oxygen XML Editor 10\xsv\XSV
+File Copy: C:\Program Files\Oxygen XML Editor 10\xsv\XSV\UNWISE.EXE
+RegDB Key: Software\Microsoft\Windows\CurrentVersion\Uninstall\XSV 3.1
+RegDB Val: XSV 3.1
+RegDB Name: DisplayName
+RegDB Root: 2
+RegDB Key: Software\Microsoft\Windows\CurrentVersion\Uninstall\XSV 3.1
+RegDB Val: C:\PROGRA~1\OXYGEN~1\xsv\XSV\UNWISE.EXE C:\PROGRA~1\OXYGEN~1\xsv\XSV\INSTALL.LOG
+RegDB Name: UninstallString
+RegDB Root: 2
+File Copy: C:\Program Files\Oxygen XML Editor 10\xsv\XSV\msvcr71.dll
+File Copy: C:\Program Files\Oxygen XML Editor 10\xsv\XSV\zlib1.dll
+File Copy: C:\Program Files\Oxygen XML Editor 10\xsv\XSV\_socket.pyd
+File Copy: C:\Program Files\Oxygen XML Editor 10\xsv\XSV\_ssl.pyd
+File Copy: C:\Program Files\Oxygen XML Editor 10\xsv\XSV\python24.dll
+File Copy: C:\Program Files\Oxygen XML Editor 10\xsv\XSV\PyLTXML.LTXMLinter.pyd
+File Copy: C:\Program Files\Oxygen XML Editor 10\xsv\XSV\ltstd12.dll
+File Copy: C:\Program Files\Oxygen XML Editor 10\xsv\XSV\ltapi12.dll
+File Copy: C:\Program Files\Oxygen XML Editor 10\xsv\XSV\xsv.exe
+File Copy: C:\Program Files\Oxygen XML Editor 10\xsv\XSV\nndump.xml
+File Copy: C:\Program Files\Oxygen XML Editor 10\xsv\XSV\XMLSchema.dtd
+File Copy: C:\Program Files\Oxygen XML Editor 10\xsv\XSV\datatypes.dtd
+File Copy: C:\Program Files\Oxygen XML Editor 10\xsv\XSV\xsv-status.html
+File Copy: C:\Program Files\Oxygen XML Editor 10\xsv\XSV\xsv.xsl
+File Copy: C:\Program Files\Oxygen XML Editor 10\xsv\XSV\xsv.msxsl
+File Copy: C:\Program Files\Oxygen XML Editor 10\xsv\XSV\python.COPYRIGHT
+File Copy: C:\Program Files\Oxygen XML Editor 10\xsv\XSV\Copyright
+File Copy: C:\Program Files\Oxygen XML Editor 10\xsv\XSV\COPYING
+RegDB Key: Software\HCRC Language Technology Group\XSV\1.0\InstallPath
+RegDB Val: C:\PROGRA~1\OXYGEN~1\xsv\XSV
+RegDB Root: 2

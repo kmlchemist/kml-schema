@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta name="copyright" content="Copyright (C) 2007 Henry S. Thompson"/><meta http-equiv="Content-type" content="text/html; charset=utf-8"/><style type="text/css">
+       pre.code {font-family: monospace}
+       pre {margin-left: 0em}
+       ul.naked li { list-style-type: none }
+       ol ol {list-style-type: lower-alpha}
+       .math {font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', serif}
+       .sub {font-size: 80%; vertical-align: sub}
+       .termref {text-decoration: none; color: #606000}
+       div.toc h2 {font-size: 120%; margin-top: 0em; margin-bottom: 0em}
+       div.toc h4 {font-size: 100%; margin-top: 0em; margin-bottom: 0em;
+                   margin-left: 1em}
+       div.toc h1 {font-size: 140%; margin-bottom: 0em}
+       div.toc ul {margin-top: 1ex}
+       .byline {font-size: 120%}
+    </style><title>Current Status of XSV: Coverage, Known Bugs, etc.Applies to XSV 3.1-1 of 2007/12/11 16:20:05</title></head><body style="font-family: times; background: rgb(254,250,246)">
+ <div style="text-align: center">
+  <h1>Current Status of XSV: Coverage, Known Bugs, etc.</h1>
+  <h1>Applies to XSV 3.1-1 of 2007/12/11 16:20:05</h1>
+  <div class="byline"><a href="http://www.ltg.ed.ac.uk/~ht/">Henry S. Thompson</a></div>
+  <div class="byline"><a href="http://www.ltg.ed.ac.uk/~richard/">Richard Tobin</a></div>
+  <div class="byline">11 December 2007</div>
+ </div>
+ 
+  <div>
+   <h2>1.  What is XSV</h2>
+   <p>XSV (XML Schema Validator) is an open source (GPLed) work-in-progress attempt at a conformant
+schema-aware processor, as defined by <a href="http://www.w3.org/TR/xmlschema-1/">XML Schema Part 1: Structures</a>, Second Edition of 28 October 2004.  It has been developed at the <a href="http://www.ltg.ed.ac.uk">Language Technology Group</a> of the <a href="http://www.hcrc.ed.ac.uk">Human Communication Research Centre</a> in the <a href="http://www.inf.ed.ac.uk">School of Informatics</a> at the <a href="http://www.ed.ac.uk">University of Edinburgh</a>, with support for one of us (Thompson) from the <a href="http://www.w3.org/">World Wide Web Consortium</a>.</p>
+  </div>
+  <div>
+   <h2>2.  How can I use XSV</h2>
+   <div>
+    <h4>2.1.  Using XSV online</h4>
+   <p>The simplest way to use XSV is via a <a href="http://www.w3.org/2001/03/webdata/xsv">form-based interface</a> on the web.</p>
+   </div>
+  <div>
+   <h4>2.2.  Running XSV at your own installation</h4>
+   <div>
+    <h4>2.2.1.  Win32 one-click installation</h4>
+    <p>I've packaged the current version up in to a
+<a href="ftp://ftp.cogsci.ed.ac.uk/pub/XSV/XSV31.EXE">self-installing
+package</a> for Win32 platforms:  just fetch it, run it, and add the
+installation directory to your PATH, then</p>
+   <blockquote><div><pre class="code">&gt; xsv [flags] target [schemas . ..]</pre></div></blockquote>
+    <dl>
+     <dt><b><a name="target">target</a></b></dt><dd>The document to be processed (must be a URL, relative
+or absolute.  Note this means forward-slashes only, even on WIN32 -- e.g. <code>file:///C:/Project/xxx.xml</code>).</dd>
+     <dt><b><a name="schemas">schemas</a></b></dt><dd>Schema documents to process it with, also URLs.</dd>
+     <dt><b><a name="-o_errfile">-o errfile</a></b></dt><dd>Output error file to <code>errfile</code> rather
+than <code>stderr</code>.</dd>
+     <dt><b><a name="-s_stylefile">-s stylefile</a></b></dt><dd>Include an XSL style PI to
+<code>stylefile</code> in the error output.</dd>
+     <dt><b><a name="-r_[alt|ind]">-r [alt|ind]</a></b></dt><dd>Reflect the augmented document infoset as an XML file to <code>stdout</code>
+(follow with <code>alt</code> to force old-style (alternating normal form)
+reflection, or <code>ind</code> (the default) for new-style (individual normal
+form) reflection.  Use <code>-r -r</code> to get all schema components
+<i>other</i> than those of the schema for schemas, and <code>-r -r
+-r</code> to get the complete PSVI reflection including the schema for schemas.</dd>
+     <dt><b><a name="-w">-w</a></b></dt><dd>Include warnings in error output.</dd>
+     <dt><b><a name="-t">-t</a></b></dt><dd>Show stage timings.</dd>
+     <dt><b><a name="-k">-k</a></b></dt><dd>Attempt instance validation even if schema(s) has/have errors.</dd>
+     <dt><b><a name="-i">-i</a></b></dt><dd>Input should all be schemas, assume they are meant to be
+complete and check them as such.</dd>
+     <dt><b><a name="-D">-D</a></b></dt><dd>Use DTD to pre-validate, not built-in schema-for-schemas.</dd>
+     <dt><b><a name="-l">-l</a></b></dt><dd>Scan the whole document for schema location hints, not
+just root and new-namespace-binding-introducers.</dd>
+     <dt><b><a name="-E_elt">-E elt</a></b></dt><dd>Force document element to be named <code>elt</code>,
+an expanded name (i.e. either an unqualfied simple name in no known namespace,
+or a name of the form <code>{namespaceName}localName</code>).</dd>
+     <dt><b><a name="-T_type">-T type</a></b></dt><dd>Force document element to be validated against the
+type definition named <code>type</code>, an expanded name as for -E.</dd>
+     <dt><b><a name="-N">-N</a></b></dt><dd>Don't dereference namespace URIs looking for schema documents.</dd>
+     <dt><b><a name="-e">-e</a></b></dt><dd>Preserve the low-level error transcript file.</dd>
+     <dt><b><a name="-n">-n</a></b></dt><dd>Output the input document with normalized values and defaults.</dd>
+     <dt><b><a name="-u_URI">-u URI</a></b></dt><dd>Provide a base URI for <b>target</b> and <b>schemas</b>.</dd>
+     <dt><b><a name="-d">-d</a></b></dt><dd>Show backtrace if crash occurs</dd>
+    </dl>
+   </div>
+<div>
+ <h4>2.2.2.  Source distributions for the more adventurous</h4>
+   <p>You can download the (Python) sources from <a href="http://dev.w3.org/cvsweb/xmlschema/XSV">the W3C public CVS repository</a>, install <a href="http://www.python.org/2.4/">Python 2.4</a> and do:</p>
+   <blockquote><div><pre class="code">&gt; [set PYTHONPATH to whereever you installed XSV sources]
+&gt; python .../XSV/commandLine.py ...</pre></div></blockquote>
+
+<p>No, the above instructions aren't sufficiently detailed, but you probably
+don't want the sources unless you can figure out how to make it work :-)</p>
+<p>Previous versions of XSV required our fast Python/C hybrid XML parser---this
+version should run (albeit slower) without it.  To
+speed things up, just install <a href="http://www.ltg.ed.ac.uk/software/ltxml">PyLTXML</a> (be sure to use the most recent version, currently PyLTXML-1.3, release 9.  Installers for a number of architectures now available).</p>
+</div>
+   <div>
+    <h4>2.2.3.  Linux RPMs and DEBs</h4>
+    <p>Packages are now available for those running some versions of Linux: </p>
+    <ul class="naked">
+     <li><a href="ftp://ftp.cogsci.ed.ac.uk/pub/XSV/XSV-3.1-1.noarch.rpm">Redhat
+installable</a></li>
+     <li><a href="ftp://ftp.cogsci.ed.ac.uk/pub/XSV/XSV_3.1-1_all.deb">Debian
+installable</a></li>
+      <li> <a href="ftp://ftp.cogsci.ed.ac.uk/pub/XSV/XSV-3.1-1.src.rpm">Linux
+source</a></li>
+</ul>
+   <p>These have a dependency on PyLTXML-1.3 (and Python itself -- they were
+all built with Python2.4), see above.</p>
+   </div>
+   <div>
+    <h4>2.2.4.  Source tarball</h4>
+    <p>A simple <a href="ftp://ftp.cogsci.ed.ac.uk/pub/XSV/XSV-3.1.tar.gz">tar
+ball</a> is also available, suitable for installation using Python's distutils:</p>
+    <blockquote><div><pre class="code">&gt; [cd to whereever you unpacked the tarball]
+&gt; python setup.py install</pre></div></blockquote>
+   </div>
+  </div>
+  </div>
+  <div>
+   <h2>3.  What is implemented</h2>
+   <p>The basic framework of schema checking and instance schema-validation is
+implemented.  Some details of both are not yet filled in.</p>
+   <p>I've implemented a new bounded-cost approach to
+translating content models with numeric exponents.  In a change from the earlier
+(2.10) release, this even handles obscure corner cases
+involving numeric ranges nested inside numeric ranges correctly.</p>
+   <p>Here's a brief
+tabulation of implemented and unimplemented aspects of the REC:</p>
+   <div>
+    <h4>3.1.  Implemented at least in part</h4>
+    <ul class="naked">
+     <li>Content-model validation</li>
+     <li>Attribute validation</li>
+     <li>Include</li>
+     <li>Import</li>
+     <li>Equivalence classes</li>
+     <li>Local and global element and attribute declarations</li>
+     <li>Type definition derivation by extension and restriction (constraints
+on valid
+restrictions not completely enforced for simple types)</li>
+     <li>Identity-constraint checking (key/unique/keyref)</li>
+     <li>Content and attribute wildcards</li>
+     <li>xsi:schemaLocation, xsi:noNamespaceSchemaLocation and, as last
+resort, dereferencing of namespace URIs to find schema documents</li>
+     <li>xsi:null</li>
+     <li>xsi:type</li>
+     <li>Opportunistic validation inside &lt;any&gt; and &lt;anyAttribute&gt;</li>
+     <li>Redefinition</li>
+     <li>whitespace processing</li>
+     <li>Partial support for simple types, including enumeration, pattern
+(partially), length of lists, min/max, unions</li>
+     <li>ID/IDREF</li>
+    </ul>
+   </div>
+   <div>
+    <h4>3.2.  Not implemented yet</h4>
+    <ul class="naked">
+     <li>The rest of simple type conformance, esp. duration types</li>
+    </ul>
+   </div>
+   <div>
+    <h4>3.3.  Recent Changes</h4>
+    <ul class="naked">
+     <li>Corner cases for nested numeric exponents handled correctly</li>
+     <li>Correct validation of &lt;xs:all&gt; is finally implemented</li>
+     <li>allow explicit child:: and attribute:: in xpaths</li>
+     <li>Bug fixes wrt pattern support (still limited by Python substrate)</li>
+     <li>Bug fixes wrt chars &gt; 256 in unexpected places</li>
+     <li>Minimal support for 1.1 precisionDecimal type</li>
+     <li>New switch: -d, see above</li>
+     <li>Major bug fixes wrt checking restriction of complex type definitions
+involving numeric exponents.</li>
+     <li>Change in support for numeric exponents, see above</li>
+     <li>New switches: -u and -n, see above</li>
+     <li>Bug fixes wrt base URIs</li>
+     <li>Keyword-spotting with NSA/MI6 backdoor [backed out on 2 April]</li>
+     <li>Better behaviour wrt missing schema documents</li>
+     <li>Default no longer preserves low-level error transcript file</li>
+     <li>Better enforcement of block/final wrt type derivation</li>
+     <li>Bug fixes wrt PSVI, mixed derivation errors</li>
+     <li>Handle HTTP redirects better</li>
+     <li>Improved robustness when running with broken schemas (-k)</li>
+     <li>Bug fixes in the area of patterns, mixed-content derivations</li>
+     <li>Various modest small bug fixes</li>
+     <li>Changed alternating reflection to <i>not</i> dump all the
+schemas.  See discussion of -r above</li>
+     <li>Added -N switch to suppress dereferencing of namespace URIs</li>
+     <li>Allow single schema on [stdin] with -i</li>
+     <li>Fixed infinite loop bug if namespace pointed to plain XHTML</li>
+     <li>List- and date-valued keys now work</li>
+     <li>Now uses values for key/unique/keyref checking</li>
+     <li>Support for ID/IDREF/IDREFS checking added</li>
+     <li>Major change to using values for enumeration and fixed checks</li>
+     <li>Modest support for date, time and dateTime</li>
+     <li>Improved handling of default and fixed values, including
+implementing them for mixed-content elements</li>
+     <li>Changed version numbering</li>
+     <li>Implemented group redefinition</li>
+     <li>Fix obscure bugs if namespace URIs had chars &gt;127</li>
+     <li>Fail more gracefully in absence of a base type for restriction</li>
+     <li>Change 'rel' command-line arg to 'alt', for alternating normal form,
+which is what it always was</li>
+     <li>Major source-code restructuring</li>
+     <li>Checking of NMTOKEN, Name and NCName built-in types</li>
+     <li>Partial support for pattern facet (basically everything
+<i>except</i> named classes other than \d \s \w \D \S \W)</li>
+     <li>Support -i with -r (just the schema components get reflected)</li>
+     <li>Add top-level force element and/or type params</li>
+     <li>Change reflection format</li>
+     <li>Support enumeration and length facets on lists, and enumeration on unions</li>
+     <li>Fix bug which prevented explicit derivation by extension from anySimpleType</li>
+     <li>Fix pair of bugs wrt attribute wildcards and urtype</li>
+     <li>Handle redefining type defs with simple content</li>
+     <li>Improve management of file redundancy</li>
+     <li>Allow for xml:base by updating builtin schema for schemas</li>
+     <li>Fix bug in handling recursive keys</li>
+     <li>Fix some inadvertent bugs introduced by speedup</li>
+     <li>Performance improvements -- approx. 25% speedup</li>
+     <li>Flag attempt to define a complex type by restricting a simple type</li>
+     <li>Fix corner case bug when schema doc has schemaLoc</li>
+     <li>Fix longstanding bug with multiple local element decls</li>
+     <li>Enforce that types of elements in content model derived by
+restriction must be restrictions of their corresponding base types</li>
+     <li>Introduce FSM-based checking of derivation by restriction -- <span style="color: red">big change, potential backwards incompatibilities!</span></li>
+     <li>Fix bug introduced by include checking</li>
+     <li>Enforce include restrictions more carefully, enforce &lt;import&gt;
+required for QName reference.</li>
+     <li>Check for schemaLoc on root of schema docs before validating them</li>
+     <li>Fixed some base URL bugs breaking e.g. relative schemaLoc URLs, and
+then a bug in one of the fixes</li>
+     <li>Fix re-introduced multiple include bug</li>
+     <li>Switched from using DTD to pre-validate schema documents to using
+schema-for-schemas -- <span style="color: red">big change, potential backwards incompatibilities!</span></li>
+     <li>Fix crash when whiteSpace specified explicitly</li>
+     <li>Improved reflection of model group definitions, identity constraint definitions</li>
+     <li>Fix intersection of ##local and ##other bug</li>
+     <li>Fix two bugs wrt max/min constraints</li>
+     <li>Fixed problem with multiple chameleon includes</li>
+     <li>Fixed long-standing failure to propagate keys and uniques upwards</li>
+     <li>Fixed long-standing failure to correctly implement reference to
+key/unique from keyref using QNames</li>
+     <li>Changed schema location policy -- now will only look for schemaLoc
+attrs on doc elt and on change to previously unseen namespace.  Such namespaces
+will also be dereferenced in the absence of a schemaLoc (this is new).</li>
+     <li>Made all schema document access messages consistent</li>
+     <li>Fixed bug which hid error message when non-schema-doct presented as
+schema; fixed crash when list of union failed</li>
+     <li>Fixed bug in type definition derivation chain checking; added better
+support for attribute defaults.</li>
+     <li>Fixed some crashes with -i and an obscure chameleon include bug</li>
+     <li>Reflected infoset in line with
+            <a href="http://www.w3.org/2001/05/serialized-infoset-schema.html">published schemas</a></li>
+     <li>Support RDDL at e.g. namespace URIs</li>
+     <li>bug fixes wrt min/max, element fixed/default</li>
+     <li>Reflect annotations, oob attributes properly</li>
+     <li>Handle extending with empty content model correctly</li>
+     <li>Reflect more thoroughly</li>
+     <li>Complete standalone schema checking, i.e. assuming this is all
+you're going to get</li>
+     <li>Multiple keys is error, not warning</li>
+     <li>Handle bogus xsi attrs</li>
+     <li>Better crash logging</li>
+     <li>Obscure bug in defaulted NS attributes fixed</li>
+     <li>Added full independent schema check switch (-i)</li>
+     <li>Fixed bug in use of DTD to pre-validate schemas, this
+caused serious and baffling problems, sorry.</li>
+     <li>Supports 'decimal', not 'number'</li> 
+     <li>Supports all renamings,
+<code>http://www.w3.org/2001/XMLSchema</code> namespace</li>
+     <li>Improve stylesheet wrt XML parsing error output</li>
+     <li>XPath implementation now implements NS prefixes properly</li>
+     <li>Improve efficiency for large schemas</li>
+     <li>support for whitespace processing added</li>
+     <li>PSVI now mostly supported, can be reflected with -r switch</li>
+     <li>Fixed missing DTD complaint</li>
+     <li>Vintage 2000-09-22 changes restricting what can be specified in conjunction with
+element declarations of the form <code>&lt;element ref="..."&gt;</code> now implemented</li>
+     <li><span style="color: red">Important:</span> <i>All</i> schemas are now
+validated against the DTD for schemas before being loaded, even if they lack a
+<code>DOCTYPE</code> of their own.  This may mean errors are found where none
+were before, or a change in error message.  Feedback on this change is welcome.</li>
+     <li>Handle shadowing of e.g. elementFormDefault in &lt;include&gt;d schemas correctly</li>
+     <li>(Partial) support for restricting a simpleContent complexType with a
+nested simpleType</li>
+     <li>Check 'fixed' attribute values for correctness</li>
+     <li>Provide control of whether instance validation warnings appear
+(default is that they <i>don't</i>)</li>
+     <li>Improve bomb-proofing and recovery after crashes</li>
+     <li>Backlog of bug fixes, including forestalling crashes when
+&lt;restriction&gt;/&lt;extension&gt; are missing</li>
+     <li>Allow references to 'anyType' to work (oops)</li>
+     <li>Display more (more useful) output even if validator crashes</li>
+     <li>add -o outfile for command line invocation on e.g. win98 where
+capturing stderr is hard</li>
+     <li>Fix xmlschema-instance namespace, so xsi:schemaLocation works (oops)</li>
+     <li>losing itemType no longer causes crash</li>
+     <li>fix bug in restriction of lists</li>
+     <li>new version syntax, support for redefine of simple and complex type defns</li>
+     <li>Chameleon include: including a schema doc't with no target namespace
+into one <i>with</i> a target namespace does the right thing</li>
+     <li>No files on command line causes read from stdin</li>
+     <li>Bug fixes: handle nested attribute group references, more than two
+explicitly supplied schemas</li>
+     <li>Bug fixes: handle lists as element content correctly; allow simple
+types as type for document element; don't crash on restriction of type with
+simple content; don't crash on min/max for date/time types</li>
+     <li>Bug fixes: don't crash on missing group defn or attr. type or bogus XPath</li>
+     <li>Bug fixes: allow (but still don't implement) minInclusive on string
+types, don't crash if XPath ends with a '/'</li>
+     <li>Bug fixes: catch bad 'content' attr, don't crash after empty
+<code>&lt;group&gt;</code>, missing base</li>
+     <li>Better handling of some content-model errors in schemas</li>
+     <li>Allow appropriate facets on types derived by 'list' (still not
+actually <i>enforced</i> :-()</li>
+     <li>Bug fixes: require 'value' on facets; don't crash if simple type has
+element content; handle min/max facets on float/double</li>
+     <li>More bug fixes: catch complex type used for attributes or base of
+simple type cleanly; don't die if xsi:type encountered during lax validation</li>
+     <li>Don't require 'fixed' attributes to appear, fix obscure bug in use
+of xsi:type and no-target-namespace schemas</li>
+     <li>Allow &lt;unique&gt; fields to be missing without comment</li>
+     <li>More thorough enforcement of Unique Attribution (== determinism)
+constraint on content models, including checking for <code>&lt;any&gt;</code>-derived ambiguities</li>
+     <li>Bug-fixes to catch logged crashes: missing basetypes, bogus attr
+type derivation, minInclusive</li>
+     <li>Upgraded stylesheets to report schema errors and warnings properly</li>
+     <li>Fixed bugs in cases of missing attribute group definition, missing
+attribute type definition, missing base type definition</li>
+     <li>16-bit, XML output version now the default</li>
+     <li>now checks enumerated types, user-defined
+min-max bug fixed</li>
+     <li>Partial check of QName simple type conformance</li>
+     <li>Fix bad knock-on effect of failed import</li>
+     <li>Improve fidelity of lax validation; validate laxly instead of
+throwing error if no declaration found for document element</li>
+     <li>Fix bug in opportunistic validation of attribute values</li>
+     <li>Support for xsi:null</li>
+     <li>Fix bug causing bogus errors when restricting elements declared to
+have the urtype definition</li>
+     <li>Fix bug which made the &lt;anyAttribute namespace="other"&gt; in the
+schema for schemas overly generous</li>
+     <li>Try to catch all 404 (not found) errors better</li>
+     <li>Fixed ref-to-undeclared-elt bug</li>
+     <li>Fixed a bug causing a crash if you used an element with no
+content model at all == the ur-type by default, manifesting itself as
+an 'Attribute Error, note' crash</li>
+     <li>Now checks for and handles gracefully case where supplied file is
+not a schema document</li>
+    </ul>
+   </div>
+   <div>
+    <h4>3.4.  Known bugs/features</h4>
+    <ul class="naked">
+     <li>Patterns with more than 100 curly-braces (<code>{}</code>) will
+break the underlying Python substrate.</li>
+    </ul>
+   </div>
+  </div>
+ 
+</body></html>
