@@ -28,7 +28,7 @@
     Addition of an attributeGroup containing anyAttribute which allows
     new attributes in ##other namespaces. For inclusion in a the
     AbstractObjectType (thereby hitting most derived types) and also
-    certain ComplexTypes that do not dervice from AbstractObjectType.
+    certain ComplexTypes that do not derive from AbstractObjectType.
   -->
   <attributeGroup name="extensionOtherAttributes">
     <anyAttribute namespace="##other" processContents="strict"/>
@@ -283,12 +283,12 @@
   <element name="textColor" type="kml:colorType" default="ff000000"/>
   <element name="tileSize" type="int" default="256"/>
   <!-- 
-    TODO: Verufy that tilt type should be anglepos90Type?
+    TODO: Document 0-90 / 0-180 restrictions on tilt
     
     Bug report: http://code.google.com/p/earth-api-samples/issues/detail?id=366
-    Tilt it limited to 0-90 in Google Earth, but schema lists at 0-180.
-    Also, the anglepos90Type is in the schema, but is not referenced anywhere,
-    suggesting that this was an error.      
+    Tilt within LookAt needs to be constrainted to 0-90 degrees, whereas tilt
+    within Camera needs to constrainted to 0-180 degrees. Since tilt is globally
+    defined, we can only have a single restriction range.
   -->
   <element name="tilt" type="kml:anglepos180Type" default="0.0"/>
   <element name="topFov" type="kml:angle90Type" default="0.0"/>
