@@ -290,7 +290,7 @@
     Also, the anglepos90Type is in the schema, but is not referenced anywhere,
     suggesting that this was an error.      
   -->
-  <element name="tilt" type="kml:anglepos90Type" default="0.0"/>
+  <element name="tilt" type="kml:anglepos180Type" default="0.0"/>
   <element name="topFov" type="kml:angle90Type" default="0.0"/>
   <element name="value" type="string"/>
   <element name="viewBoundScale" type="double" default="1.0"/>
