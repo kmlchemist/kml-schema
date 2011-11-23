@@ -26,10 +26,9 @@
     Proposed by Sean Askay: 2011-11-22
     
     Addition of an attributeGroup containing anyAttribute which allows
-    new attributes in ##other namespaces. For inclusion in a nummber
-    of ComplexTypes including: AbstractObjectType, kmlType, and vec2Type.
-    Will also add to SchemaType and SimpleFieldType if those cannot be
-    changed to derive from AbstractObjectType.
+    new attributes in ##other namespaces. For inclusion in a the
+    AbstractObjectType (thereby hitting most derived types) and also
+    certain ComplexTypes that do not dervice from AbstractObjectType.
   -->
   <attributeGroup name="extensionOtherAttributes">
     <anyAttribute namespace="##other" processContents="strict"/>
@@ -283,7 +282,15 @@
   <element name="text" type="string"/>
   <element name="textColor" type="kml:colorType" default="ff000000"/>
   <element name="tileSize" type="int" default="256"/>
-  <element name="tilt" type="kml:anglepos180Type" default="0.0"/>
+  <!-- 
+    TODO: Verufy that tilt type should be anglepos90Type?
+    
+    Bug report: http://code.google.com/p/earth-api-samples/issues/detail?id=366
+    Tilt it limited to 0-90 in Google Earth, but schema lists at 0-180.
+    Also, the anglepos90Type is in the schema, but is not referenced anywhere,
+    suggesting that this was an error.      
+  -->
+  <element name="tilt" type="kml:anglepos90Type" default="0.0"/>
   <element name="topFov" type="kml:angle90Type" default="0.0"/>
   <element name="value" type="string"/>
   <element name="viewBoundScale" type="double" default="1.0"/>
@@ -463,10 +470,6 @@
     </sequence>
   </complexType>
 
-  <!-- 
-    TODO: Sean Askay - is there a  good reason ExtendedData
-    doesn't inherit from AbstractObjectType?
-  -->
   <element name="ExtendedData" type="kml:ExtendedDataType"/>
   <complexType name="ExtendedDataType" final="#all">
     <sequence>
@@ -475,6 +478,9 @@
       <any namespace="##other" processContents="lax" minOccurs="0"
         maxOccurs="unbounded"/>
     </sequence>
+    <!-- Proposed by Sean Askay: 2011-11-22 -->
+    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <!-- End Sean Askay: 2011-11-22 -->
   </complexType>
 
   <element name="SchemaData" type="kml:SchemaDataType"
@@ -719,7 +725,7 @@
         maxOccurs="unbounded"/>
     </sequence>
     <attribute name="type" type="string"/>
-    <attribute name="name" type="string"/>       
+    <attribute name="name" type="string"/>   
     <!-- Proposed by Sean Askay: 2011-11-22 -->
     <attributeGroup ref="kml:extensionOtherAttributes"/>
     <!-- End Sean Askay: 2011-11-22 -->
@@ -1007,12 +1013,7 @@
     type="anySimpleType"/>
   <element name="PolygonObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
-
-  <!--
-    TODO: Sean Askay - Since outerBoundaryIs isn't derived
-    from AbstractObject, it can't have id/targetIs and would
-    need an explicit reference to the extension attributeGroup
-    -->    
+  
   <element name="outerBoundaryIs" type="kml:BoundaryType"/>
   <element name="innerBoundaryIs" type="kml:BoundaryType"/>
   <complexType name="BoundaryType" final="#all">
@@ -1022,7 +1023,10 @@
         maxOccurs="unbounded"/>
       <element ref="kml:BoundaryObjectExtensionGroup" minOccurs="0"
         maxOccurs="unbounded"/>
-    </sequence>
+    </sequence>   
+    <!-- Proposed by Sean Askay: 2011-11-22 -->
+    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <!-- End Sean Askay: 2011-11-22 -->
   </complexType>
   <element name="BoundarySimpleExtensionGroup" abstract="true"
     type="anySimpleType"/>
