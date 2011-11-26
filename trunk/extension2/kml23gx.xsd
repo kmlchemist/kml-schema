@@ -102,7 +102,14 @@
     substitutionGroup="kml:AbstractFeatureSimpleExtensionGroup"
     default="0.0"/>
   <element name="value" type="string"/>
-
+  
+  <!-- Sean Askay:
+    We need to create ImageLinkType, because putting, x/y/w/h into
+    BasicLinkType or LinkType doesn't make sense. Icon is specific
+    to *LinkTypes that pull in images, and should therefore be
+    derived as it's own type, to which the follow x/y/w/h tags can
+    be added.
+   -->
   <element name="x" type="integer" default="0"
     substitutionGroup="kml:BasicLinkSimpleExtensionGroup"/>
   <element name="y" type="integer" default="0"
@@ -222,6 +229,7 @@
     </complexContent>
   </complexType>
 
+  <!-- Sean Askay: LatLonQuad should be derived from AbstractGeometry, not Object -->
   <element name="LatLonQuad" type="gx:LatLonQuadType"
     substitutionGroup="kml:GroundOverlayObjectExtensionGroup"/>
   <complexType name="LatLonQuadType">

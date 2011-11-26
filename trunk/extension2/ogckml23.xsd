@@ -283,7 +283,7 @@
   <element name="textColor" type="kml:colorType" default="ff000000"/>
   <element name="tileSize" type="int" default="256"/>
   <!-- 
-    TODO: Document 0-90 / 0-180 restrictions on tilt
+    TODO: Document value restrictions on tilt: 0-90 & 0-180
     
     Bug report: http://code.google.com/p/earth-api-samples/issues/detail?id=366
     Tilt within LookAt needs to be constrainted to 0-90 degrees, whereas tilt
@@ -305,6 +305,81 @@
   <element name="x" type="double" default="1.0"/>
   <element name="y" type="double" default="1.0"/>
   <element name="z" type="double" default="1.0"/>
+  
+  
+  <!-- 
+    Proposed by Sean Askay: 2011-11-22
+  
+    One of the problems with KML's current extension mechanism is that there
+    is no way to extend elements that appear in different branches of the
+    object model.
+    
+    For example: kml:color appears in following types:
+    -AbstractColorStyleType (IconStyle, LabelStyle, LineStyle, PolyStyle)
+    -AbstractOverlayType (GroundOverlay, PhotoOverlay, ScreenOverlay)
+    -BalloonStyleType (BalloonStyle)
+    
+    If a third-party wants to add a new method of specifying color, there is no
+    good *ExtensionGroup element that provides a good point of insertion
+    through substitution. For kml:color, the only ExtensionGroup that all three
+    of these types share is kml:ObjectSimpleExtensionGroup found in 
+    kml:AbstractObjectType. If we were add a new color element to this group
+    it would be valid in *every* single KML Object... far from ideal.
+    
+    To specifically solve the color extension problem, we could create a new
+    two new extension groups (e.g. ColorSimpleExtensionGroup and
+    ColorObjectExtensionGroup) and place these into the KML types that need it:
+    AbstractColorStyleType, AbstractOverlayType and BalloonStyleType. Then we
+    can easily create a new color type/element, and substitute for one of these
+    new extension groups, and the element is only valid where it is needed.
+    
+    The key to the success of this technique is to examine the KML specification
+    and identify: 1) existing elements that appears in more than one branch of 
+    the object model (e.g. kml:color); and 2) consider other reasonable
+    extension scenarios that might arise in the future which also require
+    cross-branch insertion.
+    
+    Since many elements that appear in different branches of the kml object
+    model tree, it's possible to identify the roles they play in KML and create
+    extension groups for those roles, instead of for the elements themselves.
+    
+    For example: kml:longitude, kml:latitude and kml:altitude all provide
+    components of the location or feautre position. We could identify a role,
+    that of elements that provide one coordinate of position, and create an
+    extension group called PositionSimpleExtensionGroup and
+    PositionObjectExtensionGroup. For the use case of supporting UTM
+    coordinates in KML (which require specifying northing and easting), we
+    can add a ext:northing and ext:easting element to the above extension
+    groups and have those elements appear in all the places they would be
+    required, for example:
+    
+    - kml:AbstractViewType
+    - kml:LocationType
+    - kml:AbstractLatLonBoxType
+    - kml:AbstractOverlay or the proposed kml:AbstractGeoOverlayType??
+    - kml:AbstractGeometryType??
+    
+    
+    I have listed a few of these new, cross-branch extension groups based on
+    specific roles certain elements play in KML.
+    
+    This is certainly not a complete list, and a part of the consideration for
+    this Change Request to the KML specification will entail identifying more
+    roles that need new extension groups.
+  
+  -->
+  
+  <element name="SpatialContextSimpleExtensionGroup" abstract="true"
+    type="anySimpleType"/>
+  <element name="SpatialContextObjectExtensionGroup" abstract="true"
+    substitutionGroup="kml:AbstractObjectGroup"/>
+  
+  <element name="PositionSimpleExtensionGroup" abstract="true"
+    type="anySimpleType"/>
+  <element name="PositionObjectExtensionGroup" abstract="true"
+    substitutionGroup="kml:AbstractObjectGroup"/>  
+  <!-- End Sean Askay: 2011-11-22 -->
+  
 
   <element name="AbstractObjectGroup" type="kml:AbstractObjectType"
     abstract="true"/>
@@ -393,6 +468,16 @@
             maxOccurs="unbounded"/>
           <element ref="kml:AbstractViewObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
+          <!-- Proposed by Sean Askay: 2011-11-22 -->
+          <element ref="kml:SpatialContextSimpleExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+          <element ref="kml:SpatialContextObjectExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+          <element ref="kml:PositionSimpleExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+          <element ref="kml:PositionObjectExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+          <!-- End: Sean Askay -->
         </sequence>
       </extension>
     </complexContent>
@@ -556,6 +641,16 @@
             maxOccurs="unbounded"/>
           <element ref="kml:AbstractGeometryObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
+          <!-- Proposed by Sean Askay: 2011-11-22 -->
+          <element ref="kml:SpatialContextSimpleExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+          <element ref="kml:SpatialContextObjectExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+          <element ref="kml:PositionSimpleExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+          <element ref="kml:PositionObjectExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+          <!-- End: Sean Askay -->
         </sequence>
       </extension>
     </complexContent>
@@ -835,6 +930,12 @@
             maxOccurs="unbounded"/>
           <element ref="kml:LatLonAltBoxObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
+          <!-- Proposed by Sean Askay: 2011-11-22 -->
+          <element ref="kml:SpatialContextSimpleExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+          <element ref="kml:SpatialContextObjectExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+          <!-- End: Sean Askay -->
         </sequence>
       </extension>
     </complexContent>
@@ -1071,6 +1172,12 @@
             maxOccurs="unbounded"/>
           <element ref="kml:LocationObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
+          <!-- Proposed by Sean Askay: 2011-11-22 -->
+          <element ref="kml:PositionSimpleExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+          <element ref="kml:PositionObjectExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+          <!-- End: Sean Askay -->
         </sequence>
       </extension>
     </complexContent>
@@ -1178,6 +1285,12 @@
             maxOccurs="unbounded"/>
           <element ref="kml:GroundOverlayObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
+          <!-- Proposed by Sean Askay: 2011-11-22 -->
+          <element ref="kml:SpatialContextSimpleExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+          <element ref="kml:SpatialContextObjectExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+          <!-- End: Sean Askay -->
         </sequence>
       </extension>
     </complexContent>
@@ -1199,6 +1312,12 @@
             minOccurs="0" maxOccurs="unbounded"/>
           <element ref="kml:AbstractLatLonBoxObjectExtensionGroup"
             minOccurs="0" maxOccurs="unbounded"/>
+          <!-- Proposed by Sean Askay: 2011-11-22 -->
+          <element ref="kml:PositionSimpleExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+          <element ref="kml:PositionObjectExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+          <!-- End: Sean Askay -->
         </sequence>
       </extension>
     </complexContent>
