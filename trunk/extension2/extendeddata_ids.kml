@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+  <Document id="doc">   
+    <name>ExtendedData+SchemaData</name>   
+    <open>1</open>
+
+    <!-- Declare the type "TrailHeadType" with 3 fields -->
+    <Schema name="TrailHeadType" id="TrailHeadTypeId">     
+      <SimpleField type="string" name="TrailHeadName" id="TrailHeadNameField">       
+        <displayName>
+          <![CDATA[<b>Trail Head Name</b>]]></displayName>     
+      </SimpleField>     
+      <SimpleField type="double" name="TrailLength" id="TrailLengthField">       
+        <displayName>
+          <![CDATA[<i>Length in miles</i>]]></displayName>     
+      </SimpleField>     
+      <SimpleField type="int" name="ElevationGain" id="ElevationGainField">       
+        <displayName>
+          <![CDATA[<i>Change in altitude</i>]]></displayName>     
+      </SimpleField>   
+    </Schema> 
+
+    <Schema name="fakeType" id="fakeId">     
+      <SimpleField type="string" name="foo" id="fakeFooField">       
+        <displayName>
+          <![CDATA[<b>Foo field</b>]]></displayName>     
+      </SimpleField> 
+    </Schema> 
+
+    <!-- This is analogous to adding three fields to a new element of type TrailHead:
+
+  <TrailHeadType>        
+    <TrailHeadName>...</TrailHeadName>        
+    <TrailLength>...</TrailLength>        
+    <ElevationGain>...</ElevationGain>    
+ </TrailHeadType>
+-->      
+
+    <!-- Instantiate some Placemarks extended with TrailHeadType fields -->    
+    <Placemark id="easy_trail">     
+      <name>Easy trail</name>
+      <ExtendedData id="easy_trail_extdata">       
+        <SchemaData schemaUrl="#TrailHeadTypeId" id="easy_trail_extdata_trail_head_type">         
+          <SimpleData name="TrailHeadName">before change</SimpleData>         
+          <SimpleData name="TrailLength">0</SimpleData>         
+          <SimpleData name="ElevationGain">1</SimpleData>       
+        </SchemaData>     
+      </ExtendedData>     
+      <Point>       
+        <coordinates>-122.000,37.002</coordinates>     
+      </Point>   
+    </Placemark> 
+
+    <Placemark>
+      <name>Club house</name>
+      <ExtendedData id="club_house_extdata">
+        <Data name="holeNumber" id="club_house_extdata_hole_number">
+          <displayName>
+            <![CDATA[
+            <b>This is hole </b>
+          ]]></displayName>
+          <value>1</value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>-111.956,33.5043</coordinates>
+      </Point>
+    </Placemark>
+    <Folder id="folder">
+    
+    </Folder>
+    <gx:Tour>
+      <name>Change stuff</name>
+      <gx:Playlist>
+        <gx:AnimatedUpdate>
+          <gx:duration>0.0</gx:duration>
+          <Update>
+            <targetHref/>
+            <Create>
+              <ExtendedData targetId="easy_trail_extdata">
+                <SchemaData schemaUrl="#fakeId" id="easy_trail_extdata_foo_type">         
+                  <SimpleData name="foo">bar</SimpleData>    
+                </SchemaData>    
+              </ExtendedData>
+            </Create>            
+          </Update>
+        </gx:AnimatedUpdate>
+        <gx:FlyTo>
+          <gx:duration>2</gx:duration>
+          <gx:flyToMode>smooth</gx:flyToMode>
+          <LookAt>
+            <gx:horizFov>60</gx:horizFov>
+            <longitude>-118.0489388115934</longitude>
+            <latitude>37.49750801389169</latitude>
+            <altitude>0</altitude>
+            <heading>-2.242689086178944</heading>
+            <tilt>0</tilt>
+            <range>1300576.432412135</range>
+            <gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+          </LookAt>
+        </gx:FlyTo>        
+        <gx:AnimatedUpdate>
+          <gx:duration>0.0</gx:duration>
+          <Update>
+            <targetHref/>
+            <Delete>
+              <Folder targetId="folder" />
+            </Delete>            
+          </Update>
+        </gx:AnimatedUpdate>
+        <gx:FlyTo>
+          <gx:duration>5</gx:duration>
+          <gx:flyToMode>smooth</gx:flyToMode>
+          <LookAt>
+            <gx:horizFov>60</gx:horizFov>
+            <longitude>-118.0489388115934</longitude>
+            <latitude>0.49750801389169</latitude>
+            <altitude>0</altitude>
+            <heading>-2.242689086178944</heading>
+            <tilt>0</tilt>
+            <range>1300576.432412135</range>
+            <gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+          </LookAt>
+        </gx:FlyTo>
+      </gx:Playlist>
+    </gx:Tour>
+  </Document> 
+</kml>

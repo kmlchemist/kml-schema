@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+  xmlns:kml="http://www.opengis.net/kml/2.3"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:xal="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
+  targetNamespace="http://www.opengis.net/kml/2.3"
+  elementFormDefault="qualified"
+  version="2.3.0">
+  
+  <attributeGroup name="extensionOtherAttributes">
+    <anyAttribute namespace="##other" processContents="strict"/>
+  </attributeGroup>
+  
+  <complexType name="AbstractComplexTypeNoContentExtensionType" abstract="true">
+    <attributeGroup ref="kml:extensionOtherAttributes"/>
+  </complexType>
+  
+
+  <!-- 
+    Option #1 
+    Simpliest option, but doesn't reuse DoubleWithAttributes Type,
+    which need anyway. Also allows reuse of anglepos90Type simpletype?!
+    Don't need to redeclare the attributeGroup
+  -->
+  <complexType name="DoubleWithAttributesType">
+    <simpleContent>
+      <extension base="double">
+        <attributeGroup ref="kml:extensionOtherAttributes"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+  
+  <simpleType name="anglepos90Type">
+    <restriction base="double">
+      <minInclusive value="0.0"/>
+      <maxInclusive value="90.0"/>
+    </restriction>
+  </simpleType>
+ 
+  <complexType name="anglepos90WithAttributesType_1">
+    <simpleContent>
+      <extension base="kml:anglepos90Type">
+        <attributeGroup ref="kml:extensionOtherAttributes"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+  
+  
+  <!-- 
+    Option #2 
+    Least verbose option, but requires redclaration of attributeGroup
+  -->
+  <complexType name="DoubleWithAttributesType_2">
+    <simpleContent>
+      <extension base="double">
+        <attributeGroup ref="kml:extensionOtherAttributes"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+  
+  <complexType name="anglepos90WithAttributesType_2">
+    <simpleContent>
+      <restriction base="kml:DoubleWithAttributesType_2">
+        <minInclusive value="0.0"/>
+        <maxInclusive value="90.0"/>
+        <attributeGroup ref="kml:extensionOtherAttributes"/>
+      </restriction>
+    </simpleContent>
+  </complexType>
+
+
+  <!-- 
+    Option #3
+    
+    Single codeblock option. Doesn't create extra type,
+    but doesn't recycle DoubleWithAttributesType.
+  -->  
+  <complexType name="DoubleWithAttributesType_3">
+    <simpleContent>
+      <extension base="double">
+        <attributeGroup ref="kml:extensionOtherAttributes"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+  
+  <complexType name="Angle90WithAttributesType_3">
+    <simpleContent>
+      <restriction base="anyType">
+        <simpleType>
+          <restriction base="double">
+            <minInclusive value="-90"/>
+            <maxInclusive value="90.0"/>
+          </restriction>
+        </simpleType>
+        <attributeGroup ref="kml:extensionOtherAttributes"/>
+      </restriction>
+    </simpleContent>
+  </complexType> 
+  
+  <!-- 
+    Option #4
+    
+    Super verbose and convoluted, but sets an example of how to use ComplexType, SimpleContent?
+    Doesn't reuse DoubleWithAttributesType.
+    
+  -->
+  
+  <complexType name="AbstractComplexTypeSimpleContentExtensionType" abstract="true">
+    <simpleContent>
+      <extension base="anySimpleType">
+        <attributeGroup ref="kml:extensionOtherAttributes"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+  
+  <complexType name="DoubleWithAttributesType_4">
+    <simpleContent>
+      <extension base="double">
+        <attributeGroup ref="kml:extensionOtherAttributes"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+  
+  <complexType name="Angle90WithAttributesType_4">
+    <simpleContent>
+      <restriction base="kml:AbstractComplexTypeSimpleContentExtensionType">
+        <simpleType>
+          <restriction base="double">
+            <minInclusive value="-90"/>
+            <maxInclusive value="90.0"/>
+          </restriction>
+        </simpleType>
+        <attributeGroup ref="kml:extensionOtherAttributes"/>
+      </restriction>
+    </simpleContent>
+  </complexType> 
+
+</schema>
