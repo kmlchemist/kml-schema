@@ -924,7 +924,7 @@
     substitutionGroup="kml:AbstractObjectGroup"/>
 
   <element name="LatLonAltBox" type="kml:LatLonAltBoxType"
-    substitutionGroup="kml:AbstractObjectGroup"/>
+    substitutionGroup="kml:AbstractBoundingBoxGroup"/>
   <complexType name="LatLonAltBoxType" final="#all">
     <complexContent>
       <extension base="kml:AbstractLatLonBoxType">
@@ -1384,6 +1384,8 @@
     AbstractLatLonBoxType and LatLonQuad inherit from. This also leaves
     door open for bounding boxes according to tile id's and such.
   -->
+  <element name="AbstractBoundingBoxGroup" type="kml:AbstractBoundingBoxType"
+    abstract="true" substitutionGroup="kml:AbstractObjectGroup"/>
   <complexType name="AbstractBoundingBoxType" abstract="true">
     <complexContent>
       <extension base="kml:AbstractObjectType">
@@ -1402,8 +1404,8 @@
     substitutionGroup="kml:AbstractObjectGroup"/>
   
   <element name="LatLonQuad" type="kml:LatLonQuadType"
-    substitutionGroup="kml:GroundOverlayObjectExtensionGroup"/>
-  <complexType name="LatLonQuadType">
+    substitutionGroup="kml:AbstractBoundingBoxGroup"/>
+  <complexType name="LatLonQuadType" final="#all">
     <complexContent>
       <extension base="kml:AbstractBoundingBoxType">
         <sequence>
@@ -1443,7 +1445,7 @@
     substitutionGroup="kml:AbstractObjectGroup"/>
 
   <element name="LatLonBox" type="kml:LatLonBoxType"
-    substitutionGroup="kml:AbstractObjectGroup"/>
+    substitutionGroup="kml:AbstractBoundingBoxGroup"/>
   <complexType name="LatLonBoxType" final="#all">
     <complexContent>
       <extension base="kml:AbstractLatLonBoxType">
