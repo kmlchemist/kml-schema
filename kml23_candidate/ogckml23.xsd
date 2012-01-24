@@ -207,8 +207,9 @@
   <element name="description" type="string"/>
   <element name="displayName" type="string"/>
   <element name="displayMode" type="kml:displayModeEnumType" default="default"/>
-  <element name="drawOrder" type="int" default="0"/>
-  <element name="east" type="kml:angle180Type" default="180.0"/>
+  <element name="drawOrder" type="int" default="0"/>  
+  <!-- TODO: Provide more documentation on overlays spanning anti-meridian -->
+  <element name="east" type="kml:angle360Type" default="180.0"/>
   <element name="end" type="kml:dateTimeType"/>
   <element name="expires" type="kml:dateTimeType"/>
   <element name="extrude" type="boolean" default="0"/>
@@ -283,7 +284,8 @@
     default="never"/>
   <element name="viewRefreshTime" type="double" default="4.0"/>
   <element name="visibility" type="boolean" default="1"/>
-  <element name="west" type="kml:angle180Type" default="-180.0"/>
+  <!-- TODO: Provide more documentation on overlays spanning anti-meridian -->
+  <element name="west" type="kml:angle360Type" default="-180.0"/>
   <element name="when" type="kml:dateTimeType"/>
   <element name="width" type="double" default="1.0"/>
   <element name="x" type="double" default="1.0"/>
@@ -500,7 +502,6 @@
           <element ref="kml:DataExtension" minOccurs="0" maxOccurs="unbounded"/>
         </sequence>
         <attribute name="name" type="string"/>
-        <attributeGroup ref="kml:extensionOtherAttributes"/>
       </extension>
     </complexContent>
   </complexType>
