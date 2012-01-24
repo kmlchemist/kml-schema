@@ -220,24 +220,31 @@
   <element name="altitudeModeGroup" abstract="true"/>
   <element name="altitudeMode" type="kml:altitudeModeEnumType"
     default="clampToGround" substitutionGroup="kml:altitudeModeGroup"/>  
-  <element name="altitudeOffset" type="double" />
+  <element name="altitudeOffset" type="double"/>
+  <element name="angles" type="string"/>
+  <element name="balloonVisibility" type="boolean" default="true"/>
   <element name="begin" type="kml:dateTimeType"/>
   <element name="bgColor" type="kml:colorType" default="ffffffff"/>
   <element name="bottomFov" type="kml:angle90Type" default="0.0"/>
   <element name="color" type="kml:colorType" default="ffffffff"/>
   <element name="colorMode" type="kml:colorModeEnumType" default="normal"/>
   <element name="cookie" type="string"/>
+  <element name="coord" type="string"/>
   <element name="coordinates" type="kml:coordinatesType"/>
+  <element name="delayedStart" type="double" default="0.0"/>
   <element name="description" type="string"/>
   <element name="displayName" type="string"/>
   <element name="displayMode" type="kml:displayModeEnumType" default="default"/>
-  <element name="drawOrder" type="int" default="0"/>  
+  <!-- TODO: Annotate: As of Earth 6.0, drawOrder only works in LineStrings & Overlays.-->
+  <element name="drawOrder" type="int" default="0"/>
+  <element name="duration" type="double" default="0.0"/>
   <!-- TODO: Provide more documentation on overlays spanning anti-meridian -->
   <element name="east" type="kml:angle360Type" default="180.0"/>
   <element name="end" type="kml:dateTimeType"/>
   <element name="expires" type="kml:dateTimeType"/>
   <element name="extrude" type="boolean" default="0"/>
   <element name="fill" type="boolean" default="1"/>
+  <element name="flyToMode" type="kml:flyToModeEnumType" default="bounce"/>
   <element name="flyToView" type="boolean" default="0"/>
   <element name="gridOrigin" type="kml:gridOriginEnumType" default="lowerLeft"/>
   <element name="heading" type="kml:angle360Type" default="0.0"/>
@@ -248,8 +255,15 @@
     </annotation>
   </element>
   <element name="httpQuery" type="string"/>
+  <!--horizFov in Google Earth only works in a range of 10-170 degress
+    in Google Earth 6.1-->
+  <element name="horizFov" type="kml:anglepos180Type"/>
   <element name="hotSpot" type="kml:vec2Type"/>
+  <element name="interpolate" type="boolean" default="false"/>
   <element name="key" type="kml:styleStateEnumType" default="normal"/>
+  <!--Currently only works on LineStyle as applied to a LineString.
+    Does not work on LineStyle as applied to Polygons or extruded Points.-->
+  <element name="labelVisibility" type="boolean" default="0"/>
   <element name="latitude" type="kml:angle90Type" default="0.0"/>
   <element name="leftFov" type="kml:angle180Type" default="0.0"/>
   <element name="linkDescription" type="string"/>
@@ -273,10 +287,16 @@
   <element name="near" type="double" default="0.0"/>
   <element name="north" type="kml:angle180Type" default="180.0"/>
   <element name="open" type="boolean" default="0"/>
+  <element name="outerColor" type="kml:colorType" default="ffffffff"/>
+  <element name="outerWidth" type="kml:outerWidthType" default="0.0"/>
   <element name="outline" type="boolean" default="1"/>
   <element name="overlayXY" type="kml:vec2Type"/>
   <element name="phoneNumber" type="string"/>
+  <element name="physicalWidth" type="float" default="0.0"/>
+  <element name="playMode" type="kml:playModeEnumType" default="pause"/>
   <element name="range" type="double" default="0.0"/>
+  <!-- TODO: Not yet documented on Google's KML Documentation site. -->
+  <element name="rank" type="double" default="0.0"/>
   <element name="refreshMode" type="kml:refreshModeEnumType"
     default="onChange"/>
   <element name="refreshInterval" type="double" default="4.0"/>
@@ -368,7 +388,9 @@
             </annotation>
             <element ref="kml:Metadata" minOccurs="0"/>
             <element ref="kml:ExtendedData" minOccurs="0"/>
-          </choice>
+          </choice>          
+          <element ref="kml:balloonVisibility" minOccurs="0"/>     
+          <element ref="kml:rank" minOccurs="0"/>
           <element ref="kml:AbstractFeatureSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:AbstractFeatureObjectExtensionGroup" minOccurs="0"
@@ -397,6 +419,7 @@
     <complexContent>
       <extension base="kml:AbstractObjectType">
         <sequence>
+          <element ref="kml:horizFov" minOccurs="0"/>
           <element ref="kml:AbstractViewSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:AbstractViewObjectExtensionGroup" minOccurs="0"
@@ -556,6 +579,8 @@
     <complexContent>
       <extension base="kml:AbstractObjectType">
         <sequence>
+          <!-- TODO: Annotate: As of Earth 6.0, drawOrder only works in LineStrings & Overlays.-->
+          <element ref="kml:drawOrder" minOccurs="0"/>
           <element ref="kml:AbstractGeometrySimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:AbstractGeometryObjectExtensionGroup" minOccurs="0"
@@ -1414,6 +1439,8 @@
         <sequence>
           <element ref="kml:color" minOccurs="0"/>
           <element ref="kml:colorMode" minOccurs="0"/>
+          <!-- TODO: Add to AbstractSubStyleType instead?? -->
+          <element ref="kml:labelVisibility" minOccurs="0"/>
           <element ref="kml:AbstractColorStyleSimpleExtensionGroup"
             minOccurs="0" maxOccurs="unbounded"/>
           <element ref="kml:AbstractColorStyleObjectExtensionGroup"
@@ -1495,6 +1522,9 @@
       <extension base="kml:AbstractColorStyleType">
         <sequence>
           <element ref="kml:width" minOccurs="0"/>
+          <element ref="kml:outerColor" minOccurs="0"/>
+          <element ref="kml:outerWidth" minOccurs="0"/>
+          <element ref="kml:physicalWidth" minOccurs="0"/>
           <element ref="kml:LineStyleSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:LineStyleObjectExtensionGroup" minOccurs="0"
