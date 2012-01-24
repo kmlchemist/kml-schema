@@ -572,6 +572,7 @@
             maxOccurs="unbounded"/>
         </sequence>
         <attribute name="schemaUrl" type="anyURI"/>
+        <attributeGroup ref="kml:extensionOtherAttributes"/>
       </extension>
     </complexContent>
   </complexType>
@@ -585,7 +586,22 @@
         <attributeGroup ref="kml:extensionOtherAttributes"/>
       </extension>
     </simpleContent>
+  </complexType> 
+  
+  <element name="SimpleArrayData" type="kml:SimpleArrayDataType"/>  
+  <complexType name="SimpleArrayDataType" final="#all">
+    <complexContent>
+      <extension base="kml:AbstractObjectType">
+        <sequence>
+          <element ref="kml:value" minOccurs="0" maxOccurs="unbounded"/>
+          <element ref="kml:SimpleArrayDataExtension" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+        <attribute name="name" type="string"/>
+        <attributeGroup ref="kml:extensionOtherAttributes"/>
+      </extension>
+    </complexContent>
   </complexType>
+  <element name="SimpleArrayDataExtension" abstract="true"/>
 
   <element name="Data" type="kml:DataType"
     substitutionGroup="kml:AbstractObjectGroup"/>
@@ -598,6 +614,7 @@
           <element ref="kml:DataExtension" minOccurs="0" maxOccurs="unbounded"/>
         </sequence>
         <attribute name="name" type="string"/>
+        <attributeGroup ref="kml:extensionOtherAttributes"/>
       </extension>
     </complexContent>
   </complexType>
@@ -781,6 +798,7 @@
   <complexType name="SchemaType" final="#all">
     <sequence>
       <element ref="kml:SimpleField" minOccurs="0" maxOccurs="unbounded"/>
+      <element ref="kml:SimpleArrayField" minOccurs="0" maxOccurs="unbounded"/>
       <element ref="kml:SchemaExtension" minOccurs="0" maxOccurs="unbounded"/>
     </sequence>
     <attribute name="name" type="string"/>
@@ -801,6 +819,19 @@
     <attributeGroup ref="kml:extensionOtherAttributes"/>
   </complexType>
   <element name="SimpleFieldExtension" abstract="true"/>
+  
+  <element name="SimpleArrayField" type="kml:SimpleArrayFieldType"/>  
+  <complexType name="SimpleArrayFieldType" final="#all">
+    <sequence>
+      <element ref="kml:displayName" minOccurs="0"/>
+      <element ref="kml:SimpleFieldExtension" minOccurs="0"
+        maxOccurs="unbounded"/>
+    </sequence>
+    <attribute name="type" type="string"/>
+    <attribute name="name" type="string"/>
+    <attributeGroup ref="kml:extensionOtherAttributes"/>
+  </complexType>
+  <element name="SimpleArrayFieldExtension" abstract="true"/>
 
   <element name="Folder" type="kml:FolderType"
     substitutionGroup="kml:AbstractContainerGroup"/>
@@ -1165,6 +1196,57 @@
   <element name="ModelSimpleExtensionGroup" abstract="true"
     type="anySimpleType"/>
   <element name="ModelObjectExtensionGroup" abstract="true"
+    substitutionGroup="kml:AbstractObjectGroup"/>
+  
+  <element name="Track" type="kml:TrackType"
+      substitutionGroup="kml:AbstractGeometryGroup"/>
+  <complexType name="TrackType">
+    <complexContent>
+      <extension base="kml:AbstractGeometryType">
+        <sequence>
+          <element ref="kml:extrude" minOccurs="0"/>
+          <element ref="kml:tessellate" minOccurs="0"/>       
+          <element ref="kml:altitudeMode" minOccurs="0"/>
+          <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
+          <element ref="kml:when" minOccurs="0" maxOccurs="unbounded"/>
+          <element ref="kml:coord" minOccurs="0" maxOccurs="unbounded"/>
+          <element ref="kml:angles" minOccurs="0" maxOccurs="unbounded"/>
+          <element ref="kml:Model" minOccurs="0"/>
+          <element ref="kml:ExtendedData" minOccurs="0"/>
+          <element ref="kml:TrackSimpleExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+          <element ref="kml:TrackObjectExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="TrackSimpleExtensionGroup" abstract="true"
+    type="anySimpleType"/>
+  <element name="TrackObjectExtensionGroup" abstract="true"
+    substitutionGroup="kml:AbstractObjectGroup"/>
+  
+  <element name="MultiTrack" type="kml:MultiTrackType"
+    substitutionGroup="kml:AbstractGeometryGroup"/>  
+  <complexType name="MultiTrackType">
+    <complexContent>
+      <extension base="kml:AbstractGeometryType">
+        <sequence>      
+          <element ref="kml:altitudeMode" minOccurs="0"/>
+          <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
+          <element ref="kml:interpolate" minOccurs="0"/>
+          <element ref="kml:Track" minOccurs="0" maxOccurs="unbounded"/>
+          <element ref="kml:MultiTrackSimpleExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+          <element ref="kml:MultiTrackObjectExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="MultiTrackSimpleExtensionGroup" abstract="true"
+    type="anySimpleType"/>
+  <element name="MultiTrackObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
 
   <element name="Location" type="kml:LocationType"
