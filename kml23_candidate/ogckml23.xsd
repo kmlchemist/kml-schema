@@ -15,7 +15,7 @@
   </annotation>  
 
   <!-- import atom:author and atom:link -->
-  <import namespace="http://www.w3.org/2005/Atom"
+<import namespace="http://www.w3.org/2005/Atom"
     schemaLocation="atom-author-link.xsd"/>
 
   <!-- import xAL:Address -->
@@ -474,7 +474,6 @@
             maxOccurs="unbounded"/>
         </sequence>
         <attribute name="schemaUrl" type="anyURI"/>
-        <attributeGroup ref="kml:extensionOtherAttributes"/>
       </extension>
     </complexContent>
   </complexType>
