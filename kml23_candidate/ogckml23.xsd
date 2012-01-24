@@ -209,6 +209,15 @@
     </restriction>
   </simpleType>
 
+  <complexType name="optionType">
+    <!-- In Earth 6.0, the name attribute is restricted to Google Earth
+      specific items, streetview,historicalimagery,sunlight.
+      However, in a future version of this schema, we may remove this
+      restriction, so we are using a string instead of a enumeration. -->
+    <attribute name="name" type="string"/>
+    <attribute name="enabled" type="boolean"/>
+  </complexType>
+
   <complexType name="vec2Type" abstract="false">
     <attribute name="x" type="double" default="1.0"/>
     <attribute name="y" type="double" default="1.0"/>
@@ -302,6 +311,7 @@
   <element name="near" type="double" default="0.0"/>
   <element name="north" type="kml:angle180Type" default="180.0"/>
   <element name="open" type="boolean" default="0"/>
+  <element name="option" type="kml:optionType"/>
   <element name="outerColor" type="kml:colorType" default="ffffffff"/>
   <element name="outerWidth" type="kml:outerWidthType" default="0.0"/>
   <element name="outline" type="boolean" default="1"/>
@@ -445,6 +455,7 @@
     <complexContent>
       <extension base="kml:AbstractObjectType">
         <sequence>
+          <element ref="kml:AbstractTimePrimitiveGroup" minOccurs="0"/>
           <element ref="kml:horizFov" minOccurs="0"/>
           <element ref="kml:AbstractViewSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
@@ -1826,5 +1837,191 @@
     </sequence>
     <attributeGroup ref="kml:extensionOtherAttributes"/>
   </complexType>
+  
+  <element name="AbstractTourPrimitiveGroup" type="kml:AbstractTourPrimitiveType"
+    abstract="true" substitutionGroup="kml:AbstractObjectGroup"/>
+  <element name="AbstractTourPrimitive" type="kml:AbstractTourPrimitiveType"/>
+  <complexType name="AbstractTourPrimitiveType">
+    <complexContent>
+      <extension base="kml:AbstractObjectType">
+        <sequence>
+          <element ref="kml:AbstractTourPrimitiveSimpleExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+          <element ref="kml:AbstractTourPrimitiveObjectExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="AbstractTourPrimitiveSimpleExtensionGroup" abstract="true"
+    type="anySimpleType"/>
+  <element name="AbstractTourPrimitiveObjectExtensionGroup" abstract="true"
+    substitutionGroup="kml:AbstractObjectGroup"/>
+  
+  <element name="AnimatedUpdate" type="kml:AnimatedUpdateType"
+    substitutionGroup="kml:AbstractTourPrimitiveGroup"/>
+  <complexType name="AnimatedUpdateType">
+    <complexContent>
+      <extension base="kml:AbstractTourPrimitiveType">
+        <sequence>
+          <element ref="kml:duration" minOccurs="0"/>
+          <element ref="kml:Update" minOccurs="0"/>
+          <element ref="kml:delayedStart" minOccurs="0"/>
+          <element ref="kml:AnimatedUpdateTypeSimpleExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+          <element ref="kml:AnimatedUpdateTypeObjectExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="AnimatedUpdateTypeSimpleExtensionGroup" abstract="true"
+    type="anySimpleType"/>
+  <element name="AnimatedUpdateTypeObjectExtensionGroup" abstract="true"
+    substitutionGroup="kml:AbstractObjectGroup"/>
+  
+  <element name="FlyTo" type="kml:FlyToType"
+    substitutionGroup="kml:AbstractTourPrimitiveGroup"/>
+  <complexType name="FlyToType">
+    <complexContent>
+      <extension base="kml:AbstractTourPrimitiveType">
+        <sequence>
+          <element ref="kml:duration" minOccurs="0"/>
+          <element ref="kml:flyToMode" minOccurs="0"/>
+          <element ref="kml:AbstractViewGroup" minOccurs="0"/>
+          <element ref="kml:AbstractTourSimpleExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+          <element ref="kml:AbstractTourObjectExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="AbstractTourSimpleExtensionGroup" abstract="true"
+    type="anySimpleType"/>
+  <element name="AbstractTourObjectExtensionGroup" abstract="true"
+    substitutionGroup="kml:AbstractObjectGroup"/>
+  
+  <element name="Playlist" type="kml:PlaylistType"
+    substitutionGroup="kml:AbstractObjectGroup"/>
+  <complexType name="PlaylistType">
+    <complexContent>
+      <extension base="kml:AbstractObjectType">
+        <sequence>
+          <element ref="kml:AbstractTourPrimitiveGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+          <element ref="kml:PlaylistSimpleExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+          <element ref="kml:PlaylistObjectExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="PlaylistSimpleExtensionGroup" abstract="true"
+    type="anySimpleType"/>
+  <element name="PlaylistObjectExtensionGroup" abstract="true"
+    substitutionGroup="kml:AbstractObjectGroup"/>
+  
+  <element name="SoundCue" type="kml:SoundCueType"
+    substitutionGroup="kml:AbstractTourPrimitiveGroup"/>
+  <complexType name="SoundCueType">
+    <complexContent>
+      <extension base="kml:AbstractTourPrimitiveType">
+        <sequence>
+          <element ref="kml:href" minOccurs="0"/>
+          <element ref="kml:delayedStart" minOccurs="0"/>
+          <element ref="kml:SoundCueSimpleExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+          <element ref="kml:SoundCueObjectExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="SoundCueSimpleExtensionGroup" abstract="true"
+    type="anySimpleType"/>
+  <element name="SoundCueObjectExtensionGroup" abstract="true"
+    substitutionGroup="kml:AbstractObjectGroup"/>
+  
+  <element name="Tour" type="kml:TourType"
+    substitutionGroup="kml:AbstractFeatureGroup"/>
+  <complexType name="TourType">
+    <complexContent>
+      <extension base="kml:AbstractFeatureType">
+        <sequence>
+          <element ref="kml:Playlist" minOccurs="0"/>
+          <element ref="kml:TourSimpleExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+          <element ref="kml:TourObjectExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="TourSimpleExtensionGroup" abstract="true"
+    type="anySimpleType"/>
+  <element name="TourObjectExtensionGroup" abstract="true"
+    substitutionGroup="kml:AbstractObjectGroup"/>
+  
+  <element name="TourControl" type="kml:TourControlType"
+    substitutionGroup="kml:AbstractTourPrimitiveGroup"/>
+  <complexType name="TourControlType">
+    <complexContent>
+      <extension base="kml:AbstractTourPrimitiveType">
+        <sequence>
+          <element ref="kml:playMode" minOccurs="0"/>
+          <element ref="kml:TourControlSimpleExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+          <element ref="kml:TourControlObjectExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="TourControlSimpleExtensionGroup" abstract="true"
+    type="anySimpleType"/>
+  <element name="TourControlObjectExtensionGroup" abstract="true"
+    substitutionGroup="kml:AbstractObjectGroup"/>
+  
+  <element name="Wait" type="kml:WaitType"
+    substitutionGroup="kml:AbstractTourPrimitiveGroup"/>
+  <complexType name="WaitType">
+    <complexContent>
+      <extension base="kml:AbstractTourPrimitiveType">
+        <sequence>
+          <element ref="kml:duration" minOccurs="0"/>
+          <element ref="kml:WaitSimpleExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+          <element ref="kml:WaitObjectExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="WaitSimpleExtensionGroup" abstract="true"
+    type="anySimpleType"/>
+  <element name="WaitObjectExtensionGroup" abstract="true"
+    substitutionGroup="kml:AbstractObjectGroup"/> 
+  
+  <element name="ViewerOptions" type="kml:ViewerOptionsType"
+    substitutionGroup="kml:AbstractViewObjectExtensionGroup"/>
+  <complexType name="ViewerOptionsType">
+    <complexContent>
+      <extension base="kml:AbstractObjectType">
+        <sequence>
+          <element ref="kml:option" maxOccurs="unbounded"/>
+          <element ref="kml:ViewerOptionsSimpleExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+          <element ref="kml:ViewerOptionsObjectExtensionGroup" minOccurs="0"
+            maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="ViewerOptionsSimpleExtensionGroup" abstract="true"
+    type="anySimpleType"/>
+  <element name="ViewerOptionsObjectExtensionGroup" abstract="true"
+    substitutionGroup="kml:AbstractObjectGroup"/>
 
 </schema>
