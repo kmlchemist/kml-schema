@@ -71,6 +71,9 @@
       <enumeration value="clampToGround"/>
       <enumeration value="relativeToGround"/>
       <enumeration value="absolute"/>
+      <!-- TODO: Annotation that these were added from gx:altitudeMode -->
+      <enumeration value="clampToSeaFloor"/>
+      <enumeration value="relativeToSeaFloor"/>
     </restriction>
   </simpleType>
 
@@ -111,6 +114,13 @@
       <enumeration value="hide"/>
     </restriction>
   </simpleType>
+  
+  <simpleType name="flyToModeEnumType">
+    <restriction base="string">
+      <enumeration value="bounce"/>
+      <enumeration value="smooth"/>
+    </restriction>
+  </simpleType>
 
   <simpleType name="gridOriginEnumType">
     <restriction base="string">
@@ -139,6 +149,19 @@
       <enumeration value="check"/>
       <enumeration value="checkHideChildren"/>
       <enumeration value="checkOffOnly"/>
+    </restriction>
+  </simpleType>
+  
+  <simpleType name="outerWidthType">
+    <restriction base="float">
+      <minInclusive value="0.0"/>
+      <maxInclusive value="1.0"/>
+    </restriction>
+  </simpleType>
+  
+  <simpleType name="playModeEnumType">
+    <restriction base="string">
+      <enumeration value="pause"/>
     </restriction>
   </simpleType>
 
@@ -196,7 +219,8 @@
   <element name="altitude" type="double" default="0.0"/>
   <element name="altitudeModeGroup" abstract="true"/>
   <element name="altitudeMode" type="kml:altitudeModeEnumType"
-    default="clampToGround" substitutionGroup="kml:altitudeModeGroup"/>
+    default="clampToGround" substitutionGroup="kml:altitudeModeGroup"/>  
+  <element name="altitudeOffset" type="double" />
   <element name="begin" type="kml:dateTimeType"/>
   <element name="bgColor" type="kml:colorType" default="ffffffff"/>
   <element name="bottomFov" type="kml:angle90Type" default="0.0"/>
@@ -925,6 +949,7 @@
           <element ref="kml:tessellate" minOccurs="0"/>
           <element ref="kml:altitudeModeGroup" minOccurs="0"/>
           <element ref="kml:coordinates" minOccurs="0"/>
+          <element ref="kml:altitudeOffset" minOccurs="0"/>
           <element ref="kml:LineStringSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:LineStringObjectExtensionGroup" minOccurs="0"
@@ -948,6 +973,7 @@
           <element ref="kml:tessellate" minOccurs="0"/>
           <element ref="kml:altitudeModeGroup" minOccurs="0"/>
           <element ref="kml:coordinates" minOccurs="0"/>
+          <element ref="kml:altitudeOffset" minOccurs="0"/>
           <element ref="kml:LinearRingSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:LinearRingObjectExtensionGroup" minOccurs="0"
