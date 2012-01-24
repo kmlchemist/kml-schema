@@ -71,7 +71,11 @@
       <enumeration value="clampToGround"/>
       <enumeration value="relativeToGround"/>
       <enumeration value="absolute"/>
-      <!-- TODO: Annotation that these were added from gx:altitudeMode -->
+    </restriction>
+  </simpleType>
+  
+  <simpleType name="seaFloorAltitudeModeEnumType">
+    <restriction base="string">
       <enumeration value="clampToSeaFloor"/>
       <enumeration value="relativeToSeaFloor"/>
     </restriction>
@@ -217,9 +221,20 @@
 
   <element name="address" type="string"/>
   <element name="altitude" type="double" default="0.0"/>
-  <element name="altitudeModeGroup" abstract="true"/>
+  <!-- 
+    TODO: Is removing altitudeModeGroup and replacing with refs to
+    both the replacements for kml:altitudeMode and gx:altitudeMode
+    the best approach?
+    
+    <element name="altitudeModeGroup" abstract="true"/>
+    <element name="altitudeMode" type="kml:altitudeModeEnumType"
+    default="clampToGround" substitutionGroup="kml:altitudeModeGroup"/>
+  -->  
   <element name="altitudeMode" type="kml:altitudeModeEnumType"
-    default="clampToGround" substitutionGroup="kml:altitudeModeGroup"/>  
+    default="clampToGround"/>
+  <!-- TODO: Should we have a better name for seaFloorAltitudeMode? -->
+  <element name="seaFloorAltitudeMode"
+    type="kml:seaFloorAltitudeModeEnumType"/>  
   <element name="altitudeOffset" type="double"/>
   <element name="angles" type="string"/>
   <element name="balloonVisibility" type="boolean" default="true"/>
@@ -456,7 +471,8 @@
           <element ref="kml:heading" minOccurs="0"/>
           <element ref="kml:tilt" minOccurs="0"/>
           <element ref="kml:range" minOccurs="0"/>
-          <element ref="kml:altitudeModeGroup" minOccurs="0"/>
+          <element ref="kml:altitudeMode" minOccurs="0"/>
+          <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
           <element ref="kml:LookAtSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:LookAtObjectExtensionGroup" minOccurs="0"
@@ -482,7 +498,8 @@
           <element ref="kml:heading" minOccurs="0"/>
           <element ref="kml:tilt" minOccurs="0"/>
           <element ref="kml:roll" minOccurs="0"/>
-          <element ref="kml:altitudeModeGroup" minOccurs="0"/>
+          <element ref="kml:altitudeMode" minOccurs="0"/>
+          <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
           <element ref="kml:CameraSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:CameraObjectExtensionGroup" minOccurs="0"
@@ -872,7 +889,8 @@
         <sequence>
           <element ref="kml:minAltitude" minOccurs="0"/>
           <element ref="kml:maxAltitude" minOccurs="0"/>
-          <element ref="kml:altitudeModeGroup" minOccurs="0"/>
+          <element ref="kml:altitudeMode" minOccurs="0"/>
+          <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
           <element ref="kml:LatLonAltBoxSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:LatLonAltBoxObjectExtensionGroup" minOccurs="0"
@@ -910,7 +928,7 @@
 
   <element name="Icon" type="kml:IconLinkType"
     substitutionGroup="kml:AbstractObjectGroup"/>   
-  <complexType name="IconLinkType">
+  <complexType name="IconLinkType" final="#all">
     <complexContent>
       <extension base="kml:LinkType">
         <sequence>    
@@ -947,6 +965,9 @@
       <documentation>Url deprecated in 2.2</documentation>
     </annotation>
   </element>
+  <!-- 
+    TODO: We can't make LinkType final, because IconLinkType extends it! 
+  -->
   <complexType name="LinkType">
     <complexContent>
       <extension base="kml:BasicLinkType">
@@ -999,7 +1020,8 @@
       <extension base="kml:AbstractGeometryType">
         <sequence>
           <element ref="kml:extrude" minOccurs="0"/>
-          <element ref="kml:altitudeModeGroup" minOccurs="0"/>
+          <element ref="kml:altitudeMode" minOccurs="0"/>
+          <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
           <element ref="kml:coordinates" minOccurs="0"/>
           <element ref="kml:PointSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
@@ -1022,7 +1044,8 @@
         <sequence>
           <element ref="kml:extrude" minOccurs="0"/>
           <element ref="kml:tessellate" minOccurs="0"/>
-          <element ref="kml:altitudeModeGroup" minOccurs="0"/>
+          <element ref="kml:altitudeMode" minOccurs="0"/>
+          <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
           <element ref="kml:coordinates" minOccurs="0"/>
           <element ref="kml:altitudeOffset" minOccurs="0"/>
           <element ref="kml:LineStringSimpleExtensionGroup" minOccurs="0"
@@ -1046,7 +1069,8 @@
         <sequence>
           <element ref="kml:extrude" minOccurs="0"/>
           <element ref="kml:tessellate" minOccurs="0"/>
-          <element ref="kml:altitudeModeGroup" minOccurs="0"/>
+          <element ref="kml:altitudeMode" minOccurs="0"/>
+          <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
           <element ref="kml:coordinates" minOccurs="0"/>
           <element ref="kml:altitudeOffset" minOccurs="0"/>
           <element ref="kml:LinearRingSimpleExtensionGroup" minOccurs="0"
@@ -1070,7 +1094,8 @@
         <sequence>
           <element ref="kml:extrude" minOccurs="0"/>
           <element ref="kml:tessellate" minOccurs="0"/>
-          <element ref="kml:altitudeModeGroup" minOccurs="0"/>
+          <element ref="kml:altitudeMode" minOccurs="0"/>
+          <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
           <element ref="kml:outerBoundaryIs" minOccurs="0"/>
           <element ref="kml:innerBoundaryIs" minOccurs="0"
             maxOccurs="unbounded"/>
@@ -1110,8 +1135,9 @@
   <complexType name="ModelType" final="#all">
     <complexContent>
       <extension base="kml:AbstractGeometryType">
-        <sequence>
-          <element ref="kml:altitudeModeGroup" minOccurs="0"/>
+        <sequence>          
+          <element ref="kml:altitudeMode" minOccurs="0"/>
+          <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
           <element ref="kml:Location" minOccurs="0"/>
           <element ref="kml:Orientation" minOccurs="0"/>
           <element ref="kml:Scale" minOccurs="0"/>
@@ -1244,7 +1270,8 @@
       <extension base="kml:AbstractOverlayType">
         <sequence>
           <element ref="kml:altitude" minOccurs="0"/>
-          <element ref="kml:altitudeModeGroup" minOccurs="0"/>
+          <element ref="kml:altitudeMode" minOccurs="0"/>
+          <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
           <element ref="kml:LatLonBox" minOccurs="0"/>
           <element ref="kml:GroundOverlaySimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
@@ -1527,6 +1554,9 @@
   <element name="IconStyleObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
 
+  <!-- 
+    TODO: We can't make BasicLinkType final, because IconLinkType extends it! 
+  -->
   <complexType name="BasicLinkType">
     <complexContent>
       <extension base="kml:AbstractObjectType">
@@ -1545,7 +1575,7 @@
   <element name="BasicLinkObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>  
   
-  <complexType name="BasicIconLinkType">
+  <complexType name="BasicIconLinkType" final="#all">
     <complexContent>
       <extension base="kml:BasicLinkType">
         <sequence>    
