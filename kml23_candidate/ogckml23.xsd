@@ -1296,10 +1296,52 @@
     type="anySimpleType"/>
   <element name="GroundOverlayObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
+  
+  <!--
+    TODO: Eval this idea: abstract bounding box type from which both
+    AbstractLatLonBoxType and LatLonQuad inherit from. This also leaves
+    door open for bounding boxes according to tile id's and such.
+  -->
+  <complexType name="AbstractBoundingBoxType" abstract="true">
+    <complexContent>
+      <extension base="kml:AbstractObjectType">
+        <sequence>
+          <element ref="kml:AbstractBoundingBoxSimpleExtensionGroup"
+            minOccurs="0" maxOccurs="unbounded"/>
+          <element ref="kml:AbstractBoundingBoxObjectExtensionGroup"
+            minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="AbstractBoundingBoxSimpleExtensionGroup" abstract="true"
+    type="anySimpleType"/>
+  <element name="AbstractBoundingBoxObjectExtensionGroup" abstract="true"
+    substitutionGroup="kml:AbstractObjectGroup"/>
+  
+  <element name="LatLonQuad" type="kml:LatLonQuadType"
+    substitutionGroup="kml:GroundOverlayObjectExtensionGroup"/>
+  <complexType name="LatLonQuadType">
+    <complexContent>
+      <extension base="kml:AbstractBoundingBoxType">
+        <sequence>
+          <element ref="kml:coordinates" minOccurs="0"/>
+          <element ref="kml:LatLonQuadSimpleExtensionGroup"
+            minOccurs="0" maxOccurs="unbounded"/>
+          <element ref="kml:LatLonQuadObjectExtensionGroup"
+            minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="LatLonQuadSimpleExtensionGroup" abstract="true"
+    type="anySimpleType"/>
+  <element name="LatLonQuadObjectExtensionGroup" abstract="true"
+    substitutionGroup="kml:AbstractObjectGroup"/>
 
   <complexType name="AbstractLatLonBoxType" abstract="true">
     <complexContent>
-      <extension base="kml:AbstractObjectType">
+      <extension base="kml:AbstractBoundingBoxType">
         <sequence>
           <element ref="kml:north" minOccurs="0"/>
           <element ref="kml:south" minOccurs="0"/>
