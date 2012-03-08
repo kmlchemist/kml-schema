@@ -216,6 +216,7 @@
       restriction, so we are using a string instead of a enumeration. -->
     <attribute name="name" type="string"/>
     <attribute name="enabled" type="boolean"/>
+    <attributeGroup ref="kml:extensionOtherAttributes"/>
   </complexType>
 
   <complexType name="vec2Type" abstract="false">
@@ -367,10 +368,10 @@
     because the former elements are doubles and the later are integers.
     Renaming gx:x & gx:w to something unique for the time being.
   -->
-  <element name="iconX" type="integer" default="0"/>
-  <element name="iconY" type="integer" default="0"/>
-  <element name="iconW" type="integer" default="-1"/>
-  <element name="iconH" type="integer" default="-1"/>
+  <element name="gridX" type="integer" default="0"/>
+  <element name="gridY" type="integer" default="0"/>
+  <element name="gridW" type="integer" default="-1"/>
+  <element name="gridH" type="integer" default="-1"/>
 
   <element name="AbstractObjectGroup" type="kml:AbstractObjectType"
     abstract="true"/>
@@ -445,6 +446,7 @@
     <simpleContent>
       <extension base="string">
         <attribute name="maxLines" type="int" use="optional" default="2"/>
+        <attributeGroup ref="kml:extensionOtherAttributes"/>
       </extension>
     </simpleContent>
   </complexType>
@@ -824,7 +826,7 @@
   <complexType name="SimpleArrayFieldType" final="#all">
     <sequence>
       <element ref="kml:displayName" minOccurs="0"/>
-      <element ref="kml:SimpleFieldExtension" minOccurs="0"
+      <element ref="kml:SimpleArrayFieldExtension" minOccurs="0"
         maxOccurs="unbounded"/>
     </sequence>
     <attribute name="type" type="string"/>
@@ -908,6 +910,13 @@
     <complexContent>
       <extension base="kml:AbstractObjectType">
         <sequence>
+          <!-- 
+            TODO: Should we use the substitutionGroup AbstractBoundingBoxGroup
+            here? LatLonBox and LatLonQuad won't work in a Region in
+            Google Earth, but it would be nice to have some tile system-
+            based bounding box definition for Regions. E.g. show this 
+            region only when below a certain altitude or LOD level.            
+          -->
           <element ref="kml:LatLonAltBox" minOccurs="0"/>
           <element ref="kml:Lod" minOccurs="0"/>
           <element ref="kml:RegionSimpleExtensionGroup" minOccurs="0"
@@ -976,12 +985,12 @@
         <sequence>    
           <!--
             TODO: IconStyle/Icon and AbstractOverlay/Icon are different but
-            IconStyle/Icon also needs to support iconX/Y/W/H!
+            IconStyle/Icon also needs to support gridX/Y/W/H!
           -->          
-          <element ref="kml:iconX" minOccurs="0"/>
-          <element ref="kml:iconY" minOccurs="0"/>
-          <element ref="kml:iconW" minOccurs="0"/>
-          <element ref="kml:iconH" minOccurs="0"/>
+          <element ref="kml:gridX" minOccurs="0"/>
+          <element ref="kml:gridY" minOccurs="0"/>
+          <element ref="kml:gridW" minOccurs="0"/>
+          <element ref="kml:gridH" minOccurs="0"/>
           <element ref="kml:IconLinkTypeSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:IconLinkTypeObjectExtensionGroup" minOccurs="0"
@@ -1365,7 +1374,17 @@
           <element ref="kml:altitude" minOccurs="0"/>
           <element ref="kml:altitudeMode" minOccurs="0"/>
           <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
-          <element ref="kml:LatLonBox" minOccurs="0"/>
+          <!-- 
+            This has the undersirable consequence that LatLonAltBox is also
+            valid in GroundOverlay. However, in Google Earth 6.1, using
+            LatLonAltBox seems to work fine!
+            
+            The other option is to use a <choice> between LatLonBox and
+            LatLonQuad. But this also means that new types of bounding boxes
+            (e.g. those that refer to tile system tile ids) must be added
+            to the extension group instead of via substitution group.
+          -->
+          <element ref="kml:AbstractBoundingBoxGroup" minOccurs="0"/>
           <element ref="kml:GroundOverlaySimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:GroundOverlayObjectExtensionGroup" minOccurs="0"
@@ -1676,7 +1695,27 @@
         <sequence>
           <element ref="kml:scale" minOccurs="0"/>
           <element ref="kml:heading" minOccurs="0"/>
-          <element name="Icon" type="kml:BasicIconLinkType" minOccurs="0"/>
+          <!--
+            KML 2.2 locally defined IconsStyle/Icon as a BasicLinkType and
+            a globally defined Icon as a LinkType for AbstractOverlays.
+            Because we need to add gridX/Y/W/H to both Icon elements we can
+            either:
+              1. Add grid* elements to IconBasicLinkSytle and IconLinkStyle
+                 which each extend BasicLinkType and LinkType
+              2. Create a new IconType which has grid* elements and to which
+                 LinkType's existing view* and refresh* elements must be added.
+              3. Use the same globally defined Icon for both IconStyle and
+                 AbstractOverlay.
+                 
+            #3 seems like a preferrable solution, as it's much simplier. But it
+            also means that IconStyle/Icon will have elements that have no meaning
+            in some implementations (like Google Earth).
+            
+            If we use option #1, we need to use the following Icon element
+            declaration:            
+            <element name="Icon" type="kml:IconLinkType" minOccurs="0"/>
+          -->
+          <element ref="kml:Icon" minOccurs="0"/>
           <element ref="kml:hotSpot" minOccurs="0"/>
           <element ref="kml:IconStyleSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
@@ -1712,18 +1751,21 @@
   <element name="BasicLinkObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>  
   
+  <!--
+    This is the type we'd need to use if we choose option #2 in the 
+    comment in the IconType declaration.
+    
+    TODO: IconStyle/Icon and AbstractOverlay/Icon are different but
+    IconStyle/Icon also needs to support gridX/Y/W/H!  
+  
   <complexType name="BasicIconLinkType" final="#all">
     <complexContent>
       <extension base="kml:BasicLinkType">
-        <sequence>    
-          <!--
-            TODO: IconStyle/Icon and AbstractOverlay/Icon are different but
-            IconStyle/Icon also needs to support iconX/Y/W/H!
-          -->          
-          <element ref="kml:iconX" minOccurs="0"/>
-          <element ref="kml:iconY" minOccurs="0"/>
-          <element ref="kml:iconW" minOccurs="0"/>
-          <element ref="kml:iconH" minOccurs="0"/>
+        <sequence>
+          <element ref="kml:gridX" minOccurs="0"/>
+          <element ref="kml:gridY" minOccurs="0"/>
+          <element ref="kml:gridW" minOccurs="0"/>
+          <element ref="kml:gridH" minOccurs="0"/>
           <element ref="kml:BasicIconLinkTypeSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:BasicIconLinkTypeObjectExtensionGroup" minOccurs="0"
@@ -1740,6 +1782,7 @@
     type="anySimpleType"/>
   <element name="BasicIconLinkTypeObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
+  -->
 
   <element name="LabelStyle" type="kml:LabelStyleType"
     substitutionGroup="kml:AbstractColorStyleGroup"/>
@@ -1966,7 +2009,11 @@
   
   <element name="AbstractTourPrimitiveGroup" type="kml:AbstractTourPrimitiveType"
     abstract="true" substitutionGroup="kml:AbstractObjectGroup"/>
-  <element name="AbstractTourPrimitive" type="kml:AbstractTourPrimitiveType"/>
+  
+  <!--
+    It's unclear why this is in the Google gx schema. It isn't used anywhere.
+    <element name="AbstractTourPrimitive" type="kml:AbstractTourPrimitiveType"/>
+  -->
   <complexType name="AbstractTourPrimitiveType">
     <complexContent>
       <extension base="kml:AbstractObjectType">
@@ -2015,17 +2062,17 @@
           <element ref="kml:duration" minOccurs="0"/>
           <element ref="kml:flyToMode" minOccurs="0"/>
           <element ref="kml:AbstractViewGroup" minOccurs="0"/>
-          <element ref="kml:AbstractTourSimpleExtensionGroup" minOccurs="0"
+          <element ref="kml:FlyToSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-          <element ref="kml:AbstractTourObjectExtensionGroup" minOccurs="0"
+          <element ref="kml:FlyToObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
         </sequence>
       </extension>
     </complexContent>
   </complexType>
-  <element name="AbstractTourSimpleExtensionGroup" abstract="true"
+  <element name="FlyToSimpleExtensionGroup" abstract="true"
     type="anySimpleType"/>
-  <element name="AbstractTourObjectExtensionGroup" abstract="true"
+  <element name="FlyToObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
   
   <element name="Playlist" type="kml:PlaylistType"
