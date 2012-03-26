@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs
+      title="fooa"
+      description="Embed an unlisted or public Picasa Video on your webpage."
+      author="Sean Askay"
+      author_email="alchemist@google.com"
+      author_location="Mountain View, CA USA"
+      author_affiliation="Google Inc"
+      width="480"
+      height="270">
+    <Require feature="dynamic-height"/>
+    <Require feature="flash"/>
+    <Require feature="minimessage"/>
+    <Require feature="setprefs"/>
+    <Locale lang="en"/>
+  </ModulePrefs>
+  <UserPref name="blank_title"  datatype="hidden" default_value="foo" />
+  <UserPref name="user_id"   default_value="102585625965237905260" required="true" datatype="string"  display_name="Username or User ID"/>
+  <UserPref name="album_id"  default_value="5642287374532062929" required="true" datatype="string"  display_name="Album ID"/>
+  <UserPref name="video_id"  default_value="5642287555602201986" required="true" datatype="string"  display_name="Video ID"/>
+  <UserPref name="authkey"   default_value="Gv1sRgCJjsw4ngiufdIA" required="true" datatype="string"  display_name="Authorization Key (for unlisted albums)"/>
+  <UserPref name="autoplay"  default_value="1" required="true" datatype="enum"    display_name="Autoplay video">
+    <EnumValue value="1" display_value="True"/>
+    <EnumValue value="0" display_value="False"/>
+  </UserPref>
+  <UserPref name="width" display_name="Video Width" datatype="enum" default_value="320">
+    <!-- Users pick a width for their video. Height depends on if the video is 4:3 or 16:9. -->
+    <EnumValue value="240"  display_value="240px"/>   <!-- 240x135 &   240x180 -->
+    <EnumValue value="320"  display_value="320px"/>   <!-- 320x180 &   320x240 -->
+    <EnumValue value="480"  display_value="480px"/>   <!-- 480x270 &   480x360 -->
+    <EnumValue value="560"  display_value="560px"/>   <!-- 560x315 &   560x420 -->
+    <EnumValue value="640"  display_value="640px"/>   <!-- 640x360 &   640x480 -->
+    <EnumValue value="853"  display_value="853px"/>   <!-- 853x480 &   853x640 -->
+    <EnumValue value="1024" display_value="1024px"/>  <!-- 1024x576 &  1024x768 -->
+    <EnumValue value="1280" display_value="1280px"/>  <!-- 1280x720 &  1280x960 -->
+    <EnumValue value="1920" display_value="1920px"/>  <!-- 1920x1080 & 1920x1440 -->
+  </UserPref>
+
+
+  <Content type="html" preferred_width="640" preferred_height="480"><![CDATA[
+    <div id="video" style="overflow: auto;"></div>
+    <script src="https://www.google.com/jsapi" type="text/javascript"></script>
+    <script type="text/javascript">
+
+    google.load('feeds', '1');
+
+    PREFS = new _IG_Prefs();
+    MSG = new gadgets.MiniMessage(__MODULE_ID__);
+    REG_VIDEO_RES = {
+        'w240': 180, 'w320': 240, 'w480': 360, 'w560': 420, 'w640': 480,
+        'w853': 640, 'w1024': 768, 'w1280': 960, 'w1920': 1440
+    }
+    WIDE_VIDEO_RES = {
+        'w240': 135, 'w320': 180, 'w480': 270, 'w560': 315, 'w640': 360,
+        'w853': 480, 'w1024': 576, 'w1280': 720, 'w1920': 1080
+    }
+    YOUTUBE_CONTROLS_HEIGHT = 25;
+
+ 
+    function getUrlParametersFromArray (obj, delimiter) {
+      var urlParams = [];
+      for (key in obj) {
+        urlParams.push(key + '=' + obj[key]);
+      }
+      return urlParams.join(delimiter);
+    }
+
+
+    //From: http://stackoverflow.com/questions/901115/get-query-string-values-in-javascript
+    function getParamsFromUrl(url) {
+      var urlParams = {};
+      (function () {
+        var e,
+            a = /\+/g,
+            r = /([^&=]+)=?([^&#]*)/g,
+            d = function (s) { return decodeURIComponent(s.replace(a, ' ')); },
+            q = url;
+
+        while (e = r.exec(q))
+           urlParams[d(e[1])] = d(e[2]);
+      })();
+      return urlParams;
+    }
+
+
+    function getPicasaVideoFeed (user_id, album_id, video_id, authkey){
+      var feed_url = 'https://picasaweb.google.com/data/feed/api/user/' +
+          user_id + '/albumid/' + album_id +
+          '?alt=rss&fields=item[gphoto:id=\'' + video_id + '\']';
+      feed_url += (authkey != '') ? '&authkey=' + authkey : '';
+      return feed_url;
+    }
+
+
+    function getVideoData (video) {
+      var params = new Object;
+      if (video.getNamedItem('medium').value == 'video') {
+        var video_width = parseInt(video.getNamedItem('width').value);
+        var video_height = parseInt(video.getNamedItem('height').value);
+        var video_url = video.getNamedItem('url').value;
+        var video_src = video_url.split('?')[1];
+
+        //Construct fmt_list parts
+        var itag = getParamsFromUrl(decodeURIComponent(video_src)).itag;
+        var size = video_width + 'x' + video_height;
+        var fmt_info = (itag == 5) ?
+            [itag, size, 7, 0, 0]: [itag, size, 9, 0, 115];
+        params.fmt_list = fmt_info.join('/');
+
+        //Construct fmt_streamMap
+        params.fmt_stream_map = [itag, video_url.replace(/,/g, '%2C')].join('|');
+
+        params.wide_screen = (video_width / video_height > 1.4);
+        params.height = video_height;
+        return params;
+      }
+      return false;
+    }
+
+
+    function insertEmbedCode (target_id, embed_width, embed_height, fmt_list,
+        fmt_stream_map) {
+      var url_params = {
+        'fs': 1, 'hl': 'en', 'ps': 'picasaweb', 'playerapiid': 'uniquePlayerId',
+        'video_id': 'picasacid', 't': 1, 'auth_timeout': 86400000000,
+        'vq': 'auto', //large
+        'autoplay': PREFS.getString('autoplay'),
+        'fmt_list': encodeURIComponent(fmt_list.reverse().join(',')),
+        'fmt_stream_map': encodeURIComponent(fmt_stream_map.reverse().join(','))
+      };
+      var flashvars = getUrlParametersFromArray(url_params, '&');
+
+      gadgets.flash.embedFlash(
+          'https://www.youtube.com/get_player?enablejsapi=1',
+          target_id,
+          7,
+          {
+            id: 'picasa_video',
+            allowfullscreen: 'true',
+            allowscriptaccess: 'always',
+            scale: 'noScale',
+            wmode: 'opaque',
+            modestbranding: 1,
+            rel: 0,
+            showinfo: 0,
+            width: embed_width,
+            height: embed_height,
+            flashvars: flashvars
+          }
+      );
+      gadgets.window.adjustHeight();
+    }
+
+
+    function embedVideo (result) {
+      var fmt_list = [];
+      var fmt_stream_map = [];
+      var video_params = false;
+
+      var xml_results = google.feeds.getElementsByTagNameNS(
+          result.xmlDocument.getElementsByTagName('item')[0],
+          'http://search.yahoo.com/mrss/', 'content');
+
+      for (var i = 0; i < xml_results.length; i++) {
+        video_params = getVideoData(xml_results[i].attributes);
+        if (video_params) {
+          fmt_list.push(video_params.fmt_list);
+          fmt_stream_map.push(video_params.fmt_stream_map);
+        }
+      }
+
+      if (fmt_list && fmt_stream_map) {
+        var embed_width = PREFS.getInt('width');
+        var embed_height = (video_params.wide_screen) ?
+            WIDE_VIDEO_RES['w' + String(embed_width)] :
+            REG_VIDEO_RES['w' + String(embed_width)];
+        embed_height += YOUTUBE_CONTROLS_HEIGHT;
+        insertEmbedCode('video', embed_width, embed_height, fmt_list,
+            fmt_stream_map);
+      }
+      else {
+        console.log('No video in this feed.');
+        MSG.createDismissibleMessage('The video ID you provided it\'s valid.');
+      }
+    }
+
+
+    function fetchFeed (feed_url, callback) {
+      var feed = new google.feeds.Feed(feed_url);
+      feed.setResultFormat(google.feeds.Feed.XML_FORMAT);
+      feed.load(function(result) {
+        if (result.error) {
+          console.log('Error: ' + result.error.code + ' ' +
+              result.error.message);
+          MSG.createDismissibleMessage(
+              'Sorry, there was an error fetching the feed for this video. ' +
+              'Error: ' + result.error.code + ' ' + result.error.message);
+          return false;
+        }
+        callback(result);
+      });
+    }
+
+
+    gadgets.util.registerOnLoadHandler(function () {
+      var feed_url = getPicasaVideoFeed(PREFS.getString('user_id'),
+          PREFS.getString('album_id'), PREFS.getString('video_id'),
+          PREFS.getString('authkey'));
+      fetchFeed(feed_url, embedVideo);
+    });
+
+    </script>
+]]></Content>
+</Module>
