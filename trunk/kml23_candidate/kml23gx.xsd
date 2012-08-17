@@ -254,6 +254,11 @@
       </extension>
     </complexContent>
   </complexType>
+  
+  <!-- BELONGS HERE
+  <element name="AbstractTrackSimpleExtensionGroup" abstract="true"
+    type="anySimpleType"/>
+  -->
 
   <element name="MultiTrack" type="gx:MultiTrackType"
     substitutionGroup="kml:AbstractGeometryGroup"/>

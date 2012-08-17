@@ -210,10 +210,14 @@
   </simpleType>
 
   <complexType name="optionType">
-    <!-- In Earth 6.0, the name attribute is restricted to Google Earth
+    <!-- 
+      TODO: In Earth 6.0, the name attribute is restricted to Google Earth
       specific items, streetview,historicalimagery,sunlight.
       However, in a future version of this schema, we may remove this
-      restriction, so we are using a string instead of a enumeration. -->
+      restriction, so we are using a string instead of a enumeration.
+      
+      See comment in ViewerOptionType... this might be too specific to Earth.
+    -->
     <attribute name="name" type="string"/>
     <attribute name="enabled" type="boolean"/>
     <attributeGroup ref="kml:extensionOtherAttributes"/>
@@ -280,13 +284,13 @@
     </annotation>
   </element>
   <element name="httpQuery" type="string"/>
-  <!--horizFov in Google Earth only works in a range of 10-170 degress
+  <!-- TODO: horizFov in Google Earth only works in a range of 10-170 degress
     in Google Earth 6.1-->
   <element name="horizFov" type="kml:anglepos180Type"/>
   <element name="hotSpot" type="kml:vec2Type"/>
   <element name="interpolate" type="boolean" default="false"/>
   <element name="key" type="kml:styleStateEnumType" default="normal"/>
-  <!--Currently only works on LineStyle as applied to a LineString.
+  <!-- TODO: Currently only works on LineStyle as applied to a LineString.
     Does not work on LineStyle as applied to Polygons or extruded Points.-->
   <element name="labelVisibility" type="boolean" default="0"/>
   <element name="latitude" type="kml:angle90Type" default="0.0"/>
@@ -347,7 +351,8 @@
   <element name="tileSize" type="int" default="256"/>
   <element name="tilt" type="kml:anglepos180Type" default="0.0"/>
   <element name="topFov" type="kml:angle90Type" default="0.0"/>
-  <element name="value" type="string"/>
+  <!-- TODO: Changed <value> from string to anySimpleType to allow instances to define types -->
+  <element name="value" type="anySimpleType"/>
   <element name="viewBoundScale" type="double" default="1.0"/>
   <element name="viewFormat" type="string"/>
   <element name="viewRefreshMode" type="kml:viewRefreshModeEnumType"
@@ -582,8 +587,9 @@
 
   <element name="SimpleData" type="kml:SimpleDataType"/>
   <complexType name="SimpleDataType" final="#all">
-    <simpleContent>
-      <extension base="string">
+    <simpleContent>      
+      <!-- TODO: Changed <SimpleData> from string to anySimpleType to allow instances to define types -->
+      <extension base="anySimpleType">
         <attribute name="name" type="string" use="required"/>
         <attributeGroup ref="kml:extensionOtherAttributes"/>
       </extension>
@@ -1375,7 +1381,7 @@
           <element ref="kml:altitudeMode" minOccurs="0"/>
           <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
           <!-- 
-            This has the undersirable consequence that LatLonAltBox is also
+            TODO: This has the undersirable consequence that LatLonAltBox is also
             valid in GroundOverlay. However, in Google Earth 6.1, using
             LatLonAltBox seems to work fine!
             
@@ -1696,7 +1702,7 @@
           <element ref="kml:scale" minOccurs="0"/>
           <element ref="kml:heading" minOccurs="0"/>
           <!--
-            KML 2.2 locally defined IconsStyle/Icon as a BasicLinkType and
+            TODO: KML 2.2 locally defined IconsStyle/Icon as a BasicLinkType and
             a globally defined Icon as a LinkType for AbstractOverlays.
             Because we need to add gridX/Y/W/H to both Icon elements we can
             either:
@@ -1752,7 +1758,7 @@
     substitutionGroup="kml:AbstractObjectGroup"/>  
   
   <!--
-    This is the type we'd need to use if we choose option #2 in the 
+    TODO: This is the type we'd need to use if we choose option #2 in the 
     comment in the IconType declaration.
     
     TODO: IconStyle/Icon and AbstractOverlay/Icon are different but
@@ -2011,7 +2017,7 @@
     abstract="true" substitutionGroup="kml:AbstractObjectGroup"/>
   
   <!--
-    It's unclear why this is in the Google gx schema. It isn't used anywhere.
+    TODO: It's unclear why this is in the Google gx schema. It isn't used anywhere.
     <element name="AbstractTourPrimitive" type="kml:AbstractTourPrimitiveType"/>
   -->
   <complexType name="AbstractTourPrimitiveType">
@@ -2177,6 +2183,13 @@
   <element name="WaitObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/> 
   
+  <!-- 
+    TODO: Is this too specific to Google Earth?
+    It only allows "enabling" of named features. Is this too limiting?
+    Do we need something more generate to allow enumerations?
+    Granted, third-parties can put whatever they want into <ViewerOptions>
+    in their own namespace.
+  -->
   <element name="ViewerOptions" type="kml:ViewerOptionsType"
     substitutionGroup="kml:AbstractViewObjectExtensionGroup"/>
   <complexType name="ViewerOptionsType">
