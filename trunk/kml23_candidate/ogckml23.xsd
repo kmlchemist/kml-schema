@@ -12,7 +12,7 @@
     <documentation>XML Schema Document for OGC KML version 2.3. Copyright (c)
       2012 Open Geospatial Consortium, Inc. All Rights Reserved.
     </documentation>
-  </annotation>  
+  </annotation>
 
   <!-- import atom:author and atom:link -->
 <import namespace="http://www.w3.org/2005/Atom"
@@ -314,6 +314,7 @@
   <element name="maxWidth" type="int" default="0"/>
   <element name="name" type="string"/>
   <element name="near" type="double" default="0.0"/>
+  <!-- TODO: Mention that values > 90 are valid, but may not be sensical -->
   <element name="north" type="kml:angle180Type" default="180.0"/>
   <element name="open" type="boolean" default="0"/>
   <element name="option" type="kml:optionType"/>
@@ -339,6 +340,7 @@
   <element name="screenXY" type="kml:vec2Type"/>
   <element name="shape" type="kml:shapeEnumType" default="rectangle"/>
   <element name="size" type="kml:vec2Type"/>
+  <!-- TODO: Mention that values < -90 are valid, but may not be sensical -->
   <element name="south" type="kml:angle180Type" default="-180.0"/>
   <element name="sourceHref" type="anyURI"/>
   <element name="snippet" type="string"/>
@@ -430,7 +432,8 @@
             </annotation>
             <element ref="kml:Metadata" minOccurs="0"/>
             <element ref="kml:ExtendedData" minOccurs="0"/>
-          </choice>          
+          </choice>
+          <!-- TODO: What should the order be for balloonviz & rank? -->
           <element ref="kml:balloonVisibility" minOccurs="0"/>     
           <element ref="kml:rank" minOccurs="0"/>
           <element ref="kml:AbstractFeatureSimpleExtensionGroup" minOccurs="0"
@@ -764,6 +767,7 @@
       <element ref="kml:message" minOccurs="0"/>
       <element ref="kml:linkName" minOccurs="0"/>
       <element ref="kml:linkDescription" minOccurs="0"/>
+      <!-- TODO: We are deprecating the use of Snippet... what about this? -->
       <element ref="kml:linkSnippet" minOccurs="0"/>
       <element ref="kml:expires" minOccurs="0"/>
       <element ref="kml:Update" minOccurs="0"/>
@@ -1987,6 +1991,7 @@
   <element name="UpdateExtensionGroup" abstract="true"/>
 
   <element name="Create" type="kml:CreateType"/>
+  <!-- TODO: What about creating new a new <Track> in <MultiTrack> -->
   <complexType name="CreateType">
     <sequence>
       <element ref="kml:AbstractContainerGroup" minOccurs="0"
@@ -1996,6 +2001,7 @@
   </complexType>
 
   <element name="Delete" type="kml:DeleteType"/>
+  <!-- TODO: What about deleting a <Track> in <MultiTrack> -->
   <complexType name="DeleteType">
     <sequence>
       <element ref="kml:AbstractFeatureGroup" minOccurs="0"
