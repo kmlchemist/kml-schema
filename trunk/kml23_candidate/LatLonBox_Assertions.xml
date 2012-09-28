@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.3" xmlns:kml="http://www.opengis.net/kml/2.3" xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/kml/2.3 ogckml23_xsd11_assertions.xsd">
+  <GroundOverlay>
+    <name>Test AbstractLatLonBoxType XSD1.1 Assertions</name>
+    <Icon>
+      <href>C:/Users/Public/Pictures/Sample Pictures/Jellyfish.jpg</href>
+      <viewBoundScale>0.75</viewBoundScale>
+    </Icon>
+    <LatLonBox>
+      <north>79.99557271643835</north>
+      <south>-0.03984555205504847</south>
+      <east>16.79427380897877</east>
+      <west>-100.7942738089789</west>
+      <!--These values fail AbstractLatLonBoxType assertions: C1 kml:south < kml:north and C2 kml:west < kml:east:
+      <north>70.0</north>
+      <south>80.0</south>
+      <east>0.0</east>
+      <west>1.0</west>
+      -->
+      <!--These values fail AbstractLatLonBoxType assertion: C3 kml:east - kml:west ≤ 360:
+      <north>90.0</north>
+      <south>-90.0</south>
+      <east>360</east>
+      <west>-360</west>
+      -->
+      <!--These values fail AbstractLatLonBoxType assertion:  
+        C4 If (|kml:west| or |kml:east|) > 180, then kml:east > 0 and kml:west < 180:
+      <north>90.0</north>
+      <south>-90.0</south>
+      <east>0</east>
+      <west>-360</west>
+      -->
+    </LatLonBox>
+  </GroundOverlay>
+</kml>
+
