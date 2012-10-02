@@ -80,6 +80,7 @@
   <!-- end Sean -->
 
   <!-- TODO: anglepos90Type appears to be unused -->  
+  <!-- TODO: anglepos90Type ppears to be unused -->  
   <complexType name="anglepos90Type">
     <simpleContent>
       <restriction base="kml:doubleWithAttributesType">
@@ -159,6 +160,23 @@
     </simpleContent>
   </complexType>
   
+  <!-- 
+    TODO: Is there a better way to do this? 
+    
+    Like this?
+      
+    <complexType name="coordinatesType">
+      <simpleContent>
+        <restriction base="anyType">
+          <simpleType>
+            <list itemType="string"/>
+          </simpleType>
+          <attributeGroup ref="kml:extensionOtherAttributes"/>
+        </restriction>
+      </simpleContent>
+    </complexType>  
+  -->
+  
   <simpleType name="stringList">
     <list itemType="string"/>
   </simpleType>
@@ -179,6 +197,25 @@
       <enumeration value="random"/>
     </restriction>
   </simpleType>
+
+
+  <!-- 
+    TODO: Is there a better way to do this? 
+    
+    Like this?
+    
+    <complexType name="dateTimeType">
+      <simpleContent>
+        <restriction base="anyType">
+         <simpleType>
+            <union memberTypes="dateTime date gYearMonth gYear"/>
+         </simpleType>
+         <attributeGroup ref="kml:extensionOtherAttributes"/>
+        </restriction>
+      </simpleContent>
+    </complexType>  
+    
+  -->
   
   <simpleType name="dateTimeUnionType">
     <union memberTypes="dateTime date gYearMonth gYear"/>
@@ -449,6 +486,9 @@
     </complexContent>
   </complexType>
   <element name="AbstractFeatureObjectExtensionGroup" abstract="true"
+  substitutionGroup="kml:AbstractObjectGroup"/>
+  
+  <element name="AbstractFeatureObjectExtensionGroup2" type="kml:AbstractObjectType" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
   <element name="AbstractFeatureSimpleExtensionGroup" abstract="true"
     type="anySimpleType"/>
