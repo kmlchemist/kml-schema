@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:kml="http://www.opengis.net/kml/2.3"
-  xmlns:atom="http://www.w3.org/2005/Atom" xmlns:xal="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:kml="http://www.opengis.net/kml/2.3" xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:xal="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
   targetNamespace="http://www.opengis.net/kml/2.3" elementFormDefault="qualified" version="2.3.0">
   <!-- TODO: We could add defaultAttributes="kml:extensionOtherAttributes"
     But that would allow people to put attributes into simple elements, which
@@ -1357,24 +1358,24 @@
           <element ref="kml:AbstractLatLonBoxObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
         </all>
-        <assert test="./kml:south lt ./kml:north">
+        <assert test="xs:double(./kml:south) lt xs:double(./kml:north)">
           <annotation>
             <appinfo>The value of 'south' must be strictly less than the value of 'north'</appinfo>
           </annotation>
         </assert>
-        <assert test="./kml:west lt ./kml:east">
+        <assert test="xs:double(./kml:west) lt xs:double(./kml:east)">
           <annotation>
             <appinfo>The value of 'west' must be strictly less than the value of 'east'</appinfo>
           </annotation>
         </assert>
-        <assert test="./kml:east - ./kml:west le 360">
+        <assert test="xs:double(./kml:east) - xs:double(./kml:west) le 360">
           <annotation>
             <appinfo>The longitude interval (i.e. 'east' - 'west') must not exceed full global
               coverage (360 degrees)</appinfo>
           </annotation>
         </assert>
         <assert
-          test="(abs(./kml:west) le 180 and abs(./kml:east) le 180) or (./kml:east gt 0 and ./kml:west lt 180)">
+          test="(abs(xs:double(./kml:west)) le 180 and abs(xs:double(./kml:east)) le 180) or (xs:double(./kml:east) gt 0 and xs:double(./kml:west) lt 180)">
           <annotation>
             <appinfo>Uniqueness constraint: If (|kml:west| or |kml:east|) gt 180, then kml:east gt 0
               and kml:west lt 180</appinfo>
