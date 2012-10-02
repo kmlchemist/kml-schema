@@ -1359,24 +1359,25 @@
         </all>
         <assert test="./kml:south lt ./kml:north">
           <annotation>
-            <appinfo>The value of 'south' must be strictly less than the value of
-              'north'</appinfo>
+            <appinfo>The value of 'south' must be strictly less than the value of 'north'</appinfo>
           </annotation>
         </assert>
         <assert test="./kml:west lt ./kml:east">
           <annotation>
-            <appinfo>The value of 'west' must be strictly less than the value of
-              'east'</appinfo>
+            <appinfo>The value of 'west' must be strictly less than the value of 'east'</appinfo>
           </annotation>
         </assert>
         <assert test="./kml:east - ./kml:west le 360">
           <annotation>
-            <appinfo>The longitude interval (i.e. 'east' - 'west') must not exceed full global coverage (360 degrees)</appinfo>
+            <appinfo>The longitude interval (i.e. 'east' - 'west') must not exceed full global
+              coverage (360 degrees)</appinfo>
           </annotation>
         </assert>
-        <assert test="(abs(./kml:west) le 180 and abs(./kml:east) le 180) or (./kml:east gt 0 and ./kml:west lt 180)">
+        <assert
+          test="(abs(./kml:west) le 180 and abs(./kml:east) le 180) or (./kml:east gt 0 and ./kml:west lt 180)">
           <annotation>
-            <appinfo>Uniqueness constraint: If (|kml:west| or |kml:east|) gt 180, then kml:east gt 0 and kml:west lt 180</appinfo>
+            <appinfo>Uniqueness constraint: If (|kml:west| or |kml:east|) gt 180, then kml:east gt 0
+              and kml:west lt 180</appinfo>
           </annotation>
         </assert>
       </extension>
