@@ -6,7 +6,7 @@
   targetNamespace="http://www.opengis.net/kml/2.3"
   elementFormDefault="qualified"
   version="2.3.0">
-  
+
   <annotation>
     <appinfo>ogckml23.xsd 2012-01-23</appinfo>
     <documentation>XML Schema Document for OGC KML version 2.3. Copyright (c)
@@ -24,7 +24,6 @@
 
   <!-- Attribute group allowing any attributes from other namespaces. -->
   <!-- TODO: Should we choose lax or strict processing? -->
-  
   <attributeGroup name="extensionOtherAttributes">
     <anyAttribute namespace="##other" processContents="strict"/>
   </attributeGroup>
@@ -73,7 +72,7 @@
       <enumeration value="absolute"/>
     </restriction>
   </simpleType>
-  
+
   <simpleType name="seaFloorAltitudeModeEnumType">
     <restriction base="string">
       <enumeration value="clampToSeaFloor"/>
@@ -84,12 +83,12 @@
   <simpleType name="colorType">
     <annotation>
       <documentation><![CDATA[
-        
+
         aabbggrr
-        
+
         ffffffff: opaque white
         ff000000: opaque black
-        
+
         ]]></documentation>
     </annotation>
     <restriction base="hexBinary">
@@ -118,7 +117,7 @@
       <enumeration value="hide"/>
     </restriction>
   </simpleType>
-  
+
   <simpleType name="flyToModeEnumType">
     <restriction base="string">
       <enumeration value="bounce"/>
@@ -155,14 +154,14 @@
       <enumeration value="checkOffOnly"/>
     </restriction>
   </simpleType>
-  
+
   <simpleType name="outerWidthType">
     <restriction base="float">
       <minInclusive value="0.0"/>
       <maxInclusive value="1.0"/>
     </restriction>
   </simpleType>
-  
+
   <simpleType name="playModeEnumType">
     <restriction base="string">
       <enumeration value="pause"/>
@@ -210,13 +209,13 @@
   </simpleType>
 
   <complexType name="optionType">
-    <!-- 
-      TODO: In Earth 6.0, the name attribute is restricted to Google Earth
-      specific items, streetview,historicalimagery,sunlight.
+    <!--
+      TODO: In Earth 6.0, the name attribute is restricted to Google Earth specific items, streetview, historicalimagery, and sunlight.
       However, in a future version of this schema, we may remove this
       restriction, so we are using a string instead of a enumeration.
-      
+
       See comment in ViewerOptionType... this might be too specific to Earth.
+      Should this stay in the gx namespace?
     -->
     <attribute name="name" type="string"/>
     <attribute name="enabled" type="boolean"/>
@@ -235,20 +234,27 @@
 
   <element name="address" type="string"/>
   <element name="altitude" type="double" default="0.0"/>
-  <!-- 
+  <!--
     TODO: Is removing altitudeModeGroup and replacing with refs to
     both the replacements for kml:altitudeMode and gx:altitudeMode
     the best approach?
-    
+
+    What was the original intention of the altitudeModeGroup? For
+    extension purposes? The original design failed because it did
+    not allow for including both kml:altitudeMode and gx:altitudeMode
+    for backwards compatibility.
+
+    Is there anything else we can do to make enumerations more extensible?
+
     <element name="altitudeModeGroup" abstract="true"/>
     <element name="altitudeMode" type="kml:altitudeModeEnumType"
     default="clampToGround" substitutionGroup="kml:altitudeModeGroup"/>
-  -->  
+  -->
   <element name="altitudeMode" type="kml:altitudeModeEnumType"
     default="clampToGround"/>
   <!-- TODO: Should we have a better name for seaFloorAltitudeMode? -->
   <element name="seaFloorAltitudeMode"
-    type="kml:seaFloorAltitudeModeEnumType"/>  
+    type="kml:seaFloorAltitudeModeEnumType"/>
   <element name="altitudeOffset" type="double"/>
   <element name="angles" type="string"/>
   <element name="balloonVisibility" type="boolean" default="true"/>
@@ -290,13 +296,21 @@
   <element name="hotSpot" type="kml:vec2Type"/>
   <element name="interpolate" type="boolean" default="false"/>
   <element name="key" type="kml:styleStateEnumType" default="normal"/>
-  <!-- TODO: Currently only works on LineStyle as applied to a LineString.
-    Does not work on LineStyle as applied to Polygons or extruded Points.-->
+  <!--
+    TODO: Currently only works on LineStyle as applied to a LineString.
+    Does not work on LineStyle as applied to Polygons or extruded Points.
+    However, it might in the future. How would we better support extensions
+    for defining where point, line and polygon labels appear?
+  -->
   <element name="labelVisibility" type="boolean" default="0"/>
   <element name="latitude" type="kml:angle90Type" default="0.0"/>
   <element name="leftFov" type="kml:angle180Type" default="0.0"/>
   <element name="linkDescription" type="string"/>
   <element name="linkName" type="string"/>
+  <!--
+    TODO: We are deprecating the use of Snippet, which is of SnippetType.
+    What about linkSnippet, which is of also of that type?
+  -->
   <element name="linkSnippet" type="kml:SnippetType"/>
   <element name="listItemType" type="kml:listItemTypeEnumType" default="check"/>
   <element name="longitude" type="kml:angle180Type" default="0.0"/>
@@ -353,7 +367,11 @@
   <element name="tileSize" type="int" default="256"/>
   <element name="tilt" type="kml:anglepos180Type" default="0.0"/>
   <element name="topFov" type="kml:angle90Type" default="0.0"/>
-  <!-- TODO: Changed <value> from string to anySimpleType to allow instances to define types -->
+  <!--
+    TODO: Changed <value> from string to anySimpleType to allow instances to define types.
+    Does this help when people want to specify their own simple data styles? Do they just
+    use xs:type?
+  -->
   <element name="value" type="anySimpleType"/>
   <element name="viewBoundScale" type="double" default="1.0"/>
   <element name="viewFormat" type="string"/>
@@ -368,8 +386,8 @@
   <element name="x" type="double" default="1.0"/>
   <element name="y" type="double" default="1.0"/>
   <element name="z" type="double" default="1.0"/>
-  
-  
+
+
   <!--
     TODO: There's a type collision between kml:x & kml:y and gx:x & gx:y
     because the former elements are doubles and the later are integers.
@@ -420,6 +438,13 @@
             <element ref="kml:snippet" minOccurs="0"/>
           </choice>
           <element ref="kml:description" minOccurs="0"/>
+          <!--
+            TODO: What should the order be for balloonviz & rank?
+            in gx: they are placed at the end of the feature. However, it would
+            make more sense for balloonVisibility to appear at the beginning.
+          -->
+          <element ref="kml:balloonVisibility" minOccurs="0"/>
+          <element ref="kml:rank" minOccurs="0"/>
           <element ref="kml:AbstractViewGroup" minOccurs="0"/>
           <element ref="kml:AbstractTimePrimitiveGroup" minOccurs="0"/>
           <element ref="kml:styleUrl" minOccurs="0"/>
@@ -433,9 +458,6 @@
             <element ref="kml:Metadata" minOccurs="0"/>
             <element ref="kml:ExtendedData" minOccurs="0"/>
           </choice>
-          <!-- TODO: What should the order be for balloonviz & rank? -->
-          <element ref="kml:balloonVisibility" minOccurs="0"/>     
-          <element ref="kml:rank" minOccurs="0"/>
           <element ref="kml:AbstractFeatureSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:AbstractFeatureObjectExtensionGroup" minOccurs="0"
@@ -466,7 +488,6 @@
       <extension base="kml:AbstractObjectType">
         <sequence>
           <element ref="kml:AbstractTimePrimitiveGroup" minOccurs="0"/>
-          <element ref="kml:horizFov" minOccurs="0"/>
           <element ref="kml:AbstractViewSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:AbstractViewObjectExtensionGroup" minOccurs="0"
@@ -494,6 +515,7 @@
           <element ref="kml:range" minOccurs="0"/>
           <element ref="kml:altitudeMode" minOccurs="0"/>
           <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
+          <element ref="kml:horizFov" minOccurs="0"/>
           <element ref="kml:LookAtSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:LookAtObjectExtensionGroup" minOccurs="0"
@@ -521,6 +543,7 @@
           <element ref="kml:roll" minOccurs="0"/>
           <element ref="kml:altitudeMode" minOccurs="0"/>
           <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
+          <element ref="kml:horizFov" minOccurs="0"/>
           <element ref="kml:CameraSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:CameraObjectExtensionGroup" minOccurs="0"
@@ -534,15 +557,16 @@
   <element name="CameraObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
 
-  <!-- 
-    TODO: Cross-functional extension groups that appear in different branches
+  <!--
+    TODO: XSD 1.0
+    Cross-functional extension groups that appear in different branches
     of object model tree go here.
   -->
-  
+
   <element name="CrossIconPropertiesSimpleExtensionGroup" abstract="true"
     type="anySimpleType"/>
   <element name="CrossIconPropertiesObjectExtensionGroup" abstract="true"
-    substitutionGroup="kml:AbstractObjectGroup"/> 
+    substitutionGroup="kml:AbstractObjectGroup"/>
 
   <element name="Metadata" type="kml:MetadataType">
     <annotation>
@@ -590,16 +614,16 @@
 
   <element name="SimpleData" type="kml:SimpleDataType"/>
   <complexType name="SimpleDataType" final="#all">
-    <simpleContent>      
+    <simpleContent>
       <!-- TODO: Changed <SimpleData> from string to anySimpleType to allow instances to define types -->
       <extension base="anySimpleType">
         <attribute name="name" type="string" use="required"/>
         <attributeGroup ref="kml:extensionOtherAttributes"/>
       </extension>
     </simpleContent>
-  </complexType> 
-  
-  <element name="SimpleArrayData" type="kml:SimpleArrayDataType"/>  
+  </complexType>
+
+  <element name="SimpleArrayData" type="kml:SimpleArrayDataType"/>
   <complexType name="SimpleArrayDataType" final="#all">
     <complexContent>
       <extension base="kml:AbstractObjectType">
@@ -767,7 +791,10 @@
       <element ref="kml:message" minOccurs="0"/>
       <element ref="kml:linkName" minOccurs="0"/>
       <element ref="kml:linkDescription" minOccurs="0"/>
-      <!-- TODO: We are deprecating the use of Snippet... what about this? -->
+      <!--
+        TODO: We are deprecating the use of Snippet, which is of SnippetType.
+        What about linkSnippet, which is of also of that type?
+      -->
       <element ref="kml:linkSnippet" minOccurs="0"/>
       <element ref="kml:expires" minOccurs="0"/>
       <element ref="kml:Update" minOccurs="0"/>
@@ -831,14 +858,18 @@
     <attributeGroup ref="kml:extensionOtherAttributes"/>
   </complexType>
   <element name="SimpleFieldExtension" abstract="true"/>
-  
-  <element name="SimpleArrayField" type="kml:SimpleArrayFieldType"/>  
+
+  <element name="SimpleArrayField" type="kml:SimpleArrayFieldType"/>
   <complexType name="SimpleArrayFieldType" final="#all">
     <sequence>
       <element ref="kml:displayName" minOccurs="0"/>
       <element ref="kml:SimpleArrayFieldExtension" minOccurs="0"
         maxOccurs="unbounded"/>
     </sequence>
+    <!--
+      TODO:
+      Would the use of anyAtomicType or anySimpleType negate the need for @type?
+    -->
     <attribute name="type" type="string"/>
     <attribute name="name" type="string"/>
     <attributeGroup ref="kml:extensionOtherAttributes"/>
@@ -920,12 +951,15 @@
     <complexContent>
       <extension base="kml:AbstractObjectType">
         <sequence>
-          <!-- 
+          <!--
             TODO: Should we use the substitutionGroup AbstractBoundingBoxGroup
             here? LatLonBox and LatLonQuad won't work in a Region in
             Google Earth, but it would be nice to have some tile system-
-            based bounding box definition for Regions. E.g. show this 
-            region only when below a certain altitude or LOD level.            
+            based bounding box definition for Regions. E.g. show this
+            region only when below a certain altitude or LOD level.
+
+            We could also use <assert> to disallow LatLonQuad, but allow other
+            members of that subsitutionGroup.
           -->
           <element ref="kml:LatLonAltBox" minOccurs="0"/>
           <element ref="kml:Lod" minOccurs="0"/>
@@ -988,15 +1022,15 @@
     substitutionGroup="kml:AbstractObjectGroup"/>
 
   <element name="Icon" type="kml:IconLinkType"
-    substitutionGroup="kml:AbstractObjectGroup"/>   
+    substitutionGroup="kml:AbstractObjectGroup"/>
   <complexType name="IconLinkType" final="#all">
     <complexContent>
       <extension base="kml:LinkType">
-        <sequence>    
+        <sequence>
           <!--
             TODO: IconStyle/Icon and AbstractOverlay/Icon are different but
             IconStyle/Icon also needs to support gridX/Y/W/H!
-          -->          
+          -->
           <element ref="kml:gridX" minOccurs="0"/>
           <element ref="kml:gridY" minOccurs="0"/>
           <element ref="kml:gridW" minOccurs="0"/>
@@ -1005,6 +1039,10 @@
             maxOccurs="unbounded"/>
           <element ref="kml:IconLinkTypeObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
+          <!--
+            TODO: XSD 1.0
+            We need a cross-functional extension group for icons.
+          -->
           <element ref="kml:CrossIconPropertiesSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:CrossIconPropertiesObjectExtensionGroup" minOccurs="0"
@@ -1016,8 +1054,8 @@
   <element name="IconLinkTypeSimpleExtensionGroup" abstract="true"
     type="anySimpleType"/>
   <element name="IconLinkTypeObjectExtensionGroup" abstract="true"
-    substitutionGroup="kml:AbstractObjectGroup"/>  
-  
+    substitutionGroup="kml:AbstractObjectGroup"/>
+
   <element name="Link" type="kml:LinkType"
     substitutionGroup="kml:AbstractObjectGroup"/>
   <element name="Url" type="kml:LinkType"
@@ -1026,8 +1064,9 @@
       <documentation>Url deprecated in 2.2</documentation>
     </annotation>
   </element>
-  <!-- 
-    TODO: We can't make LinkType final, because IconLinkType extends it! 
+  <!--
+    TODO: We can't make LinkType final, because IconLinkType extends it!
+    Are there policies against this at OGC?
   -->
   <complexType name="LinkType">
     <complexContent>
@@ -1173,7 +1212,10 @@
   <element name="PolygonObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
 
-  <!-- TODO: Why isn't boundary type an AbstractObject? -->
+  <!--
+    TODO: Why isn't boundary type an AbstractObject?
+    Is this to prevent the use of <Update>?
+  -->
   <element name="outerBoundaryIs" type="kml:BoundaryType"/>
   <element name="innerBoundaryIs" type="kml:BoundaryType"/>
   <complexType name="BoundaryType" final="#all">
@@ -1196,7 +1238,7 @@
   <complexType name="ModelType" final="#all">
     <complexContent>
       <extension base="kml:AbstractGeometryType">
-        <sequence>          
+        <sequence>
           <element ref="kml:altitudeMode" minOccurs="0"/>
           <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
           <element ref="kml:Location" minOccurs="0"/>
@@ -1216,7 +1258,7 @@
     type="anySimpleType"/>
   <element name="ModelObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
-  
+
   <element name="Track" type="kml:TrackType"
       substitutionGroup="kml:AbstractGeometryGroup"/>
   <complexType name="TrackType">
@@ -1224,7 +1266,7 @@
       <extension base="kml:AbstractGeometryType">
         <sequence>
           <element ref="kml:extrude" minOccurs="0"/>
-          <element ref="kml:tessellate" minOccurs="0"/>       
+          <element ref="kml:tessellate" minOccurs="0"/>
           <element ref="kml:altitudeMode" minOccurs="0"/>
           <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
           <element ref="kml:when" minOccurs="0" maxOccurs="unbounded"/>
@@ -1244,13 +1286,13 @@
     type="anySimpleType"/>
   <element name="TrackObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
-  
+
   <element name="MultiTrack" type="kml:MultiTrackType"
-    substitutionGroup="kml:AbstractGeometryGroup"/>  
+    substitutionGroup="kml:AbstractGeometryGroup"/>
   <complexType name="MultiTrackType">
     <complexContent>
       <extension base="kml:AbstractGeometryType">
-        <sequence>      
+        <sequence>
           <element ref="kml:altitudeMode" minOccurs="0"/>
           <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
           <element ref="kml:interpolate" minOccurs="0"/>
@@ -1384,11 +1426,13 @@
           <element ref="kml:altitude" minOccurs="0"/>
           <element ref="kml:altitudeMode" minOccurs="0"/>
           <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
-          <!-- 
+          <!--
             TODO: This has the undersirable consequence that LatLonAltBox is also
             valid in GroundOverlay. However, in Google Earth 6.1, using
             LatLonAltBox seems to work fine!
-            
+
+            If we use XSD 1.1: Could also use <assert> to restrict what works here and what doesn't.
+
             The other option is to use a <choice> between LatLonBox and
             LatLonQuad. But this also means that new types of bounding boxes
             (e.g. those that refer to tile system tile ids) must be added
@@ -1407,7 +1451,7 @@
     type="anySimpleType"/>
   <element name="GroundOverlayObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
-  
+
   <!--
     TODO: Eval this idea: abstract bounding box type from which both
     AbstractLatLonBoxType and LatLonQuad inherit from. This also leaves
@@ -1431,7 +1475,7 @@
     type="anySimpleType"/>
   <element name="AbstractBoundingBoxObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
-  
+
   <element name="LatLonQuad" type="kml:LatLonQuadType"
     substitutionGroup="kml:AbstractBoundingBoxGroup"/>
   <complexType name="LatLonQuadType" final="#all">
@@ -1716,13 +1760,13 @@
                  LinkType's existing view* and refresh* elements must be added.
               3. Use the same globally defined Icon for both IconStyle and
                  AbstractOverlay.
-                 
+
             #3 seems like a preferrable solution, as it's much simplier. But it
             also means that IconStyle/Icon will have elements that have no meaning
             in some implementations (like Google Earth).
-            
+
             If we use option #1, we need to use the following Icon element
-            declaration:            
+            declaration:
             <element name="Icon" type="kml:IconLinkType" minOccurs="0"/>
           -->
           <element ref="kml:Icon" minOccurs="0"/>
@@ -1740,8 +1784,8 @@
   <element name="IconStyleObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
 
-  <!-- 
-    TODO: We can't make BasicLinkType final, because IconLinkType extends it! 
+  <!--
+    TODO: We can't make BasicLinkType final, because IconLinkType extends it!
   -->
   <complexType name="BasicLinkType">
     <complexContent>
@@ -1759,15 +1803,15 @@
   <element name="BasicLinkSimpleExtensionGroup" abstract="true"
     type="anySimpleType"/>
   <element name="BasicLinkObjectExtensionGroup" abstract="true"
-    substitutionGroup="kml:AbstractObjectGroup"/>  
-  
+    substitutionGroup="kml:AbstractObjectGroup"/>
+
   <!--
-    TODO: This is the type we'd need to use if we choose option #2 in the 
+    TODO: This is the type we'd need to use if we choose option #2 in the
     comment in the IconType declaration.
-    
+
     TODO: IconStyle/Icon and AbstractOverlay/Icon are different but
-    IconStyle/Icon also needs to support gridX/Y/W/H!  
-  
+    IconStyle/Icon also needs to support gridX/Y/W/H!
+
   <complexType name="BasicIconLinkType" final="#all">
     <complexContent>
       <extension base="kml:BasicLinkType">
@@ -1858,6 +1902,10 @@
   <element name="PolyStyleObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
 
+  <!--
+    TODO: You can't style the mini balloons of a <Track> with BalloonStyle.
+    Only the main balloon associated with the icon. Should this be fixed?
+  -->
   <element name="BalloonStyle" type="kml:BalloonStyleType"
     substitutionGroup="kml:AbstractSubStyleGroup"/>
   <complexType name="BalloonStyleType" final="#all">
@@ -1991,7 +2039,13 @@
   <element name="UpdateExtensionGroup" abstract="true"/>
 
   <element name="Create" type="kml:CreateType"/>
-  <!-- TODO: What about creating new a new <Track> in <MultiTrack> -->
+  <!--
+    TODO:
+    What about creating new a new <Track> in <MultiTrack>?
+    What about creating new a AbstractGeometry in <MultiGeometry>?
+    This is allowed in Google Earth, even through MultiTrack is not an
+    AbstractContainerGroup.
+  -->
   <complexType name="CreateType">
     <sequence>
       <element ref="kml:AbstractContainerGroup" minOccurs="0"
@@ -2001,7 +2055,13 @@
   </complexType>
 
   <element name="Delete" type="kml:DeleteType"/>
-  <!-- TODO: What about deleting a <Track> in <MultiTrack> -->
+  <!--
+    TODO:
+    What about deleting new a <Track> in <MultiTrack>?
+    What about deleting a AbstractGeometry in <MultiGeometry>?
+    This is allowed in Google Earth, even through MultiTrack is not an
+    AbstractContainerGroup.
+  -->
   <complexType name="DeleteType">
     <sequence>
       <element ref="kml:AbstractFeatureGroup" minOccurs="0"
@@ -2018,12 +2078,12 @@
     </sequence>
     <attributeGroup ref="kml:extensionOtherAttributes"/>
   </complexType>
-  
+
   <element name="AbstractTourPrimitiveGroup" type="kml:AbstractTourPrimitiveType"
     abstract="true" substitutionGroup="kml:AbstractObjectGroup"/>
-  
+
   <!--
-    TODO: It's unclear why this is in the Google gx schema. It isn't used anywhere.
+    TODO: It's unclear why this is in the Google gx schema. It isn't used anywhere. It also isn't marked as an abstract element!!
     <element name="AbstractTourPrimitive" type="kml:AbstractTourPrimitiveType"/>
   -->
   <complexType name="AbstractTourPrimitiveType">
@@ -2042,7 +2102,7 @@
     type="anySimpleType"/>
   <element name="AbstractTourPrimitiveObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
-  
+
   <element name="AnimatedUpdate" type="kml:AnimatedUpdateType"
     substitutionGroup="kml:AbstractTourPrimitiveGroup"/>
   <complexType name="AnimatedUpdateType">
@@ -2064,7 +2124,7 @@
     type="anySimpleType"/>
   <element name="AnimatedUpdateTypeObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
-  
+
   <element name="FlyTo" type="kml:FlyToType"
     substitutionGroup="kml:AbstractTourPrimitiveGroup"/>
   <complexType name="FlyToType">
@@ -2086,7 +2146,7 @@
     type="anySimpleType"/>
   <element name="FlyToObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
-  
+
   <element name="Playlist" type="kml:PlaylistType"
     substitutionGroup="kml:AbstractObjectGroup"/>
   <complexType name="PlaylistType">
@@ -2107,7 +2167,7 @@
     type="anySimpleType"/>
   <element name="PlaylistObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
-  
+
   <element name="SoundCue" type="kml:SoundCueType"
     substitutionGroup="kml:AbstractTourPrimitiveGroup"/>
   <complexType name="SoundCueType">
@@ -2128,7 +2188,7 @@
     type="anySimpleType"/>
   <element name="SoundCueObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
-  
+
   <element name="Tour" type="kml:TourType"
     substitutionGroup="kml:AbstractFeatureGroup"/>
   <complexType name="TourType">
@@ -2148,7 +2208,7 @@
     type="anySimpleType"/>
   <element name="TourObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
-  
+
   <element name="TourControl" type="kml:TourControlType"
     substitutionGroup="kml:AbstractTourPrimitiveGroup"/>
   <complexType name="TourControlType">
@@ -2168,7 +2228,7 @@
     type="anySimpleType"/>
   <element name="TourControlObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
-  
+
   <element name="Wait" type="kml:WaitType"
     substitutionGroup="kml:AbstractTourPrimitiveGroup"/>
   <complexType name="WaitType">
@@ -2187,9 +2247,9 @@
   <element name="WaitSimpleExtensionGroup" abstract="true"
     type="anySimpleType"/>
   <element name="WaitObjectExtensionGroup" abstract="true"
-    substitutionGroup="kml:AbstractObjectGroup"/> 
-  
-  <!-- 
+    substitutionGroup="kml:AbstractObjectGroup"/>
+
+  <!--
     TODO: Is this too specific to Google Earth?
     It only allows "enabling" of named features. Is this too limiting?
     Do we need something more generate to allow enumerations?
