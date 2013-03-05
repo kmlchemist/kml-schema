@@ -407,6 +407,10 @@
     TODO: Changed <value> from string to anySimpleType to allow instances to define types.
     Does this help when people want to specify their own simple data styles? Do they just
     use xs:type?
+    
+    However, kml:value when used in <Data> is "untyped" in KML, so we don't really need to
+    use anySimpleType to allow xsi:type in the instances. However, kml:value used in
+    kml:SimpleArrayData is "typed" and therefore users might want to use xsi:type there.
   -->
   <element name="value" type="anySimpleType"/>
   <element name="viewBoundScale" type="double" default="1.0"/>
@@ -801,6 +805,7 @@
   <element name="AbstractTimePrimitiveObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
 
+  <!-- TODO: Considering adding a version attribute to the kml element, defaults to 2.3 -->
   <element name="kml" type="kml:KmlType">
     <annotation>
       <documentation><![CDATA[
@@ -979,13 +984,25 @@
               <element ref="kml:Url" minOccurs="0"/>
               <element ref="kml:Link" minOccurs="0"/>
             </choice>
+            
+            If we use multiple substitution groups, we'd use this:
+              <element ref="kml:AbstractLinkGroup" minOccurs="0"/>
+              
+            ...instead of the assert to prevent both URL and Link here.
           -->
-          <element ref="kml:AbstractLinkGroup" minOccurs="0"/>
+          <element ref="kml:Url" minOccurs="0">            
+            <annotation>
+              <documentation>Url deprecated in 2.2</documentation>
+            </annotation>
+          </element>
+          <element ref="kml:Link" minOccurs="0"/>
           <element ref="kml:NetworkLinkSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:NetworkLinkObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </all>     
+        <!-- To avoid multiple sub groups in Url/Link, use assert to allow only one -->
+        <assert test="not(./Url and ./Link)"/>
       </extension>
     </complexContent>
   </complexType>
@@ -1026,7 +1043,7 @@
     substitutionGroup="kml:AbstractObjectGroup"/>
 
   <element name="LatLonAltBox" type="kml:LatLonAltBoxType"
-    substitutionGroup="kml:AbstractBoundingBoxGroup"/>
+    substitutionGroup="kml:AbstractLatLonBoxGroup"/>
   <complexType name="LatLonAltBoxType" final="#all">
     <complexContent>
       <extension base="kml:AbstractLatLonBoxType">
@@ -1104,14 +1121,27 @@
 
   <!--
     TODO: XSD 1.1
+    If we want to avoid multiple substitution groups for Link/Url, we can use
+    <assert> to prevent both Url and Link from appearing in NetworkLink.
+    
     We need kml:AbstractObjectGroup for Link/Url so that it can appear in
     Update/Change. However, we also need an subGroup because of deprecation
     of Url vs. Link (for choice/all replacement). This could be bad. See: http://lists.w3.org/Archives/Public/xmlschema-dev/2012Aug/0034.html
+    
+    The multiple substitution group solution would look like this:
+      <element name="Link" type="kml:LinkType"
+        substitutionGroup="kml:AbstractObjectGroup kml:AbstractLinkGroup"/>
+      <element name="Url" type="kml:LinkType"
+        substitutionGroup="kml:AbstractObjectGroup kml:AbstractLinkGroup">
+        <annotation>
+          <documentation>Url deprecated in 2.2</documentation>
+        </annotation>
+      </element>
   -->
   <element name="Link" type="kml:LinkType"
-    substitutionGroup="kml:AbstractObjectGroup kml:AbstractLinkGroup"/>
-  <element name="Url" type="kml:LinkType"
-    substitutionGroup="kml:AbstractObjectGroup kml:AbstractLinkGroup">
+    substitutionGroup="kml:AbstractBasicLinkGroup"/>
+  <element name="Url" type="kml:LinkType" 
+    substitutionGroup="kml:AbstractBasicLinkGroup">
     <annotation>
       <documentation>Url deprecated in 2.2</documentation>
     </annotation>
@@ -1549,6 +1579,8 @@
   <element name="LatLonQuadObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
 
+  <element name="AbstractLatLonBoxGroup" type="kml:AbstractLatLonBoxType"
+    substitutionGroup="kml:AbstractBoundingBoxGroup" abstract="true"/>
   <complexType name="AbstractLatLonBoxType" abstract="true">
     <complexContent>
       <extension base="kml:AbstractBoundingBoxType">
@@ -1571,7 +1603,7 @@
     substitutionGroup="kml:AbstractObjectGroup"/>
 
   <element name="LatLonBox" type="kml:LatLonBoxType"
-    substitutionGroup="kml:AbstractBoundingBoxGroup"/>
+    substitutionGroup="kml:AbstractLatLonBoxGroup"/>
   <complexType name="LatLonBoxType" final="#all">
     <complexContent>
       <extension base="kml:AbstractLatLonBoxType">
@@ -1840,6 +1872,8 @@
   <!--
     TODO: We can't make BasicLinkType final, because IconLinkType extends it!
   -->
+  <element name="AbstractBasicLinkGroup" type="kml:BasicLinkType"
+    substitutionGroup="kml:AbstractObjectGroup" abstract="true"/>
   <complexType name="BasicLinkType">
     <complexContent>
       <extension base="kml:AbstractObjectType">
@@ -2123,6 +2157,16 @@
     <all>
       <element ref="kml:AbstractContainerGroup" minOccurs="0"
         maxOccurs="unbounded"/>
+      <!--
+        Added MultiGeo & MultiTrack, because Google Earth already supports this
+        and it'a sensical feature. Since these elements are not in
+        AbstractContainerGroup, they aren't schema-valid targets of kml:Create 
+        
+        However, in Google Earth 6.x, this works with MultiTrack, but doesn't
+        work with MultiGeometry. The new geometry is added to the DOM, but
+        Earth doesn't render it.
+      -->
+      <element ref="kml:MultiTrack" minOccurs="0" maxOccurs="unbounded"/>
     </all>
     <attributeGroup ref="kml:extensionOtherAttributes"/>
   </complexType>

@@ -757,6 +757,7 @@
   <element name="AbstractTimePrimitiveObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
 
+  <!-- TODO: Considering adding a version attribute to the kml element, defaults to 2.3 -->
   <element name="kml" type="kml:KmlType">
     <annotation>
       <documentation><![CDATA[
@@ -977,7 +978,7 @@
     substitutionGroup="kml:AbstractObjectGroup"/>
 
   <element name="LatLonAltBox" type="kml:LatLonAltBoxType"
-    substitutionGroup="kml:AbstractBoundingBoxGroup"/>
+    substitutionGroup="kml:AbstractLatLonBoxGroup"/>
   <complexType name="LatLonAltBoxType" final="#all">
     <complexContent>
       <extension base="kml:AbstractLatLonBoxType">
@@ -1057,9 +1058,9 @@
     substitutionGroup="kml:AbstractObjectGroup"/>
 
   <element name="Link" type="kml:LinkType"
-    substitutionGroup="kml:AbstractObjectGroup"/>
+    substitutionGroup="kml:AbstractBasicLinkGroup"/>
   <element name="Url" type="kml:LinkType"
-    substitutionGroup="kml:AbstractObjectGroup">
+    substitutionGroup="kml:AbstractBasicLinkGroup">
     <annotation>
       <documentation>Url deprecated in 2.2</documentation>
     </annotation>
@@ -1495,7 +1496,9 @@
     type="anySimpleType"/>
   <element name="LatLonQuadObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
-
+  
+  <element name="AbstractLatLonBoxGroup" type="kml:AbstractLatLonBoxType"
+    substitutionGroup="kml:AbstractBoundingBoxGroup" abstract="true"/>
   <complexType name="AbstractLatLonBoxType" abstract="true">
     <complexContent>
       <extension base="kml:AbstractBoundingBoxType">
@@ -1518,7 +1521,7 @@
     substitutionGroup="kml:AbstractObjectGroup"/>
 
   <element name="LatLonBox" type="kml:LatLonBoxType"
-    substitutionGroup="kml:AbstractBoundingBoxGroup"/>
+    substitutionGroup="kml:AbstractLatLonBoxGroup"/>
   <complexType name="LatLonBoxType" final="#all">
     <complexContent>
       <extension base="kml:AbstractLatLonBoxType">
@@ -1787,6 +1790,8 @@
   <!--
     TODO: We can't make BasicLinkType final, because IconLinkType extends it!
   -->
+  <element name="AbstractBasicLinkGroup" type="kml:BasicLinkType"
+    substitutionGroup="kml:AbstractObjectGroup" abstract="true"/>
   <complexType name="BasicLinkType">
     <complexContent>
       <extension base="kml:AbstractObjectType">
