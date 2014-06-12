@@ -329,7 +329,8 @@
   <element name="name" type="string"/>
   <element name="near" type="double" default="0.0"/>
   <!-- TODO: Mention that values > 90 are valid, but may not be sensical -->
-  <element name="north" type="kml:angle180Type" default="180.0"/>
+  <!-- DSB: default changed from 180 to 90 -->  
+  <element name="north" type="kml:angle180Type" default="90.0"/>
   <element name="open" type="boolean" default="0"/>
   <element name="option" type="kml:optionType"/>
   <element name="outerColor" type="kml:colorType" default="ffffffff"/>
@@ -355,7 +356,8 @@
   <element name="shape" type="kml:shapeEnumType" default="rectangle"/>
   <element name="size" type="kml:vec2Type"/>
   <!-- TODO: Mention that values < -90 are valid, but may not be sensical -->
-  <element name="south" type="kml:angle180Type" default="-180.0"/>
+  <!-- DSB: default changed from -180 to -90 -->  
+  <element name="south" type="kml:angle180Type" default="-90.0"/>
   <element name="sourceHref" type="anyURI"/>
   <element name="snippet" type="string"/>
   <element name="state" type="kml:itemIconStateType"/>
