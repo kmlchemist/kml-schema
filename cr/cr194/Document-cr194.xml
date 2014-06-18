@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- CR-194 (OGC 11-175): Enhancements to KML's Extension Mechanism -->
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.opengis.net/kml/2.2 ./ogckml2-cr194.xsd">
+  <Document>
+    <Placemark>
+      <name>Building site</name>
+      <Polygon>
+        <extrude>1</extrude>
+        <altitudeMode>absolute</altitudeMode>
+        <outerBoundaryIs>
+          <LinearRing>
+            <coordinates>-122.0848938459612,37.42257124044786,17
+              -122.0849580979198,37.42211922626856,17 -122.0847469573047,37.42207183952619,17
+              -122.0845725380962,37.42209006729676,17 -122.0845954886723,37.42215932700895,17
+              -122.0838521118269,37.42227278564371,17 -122.083792243335,37.42203539112084,17
+              -122.0835076656616,37.42209006957106,17 -122.0834709464152,37.42200987395161,17
+              -122.0831221085748,37.4221046494946,17 -122.0829247374572,37.42226503990386,17
+              -122.0829339169385,37.42231242843094,17 -122.0833837359737,37.42225046087618,17
+              -122.0833607854248,37.42234159228745,17 -122.0834204551642,37.42237075460644,17
+              -122.083659133885,37.42251292011001,17 -122.0839758438952,37.42265873093781,17
+              -122.0842374743331,37.42265143972521,17 -122.0845036949503,37.4226514386435,17
+              -122.0848020460801,37.42261133916315,17 -122.0847882750515,37.42256395055121,17
+              -122.0848938459612,37.42257124044786,17</coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+    <Placemark>
+      <name>Protected marine area</name>
+      <Polygon>
+        <tessellate>1</tessellate>
+        <!-- fallback value for legacy applications -->
+        <altitudeMode>relativeToGround</altitudeMode>
+        <!-- extensions permitted by kml:PositionContextGroup -->
+        <gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+        <ns1:crs xmlns:ns1="http://epsg-registry.org/">http://www.opengis.net/def/crs/EPSG/0/32610</ns1:crs>
+        <outerBoundaryIs>
+          <LinearRing>
+            <coordinates>470310,5477299,0 469740,5476977,0 471493,5475844,0 472492,5477102,0
+              470310,5477299,0</coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+  </Document>
+</kml>
