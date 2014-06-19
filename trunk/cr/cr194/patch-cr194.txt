@@ -1,0 +1,41 @@
+--- trunk/ogckml22.xsd	Wed Jun 18 15:34:43 2014
++++ trunk/cr/cr194/ogckml2-cr194.xsd	Wed Jun 18 14:02:19 2014
+@@ -1,4 +1,5 @@
+ <?xml version="1.0" encoding="UTF-8"?>
++<!-- CR-194 (OGC 11-175) -->
+ <schema xmlns="http://www.w3.org/2001/XMLSchema"
+   xmlns:kml="http://www.opengis.net/kml/2.2"
+   xmlns:atom="http://www.w3.org/2005/Atom"
+@@ -16,7 +17,7 @@
+ 
+   <!-- import atom:author and atom:link -->
+   <import namespace="http://www.w3.org/2005/Atom"
+-    schemaLocation="atom-author-link.xsd"/>
++    schemaLocation="../../atom-author-link.xsd"/>
+ 
+   <!-- import xAL:Address -->
+   <import namespace="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
+@@ -187,6 +188,13 @@
+   <element name="address" type="string"/>
+   <element name="altitude" type="double" default="0.0"/>
+   <element name="altitudeModeGroup" abstract="true"/>
++  <!-- ADD: Replaces altitudeModeGroup -->
++  <group name="PositionContextGroup">
++    <sequence>
++      <element ref="kml:altitudeMode" minOccurs="0"/>
++      <any processContents="lax" namespace="##other" minOccurs="0" maxOccurs="unbounded"/>
++    </sequence>
++  </group>
+   <element name="altitudeMode" type="kml:altitudeModeEnumType"
+     default="clampToGround" substitutionGroup="kml:altitudeModeGroup"/>
+   <element name="begin" type="kml:dateTimeType"/>
+@@ -952,7 +960,8 @@
+         <sequence>
+           <element ref="kml:extrude" minOccurs="0"/>
+           <element ref="kml:tessellate" minOccurs="0"/>
+-          <element ref="kml:altitudeModeGroup" minOccurs="0"/>
++          <group ref="kml:PositionContextGroup"/>
++          <!--<element ref="kml:altitudeModeGroup" minOccurs="0"/>-->
+           <element ref="kml:outerBoundaryIs" minOccurs="0"/>
+           <element ref="kml:innerBoundaryIs" minOccurs="0"
+             maxOccurs="unbounded"/>
