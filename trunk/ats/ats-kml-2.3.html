@@ -75,18 +75,21 @@
           <ol>
             <li><a href="#atc-101">ATC-101</a>: Document element</li>
             <li><a href="#atc-102">ATC-102</a>: Schema validity</li>
+            <li><a href="#atc-103">ATC-103</a>: Valid geometry coordinates</li>
           </ol>
         </li>
         <li><a href="#level-2">Conformance Level 2</a>
           <ol>
             <li><a href="#atc-201">ATC-201</a>: PolyStyle content</li>
             <li><a href="#atc-202">ATC-202</a>: 3D coordinates</li>
+            <li><a href="#atc-203">ATC-203</a>: Scale element not empty</li>
           </ol>
         </li>
         <li><a href="#level-3">Conformance Level 3</a>
           <ol>
             <li><a href="#atc-301">ATC-301</a>: Polygon boundary</li>
             <li><a href="#atc-302">ATC-302</a>: LinearRing is closed and simple</li>
+            <li><a href="#atc-303">ATC-303</a>: BalloonStyle with color (deprecated)</li>
           </ol>
         </li>
       </ol>
@@ -151,8 +154,8 @@
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-101</code></li>
           <li>Purpose: Verify that the root element of the document has [local name] = "kml" 
           and [namespace name] = "http://www.opengis.net/kml/2.3".</li>
-          <li>Method: Pass if all constraints are satisfied; fail otherwise. This test 
-          checks that an XML document is indeed an OGC KML document. If this test fails, 
+          <li>Method: Pass if all XML infoset constraints are satisfied; fail otherwise. This 
+          test checks that an XML resource is indeed an OGC KML document. If this test fails, 
           all remaining tests are skipped.</li>
           <li>References:
             <ul>
@@ -166,11 +169,34 @@
         <h2>ATC-102: Schema validity</h2>
         <ol>
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-102</code></li>
-          <li>Purpose: Check that the KML document is well-formed and schema-valid.</li>
+          <li>Purpose: Check that the KML document is well-formed and schema-valid with respect to the 
+          XML Schema grammars identified in Annex A.</li>
           <li>Method: Pass if the document satisfies all schema constraints; fail otherwise.</li>
           <li>References:
             <ul>
               <li>OGC 12-007, cl. A: KML Schemas</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-103" class="atc">
+        <h2>ATC-103: Valid geometry coordinates</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-103</code></li>
+          <li>Purpose: Verify that a kml:coordinates element contains a list of white space-separated 
+          2D or 3D tuples that contain comma-separated decimal values (lon,lat[,hgt]). </li>
+          <li>Method: Pass if all kml:coordinates elements contain 2D/3D tuples containing decimal 
+          values conforming to the xsd:decimal type; fail otherwise. White space consists of one 
+          or more of the following characters: space (U+0020), carriage return (U+000D), line feed 
+          (U+000A), or tab (U+0009). The applicable coordinate reference system (CRS) is defined 
+          in Annex B of the OGC KML specification.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 16.9: kml:coordinatesType</li>
+              <li>OGC 12-007, cl. B: KML Coordinate Reference System Definition</li>
+              <li><a target="_blank" href="http://www.w3.org/TR/xmlschema-2/#decimal">XML Schema 
+              Part 2: Datatypes Second Edition - decimal</a></li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -218,14 +244,30 @@
           <li>Test type: Capability</li>
         </ol>
       </div>
+      <div id="atc-203" class="atc">
+        <h2>ATC-203: Scale element not empty</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-203</code></li>
+          <li>Purpose: Verify that if a kml:Scale element is not a descendant of kml:Update, 
+          it contains at least one of the following elements: kml:x, kml:y, or kml:z.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 10.12.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
     </section>
 
     <section id="level-3" data-type="sect1">
       <h1>Conformance Level 3</h1>
       <h2>Purpose</h2>
-      <p>Includes all tests in Level 2 and introduces additional constraints that are essentially 
-      informative nature; they are intended to signal the use of deprecated elements or to encourage 
-      alignment with existing (non-normative) standards or conventions.</p>
+      <p>Includes all tests in Level 2 and introduces additional constraints that are 
+      essentially informative in nature; they are intended to signal the use of deprecated 
+      elements or to encourage alignment with existing (non-normative) geomatics standards 
+      or conventions.</p>
       <div id="atc-301" class="atc">
         <h2>ATC-301: Polygon boundary</h2>
         <ol>
@@ -263,6 +305,22 @@
               KML Reference - LinearRing</a></li>
               <li><em>Geographic information &#8211; Spatial schema</em> (ISO 19107), 
               cl. 6.3.6: GM_Ring</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-303" class="atc">
+        <h2>ATC-303: BalloonStyle with color (deprecated)</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-3/atc-303</code></li>
+          <li>Purpose: Check for any occurrences of the (deprecated) kml:color element in kml:BalloonStyle 
+          elements.</li>
+          <li>Method: Pass if no kml:color elements occur in this context; fail otherwise. 
+          This element is deprecated in favour of kml:bgColor.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 12.6.3</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
