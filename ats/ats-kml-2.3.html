@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+  <head>
+    <title>OGC KML 2.3 &#8211; Abstract Test Suite</title>
+    <style>
+    body {color: black; background: white;}
+    h1,h2,h3 {font-family: Verdana, sans-serif; color: #000099; text-align: left;}
+    h1 {font-size: 1.50em;}
+    h2 {font-size: 1.25em;}
+    h3 {font-size: 1em;}
+    table {margin-top: 1em; margin-bottom: 1em; border-spacing: 0.50em 0.25em;}
+    td {vertical-align: top;}
+    nav ol {list-style-type: none;}
+    .atc ol {list-style-type: lower-alpha;}
+    </style>
+  </head>
+  <body>
+    <section data-type="titlepage">
+      <img src="http://www.opengeospatial.org/themes/ogc/logo.png" alt="OGC logo" />
+      <p><strong>Open Geospatial Consortium</strong></p>
+      <table>
+        <tr>
+          <td>Date:</td>
+          <td>2014-MM-DD</td>
+        </tr>
+        <tr>
+          <td>Document identifier:</td>
+          <td>http://www.opengis.net/doc/ts/KML/2.3</td>
+        </tr>
+        <tr>
+          <td>Reference number of document:</td>
+          <td>14-068</td>
+        </tr>
+        <tr>
+          <td>Version:</td>
+          <td>2.3.0</td>
+        </tr>
+        <tr>
+          <td>Category:</td>
+          <td>Test Suite</td>
+        </tr>
+        <tr>
+          <td>Editors:</td>
+          <td>
+            <dl>
+              <dt>R. Martell</dt>
+              <dd>Galdos Systems Inc. &lt;rmartell {AT} galdosinc {DOT} com&gt;</dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td>Contributors:</td>
+          <td>
+            <dl>
+              <dt>Sean Askay</dt>
+              <dd>Google Inc. &lt;alchemist {AT} google {DOT} com&gt;</dd>
+              <dt>David Burggraf</dt>
+              <dd>&lt;dsburggraf {AT} gmail {DOT} com&gt;</dd>
+            </dl>
+          </td>
+        </tr>
+      </table>
+      <h1>OGC KML 2.3 &#8211; Abstract Test Suite</h1>
+      <p>Copyright &#169; 2014 Open Geospatial Consortium. To obtain additional rights 
+      of use, visit <a target="_blank" href="http://www.opengeospatial.org/legal/">
+      http://www.opengeospatial.org/legal/</a>.</p>
+    </section>
+
+    <nav data-type="toc">
+      <h1>Contents</h1>
+      <ol>
+        <li><a href="#scope">Scope</a></li>
+        <li><a href="#ref">References</a></li>
+        <li><a href="#level-1">Conformance Level 1</a>
+          <ol>
+            <li><a href="#atc-101">ATC-101</a>: Document element</li>
+            <li><a href="#atc-102">ATC-102</a>: Schema validity</li>
+          </ol>
+        </li>
+        <li><a href="#level-2">Conformance Level 2</a>
+          <ol>
+            <li><a href="#atc-201">ATC-201</a>: PolyStyle content</li>
+            <li><a href="#atc-202">ATC-202</a>: 3D coordinates</li>
+          </ol>
+        </li>
+        <li><a href="#level-3">Conformance Level 3</a>
+          <ol>
+            <li><a href="#atc-301">ATC-301</a>: Polygon boundary</li>
+            <li><a href="#atc-302">ATC-302</a>: LinearRing is closed and simple</li>
+          </ol>
+        </li>
+      </ol>
+    </nav>
+
+    <section id="scope" data-type="sect1">
+      <h1>Scope</h1>
+      <p>This document specifies an abstract test suite (ATS) consisting of a 
+      set of implementation-neutral test cases that provide a basis for verifying 
+      the structure and content of OGC KML 2.3 instance documents. The ATS may 
+      be realized by an executable test suite (ETS) that assesses the degree of 
+      conformance exhibited by a KML document.</p>
+
+      <p>Three conformance levels are defined in terms of the circumstances under 
+      which a given set of requirements apply; each level builds on the lower 
+      ones such that the highest level indicates full conformance.</p>
+      <dl>
+        <dt><dfn>Level 1</dfn> (CL1)</dt>
+        <dd>Includes test cases covering requirements that must be satisfied 
+        in all cases.</dd>
+        <dt><dfn>Level 2</dfn> (CL2)</dt>
+        <dd>As for CL1, plus test cases addressing recommended requirements 
+        that should be satisfied.</dd>
+        <dt><dfn>Level 3</dfn> (CL3)</dt>
+        <dd>As for CL2, plus test cases for optional requirements that are 
+        essentially informative in nature.</dd>
+      </dl>
+      <p><strong>Note</strong>: the prefix "kml" in this document is taken to 
+      designate the namespace name (URI) "http://www.opengis.net/kml/2.3". In 
+      an instance document the actual prefix bound to this namespace is not 
+      significant.</p>
+    </section>
+
+    <section id="ref" data-type="sect1">
+      <h1>References</h1>
+      <p>The following normative documents contain provisions that, through 
+      reference in this text, constitute provisions of this document. For dated 
+      references, subsequent revisions do not apply. For undated references, 
+      the latest edition applies.</p>
+      <ul>
+        <li>OGC KML 2.3 (OGC 12-007)</li>
+        <li><a href="http://tools.ietf.org/html/rfc4287" target="_blank">Atom 
+        Syndication Format</a></li>
+        <li><a href="http://tools.ietf.org/html/rfc3986" target="_blank">Uniform 
+        Resource Identifier (URI): Generic Syntax</a></li>
+        <li><a href="https://www.oasis-open.org/committees/ciq/download.html" 
+        target="_blank">Extensible Address Language (xAL)</a>, Version 2.0</li>
+        <li><a href="http://www.w3.org/TR/xptr-framework/" target="_blank">XPointer 
+        Framework</a> (W3C Recommendation 25 March 2003)</li>
+      </ul>
+    </section>
+
+    <section id="level-1" data-type="sect1">
+      <h1>Conformance Level 1</h1>
+      <h2>Purpose</h2>
+      <p>Conformance Level 1 includes test cases that address absolute requirements. 
+      A KML document must satisfy all assertions at this level to achieve minimal
+      conformance.</p>
+      <div id="atc-101" class="atc">
+        <h2>ATC-101: Document element</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-101</code></li>
+          <li>Purpose: Verify that the root element of the document has [local name] = "kml" 
+          and [namespace name] = "http://www.opengis.net/kml/2.3".</li>
+          <li>Method: Pass if all constraints are satisfied; fail otherwise. This test 
+          checks that an XML document is indeed an OGC KML document. If this test fails, 
+          all remaining tests are skipped.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 7.1.2</li>
+            </ul>
+          </li>
+          <li>Test type: Basic</li>
+        </ol>
+      </div>
+      <div id="atc-102" class="atc">
+        <h2>ATC-102: Schema validity</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-102</code></li>
+          <li>Purpose: Check that the KML document is well-formed and schema-valid.</li>
+          <li>Method: Pass if the document satisfies all schema constraints; fail otherwise.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. A: KML Schemas</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="level-2" data-type="sect1">
+      <h1>Conformance Level 2</h1>
+      <h2>Purpose</h2>
+      <p>Includes all tests in Level 1, plus test cases covering requirements that should 
+      be satisfied by a KML document. Non-conformance at this level may hinder the utility, 
+      portability, or interoperability of the document.</p>
+      <div id="atc-201" class="atc">
+        <h2>ATC-201: PolyStyle content</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-201</code></li>
+          <li>Purpose: Check that if a kml:PolyStyle element is not a descendant of kml:Update, 
+          it contains at least one of the following elements: kml:color, kml:colorMode, kml:fill, 
+          or kml:outline.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 12.12.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-202" class="atc">
+        <h2>ATC-202: 3D coordinates</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-202</code></li>
+          <li>Purpose: Confirm that a kml:coordinates or kml:Location element includes a 
+          third value (elevation) in every coordinate tuple if its sibling kml:altitudeMode 
+          element does NOT have the value "clampToGround".</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. Applies to the 
+          control points in <em>kml:AbstractGeometryType</em>/kml:coordinates and 
+          kml:Model/kml:Location.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 9.16.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="level-3" data-type="sect1">
+      <h1>Conformance Level 3</h1>
+      <h2>Purpose</h2>
+      <p>Includes all tests in Level 2 and introduces additional constraints that are essentially 
+      informative nature; they are intended to signal the use of deprecated elements or to encourage 
+      alignment with existing (non-normative) standards or conventions.</p>
+      <div id="atc-301" class="atc">
+        <h2>ATC-301: Polygon boundary</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-3/atc-301</code></li>
+          <li>Purpose: Confirm that no two rings comprising the boundary of a kml:Polygon 
+          geometry cross. <span style="background-color: #ffff00">Also check boundary orientation?</span></li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. This assertion 
+          verifies the fundamental topological integrity of a polygon. The boundary rings 
+          may intersect at a single (tangent) point. Furthermore, the (exterior) coordinates 
+          must be specified in a counterclockwise order.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 10.8.2</li>
+              <li><a target="_blank" href="https://developers.google.com/kml/documentation/kmlreference#polygon">
+              KML Reference - Polygon</a></li>
+              <li><em>Geographic information &#8211; Spatial schema</em> (ISO 19107), 
+              cl. 6.3.6: GM_Ring</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-302" class="atc">
+        <h2>ATC-302: LinearRing is closed and simple</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-3/atc-302</code></li>
+          <li>Purpose: Check that a kml:LinearRing is closed and simple; that is, it 
+          forms a cycle (first and last coordinates are identical) and it does not 
+          cross itself.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 10.8.2</li>
+              <li><a target="_blank" href="https://developers.google.com/kml/documentation/kmlreference#linearring">
+              KML Reference - LinearRing</a></li>
+              <li><em>Geographic information &#8211; Spatial schema</em> (ISO 19107), 
+              cl. 6.3.6: GM_Ring</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+    </section>
+  </body>
+</html>
