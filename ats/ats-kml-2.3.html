@@ -12,6 +12,7 @@
     td {vertical-align: top;}
     nav ol {list-style-type: none;}
     .atc ol {list-style-type: lower-alpha;}
+    ol.atc2 {list-style-type: decimal;}
     </style>
   </head>
   <body>
@@ -76,6 +77,8 @@
             <li><a href="#atc-101">ATC-101</a>: Document element</li>
             <li><a href="#atc-102">ATC-102</a>: Schema validity</li>
             <li><a href="#atc-103">ATC-103</a>: Valid geometry coordinates</li>
+            <li><a href="#atc-104">ATC-104</a>: TimeSpan interval</li>
+            <li><a href="#atc-105">ATC-105</a>: TimeStamp value</li>
           </ol>
         </li>
         <li><a href="#level-2">Conformance Level 2</a>
@@ -83,6 +86,8 @@
             <li><a href="#atc-201">ATC-201</a>: PolyStyle content</li>
             <li><a href="#atc-202">ATC-202</a>: 3D coordinates</li>
             <li><a href="#atc-203">ATC-203</a>: Scale element not empty</li>
+            <li><a href="#atc-204">ATC-204</a>: Document element not empty</li>
+            <li><a href="#atc-205">ATC-205</a>: viewFormat element not empty</li>
           </ol>
         </li>
         <li><a href="#level-3">Conformance Level 3</a>
@@ -90,6 +95,8 @@
             <li><a href="#atc-301">ATC-301</a>: Polygon boundary</li>
             <li><a href="#atc-302">ATC-302</a>: LinearRing is closed and simple</li>
             <li><a href="#atc-303">ATC-303</a>: BalloonStyle with color (deprecated)</li>
+            <li><a href="#atc-304">ATC-304</a>: Metadata element (deprecated)</li>
+            <li><a href="#atc-305">ATC-305</a>: Model scale factors</li>
           </ol>
         </li>
       </ol>
@@ -202,6 +209,45 @@
           <li>Test type: Capability</li>
         </ol>
       </div>
+      <div id="atc-104" class="atc">
+        <h2>ATC-104: TimeSpan interval</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-104</code></li>
+          <li>Purpose: Verify that a TimeSpan element satisfies <em>all</em> of the following 
+          constraints:
+            <ol class="atc2">
+              <li>it includes at least one child element (kml:begin or kml:end);</li>
+              <li>if it is a definite interval (that is, both kml:begin and kml:end are present), 
+              then the begin value is earlier than the end value.</li>
+            </ol>
+          </li>
+          <li>Method: Pass if all assertions are satisfied; fail otherwise.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 15.2.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-105" class="atc">
+        <h2>ATC-105: TimeStamp value</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-105</code></li>
+          <li>Purpose: Verify that a kml:TimeStamp element has a valid child kml:when element.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. Several truncated 
+          representations of the xsd:dateTime data type are permitted: date, gYearMonth, and
+          gYear. A time zone indicator is allowed.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 15.3.2</li>
+              <li><a target="_blank" href="http://www.w3.org/TR/xmlschema-2/">XML Schema Part 2: 
+              Datatypes Second Edition</a></li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
     </section>
 
     <section id="level-2" data-type="sect1">
@@ -254,6 +300,41 @@
           <li>References:
             <ul>
               <li>OGC 12-007, cl. 10.12.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-204" class="atc">
+        <h2>ATC-204: Document element not empty</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-204</code></li>
+          <li>Purpose: Verify that the root element (kml:kml) contains at least one child element: 
+          kml:NetworkLinkControl or any element that substitutes for <em>kml:AbstractFeatureType</em>.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 7.1.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-205" class="atc">
+        <h2>ATC-205: viewFormat element not empty</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-205</code></li>
+          <li>Purpose: Verify that a kml:viewFormat contains at least one view parameter.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. The query string 
+          is expected to contain one or more name-value pairs encoded as specified for 
+            <code>application/x-www-form-urlencoded</code> entities.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 13.1.2</li>
+              <li>OGC 12-007, cl. 13.1.3.7</li>
+              <li>IANA Media Type Register - <a target="_blank" 
+              href="http://www.iana.org/assignments/media-types/application/x-www-form-urlencoded">
+              application/x-www-form-urlencoded</a></li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -321,6 +402,36 @@
           <li>References:
             <ul>
               <li>OGC 12-007, cl. 12.6.3</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-304" class="atc">
+        <h2>ATC-304: Metadata element (deprecated)</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-3/atc-304</code></li>
+          <li>Purpose: Check for any occurrences of the deprecated kml:Metadata element.</li>
+          <li>Method: Pass if no kml:Metadata elements occur; fail otherwise. This element is 
+          deprecated in favour of kml:ExtendedData.</li>
+          <li>References:
+            <ul>
+              <li>OGC KML 2.3 schema (ogckml23.xsd)</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-305" class="atc">
+        <h2>ATC-305: Model scale factors</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-3/atc-305</code></li>
+          <li>Purpose: Verify that a kml:Scale element includes all of the following child elements: 
+          kml:x, kml:y, and kml:z</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 10.12.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
