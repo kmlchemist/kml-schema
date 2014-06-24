@@ -3,11 +3,12 @@
   <head>
     <title>OGC KML 2.3 &#8211; Abstract Test Suite</title>
     <style>
-    body {color: black; background: white;}
+    body {color: black; background-color: White;}
     h1,h2,h3 {font-family: Verdana, sans-serif; color: #000099; text-align: left;}
     h1 {font-size: 1.50em;}
     h2 {font-size: 1.25em;}
     h3 {font-size: 1em;}
+    pre {padding: 0.5em; background-color: LightGray }
     table {margin-top: 1em; margin-bottom: 1em; border-spacing: 0.50em 0.25em;}
     td {vertical-align: top;}
     nav ol {list-style-type: none;}
@@ -79,6 +80,8 @@
             <li><a href="#atc-103">ATC-103</a>: Valid geometry coordinates</li>
             <li><a href="#atc-104">ATC-104</a>: TimeSpan interval</li>
             <li><a href="#atc-105">ATC-105</a>: TimeStamp value</li>
+            <li><a href="#atc-106">ATC-106</a>: Valid style reference</li>
+            <li><a href="#atc-107">ATC-107</a>: Shared styles</li>
           </ol>
         </li>
         <li><a href="#level-2">Conformance Level 2</a>
@@ -88,6 +91,8 @@
             <li><a href="#atc-203">ATC-203</a>: Scale element not empty</li>
             <li><a href="#atc-204">ATC-204</a>: Document element not empty</li>
             <li><a href="#atc-205">ATC-205</a>: viewFormat element not empty</li>
+            <li><a href="#atc-206">ATC-206</a>: httpQuery element not empty</li>
+            <li><a href="#atc-207">ATC-207</a>: LinearRing in polygon boundary</li>
           </ol>
         </li>
         <li><a href="#level-3">Conformance Level 3</a>
@@ -97,6 +102,8 @@
             <li><a href="#atc-303">ATC-303</a>: BalloonStyle with color (deprecated)</li>
             <li><a href="#atc-304">ATC-304</a>: Metadata element (deprecated)</li>
             <li><a href="#atc-305">ATC-305</a>: Model scale factors</li>
+            <li><a href="#atc-306">ATC-306</a>: LOD visibility</li>
+            <li><a href="#atc-307">ATC-307</a>: Model orientation</li>
           </ol>
         </li>
       </ol>
@@ -248,6 +255,56 @@
           <li>Test type: Capability</li>
         </ol>
       </div>
+      <div id="atc-106" class="atc">
+        <h2>ATC-106: Valid style reference</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-106</code></li>
+          <li>Purpose: Check that a kml:styleUrl element satisfies all of the following constraints:
+            <ol class="atc2">
+              <li>its value is a valid relative or absolute URL that refers to a shared style definition 
+              (any element that substitutes for <em>kml:AbstractStyleSelectorGroup</em>);</li>
+              <li>if the reference is an absolute URI, it conforms to the 'http' or 'file' URI schemes;</li>
+              <li>it includes a fragment identifier that conforms to the shorthand pointer syntax 
+              as defined in the W3C XPointer framework.</li>
+            </ol>
+          </li>
+          <li>Method: Pass if all applicable assertions are satisfied; fail otherwise. A relative 
+          URL is resolved according to the reference resolution algorithm described in section 5 
+          of RFC 3986.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 6.5</li>
+              <li>OGC 12-007, cl. 9.1.3.13</li>
+              <li><a target="_blank" href="http://www.w3.org/TR/xptr-framework/#shorthand">XPointer 
+              Framework - Shorthand Pointer</a></li>
+              <li><a target="_blank" href="http://tools.ietf.org/html/rfc3986#section-5">RFC 3986 - 
+              Reference Resolution</a></li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-107" class="atc">
+        <h2>ATC-107: Shared styles</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-107</code></li>
+          <li>Purpose: Confirm that a shared style definition (any element that may substitute for 
+            <em>kml:AbstractStyleSelectorGroup</em>) satisfies all of the following constraints:
+            <ol class="atc2">
+              <li>its parent element is kml:Document;</li>
+              <li>it has an 'id' attribute value.</li>
+            </ol>
+          </li>
+          <li>Method: Pass if all assertions are satisfied; fail otherwise. Shared styles include 
+          kml:Style and kml:StyleMap elements that appear as children of a kml:Document element.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 6.5</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
     </section>
 
     <section id="level-2" data-type="sect1">
@@ -335,6 +392,39 @@
               <li>IANA Media Type Register - <a target="_blank" 
               href="http://www.iana.org/assignments/media-types/application/x-www-form-urlencoded">
               application/x-www-form-urlencoded</a></li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-206" class="atc">
+        <h2>ATC-206: httpQuery element not empty</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-206</code></li>
+          <li>Purpose: Verify a kml:httpQuery contains at least one query parameter.</li>
+          <li>Method: Pass if the httpQuery has at least one of the allowable parameters; fail 
+          otherwise. The query string is expected to contain one or more name-value pairs 
+          encoded as specified for <code>application/x-www-form-urlencoded</code> entities.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 13.1.2</li>
+              <li>OGC 12-007, cl. 13.1.3.8</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-207" class="atc">
+        <h2>ATC-207: LinearRing in polygon boundary</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-207</code></li>
+          <li>Purpose: Verify that a kml:LinearRing element that constitutes the boundary of a 
+          polygon does not contain any of the following elements: kml:extrude, kml:tesselate, 
+          or kml:altitudeMode.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 10.5.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -432,6 +522,40 @@
           <li>References:
             <ul>
               <li>OGC 12-007, cl. 10.12.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-306" class="atc">
+        <h2>ATC-306: LOD visibility</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-3/atc-306</code></li>
+          <li>Purpose: Verify that the following expression holds for the pixel ramp values that 
+          determine whether or not a region is active:
+            <pre>kml:minFadeExtent + kml:maxFadeExtent &lt;= kml:maxLodPixels - kml:minLodPixels</pre></li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 9.18.2</li>
+              <li>OGC 12-007, cl. 9.13</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-307" class="atc">
+        <h2>ATC-307: Model orientation</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-3/atc-307</code></li>
+          <li>Purpose: Verify that a kml:Orientation element includes the following child elements: 
+          kml:heading, kml:tilt, and kml:roll.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 10.11.2</li>
+              <li><a target="_blank" href="https://developers.google.com/kml/documentation/kmlreference#orientation">
+              KML Reference - Orientation</a></li>
             </ul>
           </li>
           <li>Test type: Capability</li>
