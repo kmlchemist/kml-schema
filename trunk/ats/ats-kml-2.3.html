@@ -4,13 +4,13 @@
     <title>OGC KML 2.3 &#8211; Abstract Test Suite</title>
     <style>
     body {color: black; background-color: White;}
-    h1,h2,h3 {font-family: Verdana, sans-serif; color: #000099; text-align: left;}
+    h1, h2, h3 {font-family: Verdana, sans-serif; color: #000099; text-align: left;}
     h1 {font-size: 1.50em;}
     h2 {font-size: 1.25em;}
     h3 {font-size: 1em;}
     pre {padding: 0.5em; background-color: LightGray }
-    table {margin-top: 1em; margin-bottom: 1em; border-spacing: 0.50em 0.25em;}
-    td {vertical-align: top;}
+    table {margin-top: 1em; margin-bottom: 1em; border-collapse: collapse;}
+    td, th { padding: 0.2em; vertical-align: top;}
     nav ol {list-style-type: none;}
     .atc ol {list-style-type: lower-alpha;}
     ol.atc2 {list-style-type: decimal;}
@@ -84,6 +84,7 @@
             <li><a href="#atc-107">ATC-107</a>: Shared styles</li>
             <li><a href="#atc-108">ATC-108</a>: Region extent</li>
             <li><a href="#atc-109">ATC-109</a>: Link properties</li>
+            <li><a href="#atc-110">ATC-110</a>: Link referent</li>
           </ol>
         </li>
         <li><a href="#level-2">Conformance Level 2</a>
@@ -97,6 +98,7 @@
             <li><a href="#atc-207">ATC-207</a>: LinearRing in polygon boundary</li>
             <li><a href="#atc-208">ATC-208</a>: Data element not empty</li>
             <li><a href="#atc-209">ATC-209</a>: ResourceMap aliases</li>
+            <li><a href="#atc-210">ATC-210</a>: Link refresh mode</li>
           </ol>
         </li>
         <li><a href="#level-3">Conformance Level 3</a>
@@ -341,7 +343,7 @@
         <ol>
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-109</code></li>
           <li>Purpose: Check that a link element (of type kml:LinkType) satisfies all of the 
-          following constraints::
+          following constraints:
             <ol class="atc2">
               <li>if present, the child kml:refreshInterval element has a positive value (&gt; 0);</li>
               <li>if present, the child kml:viewRefreshTime element has a positive value (&gt; 0);</li>
@@ -355,6 +357,58 @@
               <li>OGC 12-007, cl. 13.1.3.3</li>
               <li>OGC 12-007, cl. 13.1.3.5</li>
               <li>OGC 12-007, cl. 13.1.3.6</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-110" class="atc">
+        <h2>ATC-110: Link referent</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-110</code></li>
+          <li>Purpose: Confirm that a link element refers to the correct resource type, according 
+          to one of the cases in Table 1.
+            <table border="1">
+              <caption>Table 1: Link referents by parent element</caption>
+              <thead>
+                <tr>
+                  <th>Parent element</th>
+                  <th>Referent</th>
+                  <th>Media type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>kml:NetworkLink</td>
+                  <td>A KML (or KMZ) resource</td>
+                  <td>application/vnd.google-earth.kml+xml, application/vnd.google-earth.kmz</td>
+                </tr>
+                <tr>
+                  <td>kml:Model</td>
+                  <td>A textured 3D object resource, such as a COLLADA file</td>
+                  <td>model/vnd.collada+xml, model/*</td>
+                </tr>
+                <tr>
+                  <td><em>kml:AbstractOverlayType</em><sup>a</sup></td>
+                  <td>An image resource</td>
+                  <td>image/*</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="3"><sup>a</sup> Any of the following elements: kml:GroundOverlay, 
+                  kml:ScreenOverlay, or kml:PhotoOverlay,</td>
+                </tr>
+              </tfoot>
+            </table>
+          </li>
+          <li>Method: Pass if all link elements (kml:Link, <em>kml:AbstractOverlayType</em>/kml:Icon) 
+          have correct referents; fail otherwise.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 9.12.3.3</li>
+              <li>OGC 12-007, cl. 10.9.3.4</li>
+              <li>OGC 12-007, cl. 11.1.3.3</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -514,6 +568,28 @@
           <li>References:
             <ul>
               <li>OGC 12-007, cl. 10.13.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-210" class="atc">
+        <h2>ATC-210: Link refresh mode</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-210</code></li>
+          <li>Purpose: Check that a kml:Link or a kml:Icon element (of type kml:LinkType) 
+          adheres to all of the following constraints:
+            <ol class="atc2">
+              <li>if the kml:refreshInterval element is present, the kml:refreshMode value 
+              must be "onInterval";</li>
+              <li>if the kml:viewRefreshTime element is present, the kml:refreshMode value 
+              must be "onStop".</li>
+            </ol>
+          </li>
+          <li>Method: Pass if all relevant assertions are satisfied; fail otherwise.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 13.1.3.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
