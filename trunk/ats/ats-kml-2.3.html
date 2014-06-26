@@ -85,7 +85,9 @@
             <li><a href="#atc-108">ATC-108</a>: Region extent</li>
             <li><a href="#atc-109">ATC-109</a>: Link properties</li>
             <li><a href="#atc-110">ATC-110</a>: Link referent</li>
-            <li><a href="#atc-111">ATC-111</a>: GroundOverlay extent</li>
+            <li><a href="#atc-111">ATC-111</a>: Valid bounding box</li>
+            <li><a href="#atc-112">ATC-112</a>: Geometry extrusion</li>
+            <li><a href="#atc-113">ATC-113</a>: Geometry tessellation</li>
           </ol>
         </li>
         <li><a href="#level-2">Conformance Level 2</a>
@@ -101,6 +103,8 @@
             <li><a href="#atc-209">ATC-209</a>: ResourceMap aliases</li>
             <li><a href="#atc-210">ATC-210</a>: Link refresh mode</li>
             <li><a href="#atc-211">ATC-211</a>: PhotoOverlay with large image</li>
+            <li><a href="#atc-212">ATC-212</a>: GroundOverlay extent</li>
+            <li><a href="#atc-213">ATC-213</a>: Camera position</li>
           </ol>
         </li>
         <li><a href="#level-3">Conformance Level 3</a>
@@ -133,7 +137,7 @@
       <dl>
         <dt><dfn>Level 1</dfn> (CL1)</dt>
         <dd>Includes test cases covering requirements that must be satisfied 
-        in all cases.</dd>
+        in all instances.</dd>
         <dt><dfn>Level 2</dfn> (CL2)</dt>
         <dd>As for CL1, plus test cases addressing recommended requirements 
         that should be satisfied.</dd>
@@ -368,8 +372,8 @@
         <h2>ATC-110: Link referent</h2>
         <ol>
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-110</code></li>
-          <li>Purpose: Confirm that a link element refers to the correct resource type, according 
-          to one of the cases in Table 1.
+          <li>Purpose: Confirm that a link element refers to the correct resource type according 
+          to the appropriate case in Table 1.
             <table border="1">
               <caption>Table 1: Link referents by parent element</caption>
               <thead>
@@ -417,7 +421,7 @@
         </ol>
       </div>
       <div id="atc-111" class="atc">
-        <h2>ATC-111: GroundOverlay extent</h2>
+        <h2>ATC-111: Valid bounding box</h2>
         <ol>
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-111</code></li>
           <li>Purpose: Verify that the content of a kml:LatLonBox element satisfies all of the 
@@ -434,6 +438,41 @@
           <li>References:
             <ul>
               <li>OGC 12-007, cl. 11.3.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-112" class="atc">
+        <h2>ATC-112: Geometry extrusion</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-112</code></li>
+          <li>Purpose: Check that if the kml:extrude element has the value "true", then 
+          the value of (the sibling element) kml:altitudeMode is <strong>not</strong> 
+          "clampToGround".</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. This applies to 
+          the following elements: kml:Point, kml:LineString, kml:LinearRing (but NOT if 
+          it forms the boundary of a polygon), and kml:Polygon.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 10.4.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-113" class="atc">
+        <h2>ATC-113: Geometry tessellation</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-113</code></li>
+          <li>Purpose: Confirm that if the kml:tessellate element has the value "true", 
+          then the value of kml:altitudeMode is "clampToGround" (default value).</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. This applies to 
+          the following elements: kml:LineString, kml:LinearRing (but NOT if it forms the 
+          boundary of a polygon), and kml:Polygon.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 10.6.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -639,6 +678,44 @@
               <li>OGC 12-007, cl. 11.5.3</li>
               <li>KML Developer's Guide - <a target="_blank" 
               href="https://developers.google.com/kml/documentation/photos">Adding PhotoOverlays</a></li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-212" class="atc">
+        <h2>ATC-212: GroundOverlay extent</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-212</code></li>
+          <li>Purpose: Verify that if a kml:GroundOverlay element is not a descendant of kml:Update, 
+          it contains a kml:LatLonBox element (with kml:north, kml:south, kml:east, kml:west child 
+          elements).</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. See <a href="#atc-111">ATC-111</a>.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 11.2.3.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-213" class="atc">
+        <h2>ATC-213: Camera position</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-213</code></li>
+          <li>Purpose: Check that a kml:Camera element satisfies all of the following constraints:
+            <ol class="atc2">
+              <li>if it is not a descendant of kml:Update, then the following child elements 
+              are present: kml:latitude, kml:longitude, and kml:altitude;</li>
+              <li>the value of kml:altitudeMode is not "clampToGround".</li>
+            </ol>
+          </li>
+          <li>Method: Pass if the assertions are satisfied; fail otherwise. A camera view is 
+          defined in terms of its position and orientation; it is not confined to the Earth's 
+          surface.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 14.2.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
