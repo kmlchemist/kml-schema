@@ -88,6 +88,9 @@
             <li><a href="#atc-111">ATC-111</a>: Valid bounding box</li>
             <li><a href="#atc-112">ATC-112</a>: Geometry extrusion</li>
             <li><a href="#atc-113">ATC-113</a>: Geometry tessellation</li>
+            <li><a href="#atc-114">ATC-114</a>: Point coordinates</li>
+            <li><a href="#atc-115">ATC-115</a>: LineString coordinates</li>
+            <li><a href="#atc-116">ATC-116</a>: LinearRing coordinates</li>
           </ol>
         </li>
         <li><a href="#level-2">Conformance Level 2</a>
@@ -105,6 +108,8 @@
             <li><a href="#atc-211">ATC-211</a>: PhotoOverlay with large image</li>
             <li><a href="#atc-212">ATC-212</a>: GroundOverlay extent</li>
             <li><a href="#atc-213">ATC-213</a>: Camera position</li>
+            <li><a href="#atc-214">ATC-214</a>: Model location</li>
+            <li><a href="#atc-215">ATC-215</a>: Overlay has image</li>
           </ol>
         </li>
         <li><a href="#level-3">Conformance Level 3</a>
@@ -478,6 +483,56 @@
           <li>Test type: Capability</li>
         </ol>
       </div>
+      <div id="atc-114" class="atc">
+        <h2>ATC-114: Point coordinates</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-114</code></li>
+          <li>Purpose: Check that the kml:coordinates element in a kml:Point geometry contains 
+          exactly one coordinate tuple.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 10.3.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-115" class="atc">
+        <h2>ATC-115: LineString coordinates</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-115</code></li>
+          <li>Purpose: Verify that the kml:coordinates element in a kml:LineString geometry 
+          contains at least two coordinate tuples.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 10.7.3.3</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-116" class="atc">
+        <h2>ATC-116: LinearRing coordinates</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-116</code></li>
+          <li>Purpose: Check that the kml:coordinates element in a kml:LinearRing geometry 
+          satisfies all of the following assertions:
+            <ol class="atc2">
+              <li>it contains at least 4 coordinate tuples;</li>
+              <li>the first and last control points are identical (the ring is closed).</li>
+            </ol>
+          </li>
+          <li>Method: Pass if the assertions are satisfied; fail otherwise.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 10.5.3.3</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
     </section>
 
     <section id="level-2" data-type="sect1">
@@ -716,6 +771,48 @@
           <li>References:
             <ul>
               <li>OGC 12-007, cl. 14.2.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-214" class="atc">
+        <h2>ATC-214: Model location</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-214</code></li>
+          <li>Purpose: Check that a kml:Location element satisfies all of the following 
+          constraints:
+            <ol class="atc2">
+              <li>it contains the kml:longitude and kml:latitude elements;</li>
+              <li>if the parent kml:Model element has a kml:altitudeMode value that is 
+                <strong>not</strong> "clampToGround", then the kml:altitude element must 
+              also be present.</li>
+            </ol>
+          </li>
+          <li>Method: Pass if all applicable assertions are satisfied; fail otherwise.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 9.16.2</li>
+              <li>OGC 12-007, cl. 10.9.2</li>
+              <li>OGC 12-007, cl. 10.10.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-215" class="atc">
+        <h2>ATC-215: Overlay has image</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-215</code></li>
+          <li>Purpose: Check that if any element that substitutes for <em>kml:AbstractOverlayGroup</em> 
+          is not a descendant of kml:Update, then it contains a kml:Icon child element (that 
+          refers to an image).
+          </li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. This test applies 
+          to the following elements: kml:GroundOverlay, kml:PhotoOverlay, and kml:ScreenOverlay.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 11.1.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
