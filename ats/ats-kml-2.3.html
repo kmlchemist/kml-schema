@@ -92,6 +92,8 @@
             <li><a href="#atc-115">ATC-115</a>: LineString coordinates</li>
             <li><a href="#atc-116">ATC-116</a>: LinearRing coordinates</li>
             <li><a href="#atc-117">ATC-117</a>: Polygon boundary elements</li>
+            <li><a href="#atc-118">ATC-118</a>: Icon element refers to image</li>
+            <li><a href="#atc-119">ATC-119</a>: PhotoOverlay field of view</li>
           </ol>
         </li>
         <li><a href="#level-2">Conformance Level 2</a>
@@ -113,6 +115,8 @@
             <li><a href="#atc-215">ATC-215</a>: Overlay has image</li>
             <li><a href="#atc-216">ATC-216</a>: ScreenOverlay specifies point on screen</li>
             <li><a href="#atc-217">ATC-217</a>: BalloonStyle not empty</li>
+            <li><a href="#atc-218">ATC-218</a>: ExtendedData not empty</li>
+            <li><a href="#atc-219">ATC-219</a>: Folder not empty</li>
           </ol>
         </li>
         <li><a href="#level-3">Conformance Level 3</a>
@@ -561,6 +565,45 @@
           <li>Test type: Capability</li>
         </ol>
       </div>
+      <div id="atc-118" class="atc">
+        <h2>ATC-118: Icon element refers to image</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-118</code></li>
+          <li>Purpose: Verify that the kml:Icon/kml:href element refers to an image resource.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. The image format must 
+          correspond to a registered image media type, <code>image/*</code> (PNG, JPEG, and GIF 
+          images are commonly used). This test case applies to kml:Icon elements in both 
+          kml:IconStyle and <em>kml:AbstractOverlayType</em> contexts.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 13.1.2</li>
+              <li>IANA Media Type Register - <a target="_blank" 
+              href="http://www.iana.org/assignments/media-types/media-types.xhtml#image">
+              image types</a></li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-119" class="atc">
+        <h2>ATC-119: PhotoOverlay field of view</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-119</code></li>
+          <li>Purpose: Verify that a kml:ViewVolume element includes all of the following child 
+          elements: kml:leftFov, kml:rightFov, kml:bottomFov, kml:topFov, and kml:near (has 
+          non-negative value).</li>
+          <li>Method: Pass if all expected elements are present; fail otherwise. The field of 
+          view for a PhotoOverlay is defined by four planes, each of which is specified by an 
+          angle relative to the view vector.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 11.5.2</li>
+              <li>OGC 12-007, cl. 11.6.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
     </section>
 
     <section id="level-2" data-type="sect1">
@@ -870,6 +913,34 @@
           <li>References:
             <ul>
               <li>OGC 12-007, cl. 12.6.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-218" class="atc">
+        <h2>ATC-218: ExtendedData not empty</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-218</code></li>
+          <li>Check that if a kml:ExtendedData element is not a descendant of kml:Update, it is not empty.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 9.2.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-219" class="atc">
+        <h2>ATC-219: Folder not empty</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-219</code></li>
+          <li>Check that if a kml:Folder element is not a descendant of kml:Update, then it is not empty.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 9.10.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
