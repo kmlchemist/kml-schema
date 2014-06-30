@@ -91,6 +91,7 @@
             <li><a href="#atc-114">ATC-114</a>: Point coordinates</li>
             <li><a href="#atc-115">ATC-115</a>: LineString coordinates</li>
             <li><a href="#atc-116">ATC-116</a>: LinearRing coordinates</li>
+            <li><a href="#atc-117">ATC-117</a>: Polygon boundary elements</li>
           </ol>
         </li>
         <li><a href="#level-2">Conformance Level 2</a>
@@ -110,11 +111,13 @@
             <li><a href="#atc-213">ATC-213</a>: Camera position</li>
             <li><a href="#atc-214">ATC-214</a>: Model location</li>
             <li><a href="#atc-215">ATC-215</a>: Overlay has image</li>
+            <li><a href="#atc-216">ATC-216</a>: ScreenOverlay specifies point on screen</li>
+            <li><a href="#atc-217">ATC-217</a>: BalloonStyle not empty</li>
           </ol>
         </li>
         <li><a href="#level-3">Conformance Level 3</a>
           <ol>
-            <li><a href="#atc-301">ATC-301</a>: Polygon boundary</li>
+            <li><a href="#atc-301">ATC-301</a>: Polygon boundary orientation</li>
             <li><a href="#atc-302">ATC-302</a>: LinearRing is closed and simple</li>
             <li><a href="#atc-303">ATC-303</a>: BalloonStyle with color (deprecated)</li>
             <li><a href="#atc-304">ATC-304</a>: Metadata element (deprecated)</li>
@@ -533,6 +536,31 @@
           <li>Test type: Capability</li>
         </ol>
       </div>
+      <div id="atc-117" class="atc">
+        <h2>ATC-117: Polygon boundary elements</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-117</code></li>
+          <li>Purpose: Verify that the boundary of a kml:Polygon element satisfies all 
+          of the following constraints:
+            <ol class="atc2">
+              <li>if it is not a descendant of kml:Update, then the kml:Polygon has a child 
+              kml:outerBoundaryIs element containing a kml:LinearRing element;</li>
+              <li>each interior boundary defines a "hole" in the Polygon such that it lies 
+              within the exterior boundary.</li>
+            </ol>
+          </li>
+          <li>Method: Pass if all assertions are satisfied; fail otherwise. This test case 
+          verifies the fundamental structure of a polygon; curve orientation (coordinates 
+          order) is ignored. The relevant polygons are identified using this XPath 
+          expression: <code>//kml:Polygon[not(ancestor::kml:Update)]</code>.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 10.8.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
     </section>
 
     <section id="level-2" data-type="sect1">
@@ -806,13 +834,42 @@
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-215</code></li>
           <li>Purpose: Check that if any element that substitutes for <em>kml:AbstractOverlayGroup</em> 
           is not a descendant of kml:Update, then it contains a kml:Icon child element (that 
-          refers to an image).
-          </li>
+          refers to an image).</li>
           <li>Method: Pass if the assertion is satisfied; fail otherwise. This test applies 
           to the following elements: kml:GroundOverlay, kml:PhotoOverlay, and kml:ScreenOverlay.</li>
           <li>References:
             <ul>
               <li>OGC 12-007, cl. 11.1.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-216" class="atc">
+        <h2>ATC-216: ScreenOverlay specifies point on screen</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-216</code></li>
+          <li>Purpose: Check that if a kml:ScreenOverlay element is not a descendant of kml:Update, 
+          then it has a kml:screenXY child element.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. The specified point is 
+          relative to the screen origin (lower left corner).</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 11.8.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-217" class="atc">
+        <h2>ATC-217: BalloonStyle not empty</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-217</code></li>
+          <li>Check that if a kml:BalloonStyle element is not a descendant of kml:Update, it is not empty.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 12.6.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -828,15 +885,43 @@
       elements or to encourage alignment with existing (non-normative) geomatics standards 
       or conventions.</p>
       <div id="atc-301" class="atc">
-        <h2>ATC-301: Polygon boundary</h2>
+        <h2>ATC-301: Polygon boundary orientation</h2>
         <ol>
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-3/atc-301</code></li>
-          <li>Purpose: Confirm that no two rings comprising the boundary of a kml:Polygon 
-          geometry cross. <span style="background-color: #ffff00">Also check boundary orientation?</span></li>
-          <li>Method: Pass if the assertion is satisfied; fail otherwise. This assertion 
-          verifies the fundamental topological integrity of a polygon. The boundary rings 
-          may intersect at a single (tangent) point. Furthermore, the (exterior) coordinates 
-          must be specified in a counterclockwise order.</li>
+          <li>Purpose: Confirm that the rings comprising the boundary of a kml:Polygon geometry 
+          satisfy the constraints listed below.
+            <ol class="atc2">
+              <li>no two rings cross (but they may intersect at a single point);</li>
+              <li>the (exterior) coordinates are specified in a counterclockwise order.</li>
+            </ol>
+          </li>
+          <li>Method: Pass if all assertions are satisfied; fail otherwise. The surface 
+          of a polygon is oriented such that the interior is to the left of a boundary 
+          curve. This means that the exterior boundary of the surface runs counterclockwise 
+          when viewed from the side of the surface indicated by the upward normal (the 
+          "top" of the surface); interior boundaries are clockwise.
+            <figure>
+              <figcaption><strong>Figure 1</strong> - Correctly oriented polygon</figcaption>
+              <svg width="250" height="200" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+                <defs>
+                  <marker refY="50" refX="50" markerHeight="5" markerWidth="5" viewBox="0 0 100 100" se_type="rightarrow" 
+                    orient="auto" markerUnits="strokeWidth" id="se_marker_end_svg_4">
+                    <path stroke-width="10" stroke="#000000" fill="#000000" d="m100,50l-100,40l30,-40l-30,-40z"/>
+                  </marker>
+                </defs>
+                <g>
+                  <rect fill-opacity="0" id="svg_1" height="115" width="215" y="53" x="18" stroke-width="2" stroke="#000000" fill="#000000"/>
+                  <rect id="svg_3" height="36" width="78.000001" y="91" x="116.000001" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#cccccc"/>
+                  <line marker-end="url(#se_marker_end_svg_4)" id="svg_4" y2="16" x2="94" y1="105" x1="55" fill-opacity="0" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="3" stroke="#000000" fill="none"/>
+                  <text xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="16" id="svg_5" y="36" x="120" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke="#000000" fill="#000000">up (+)</text>
+                  <line marker-end="url(#se_marker_end_svg_4)" id="svg_15" y2="175.999999" x2="140.999999" y1="175.999999" x1="100" fill-opacity="0" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="none"/>
+                  <line id="svg_17" y2="174" x2="107" y1="174" x1="106" fill-opacity="0" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="3" stroke="#000000" fill="none"/>
+                  <line marker-end="url(#se_marker_end_svg_4)" id="svg_18" y2="94.795408" x2="242" y1="134" x1="242" fill-opacity="0" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="none"/>
+                  <line id="svg_19" marker-end="url(#se_marker_end_svg_4)" y2="83.999999" x2="176.499999" y1="83.999999" x1="135.5" fill-opacity="0" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="none"/>
+                </g>
+              </svg>
+            </figure>
+          </li>
           <li>References:
             <ul>
               <li>OGC 12-007, cl. 10.8.2</li>
