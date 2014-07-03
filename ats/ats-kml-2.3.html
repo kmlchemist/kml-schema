@@ -94,11 +94,18 @@
             <li><a href="#atc-117">ATC-117</a>: Polygon boundary elements</li>
             <li><a href="#atc-118">ATC-118</a>: Icon element refers to image</li>
             <li><a href="#atc-119">ATC-119</a>: PhotoOverlay field of view</li>
+            <li><a href="#atc-120">ATC-120</a>: NetworkLinkControl refresh interval</li>
+            <li><a href="#atc-121">ATC-121</a>: KML object content</li>
+            <li><a href="#atc-122">ATC-122</a>: Update referent</li>
+            <li><a href="#atc-123">ATC-123</a>: Update targets</li>
+            <li><a href="#atc-124">ATC-124</a>: Phone number</li>
+            <li><a href="#atc-125">ATC-125</a>: Schema identifier</li>
+            <li><a href="#atc-126">ATC-126</a>: SimpleField definition</li>
           </ol>
         </li>
         <li><a href="#level-2">Conformance Level 2</a>
           <ol>
-            <li><a href="#atc-201">ATC-201</a>: PolyStyle content</li>
+            <li><a href="#atc-201">ATC-201</a>: PolyStyle not empty</li>
             <li><a href="#atc-202">ATC-202</a>: 3D coordinates</li>
             <li><a href="#atc-203">ATC-203</a>: Scale element not empty</li>
             <li><a href="#atc-204">ATC-204</a>: Document element not empty</li>
@@ -117,6 +124,12 @@
             <li><a href="#atc-217">ATC-217</a>: BalloonStyle not empty</li>
             <li><a href="#atc-218">ATC-218</a>: ExtendedData not empty</li>
             <li><a href="#atc-219">ATC-219</a>: Folder not empty</li>
+            <li><a href="#atc-220">ATC-220</a>: IconStyle not empty</li>
+            <li><a href="#atc-221">ATC-221</a>: Image tiling</li>
+            <li><a href="#atc-222">ATC-222</a>: LabelStyle not empty</li>
+            <li><a href="#atc-223">ATC-223</a>: ListStyle not empty</li>
+            <li><a href="#atc-224">ATC-224</a>: Style not empty</li>
+            <li><a href="#atc-225">ATC-225</a>: MultiGeometry not empty</li>
           </ol>
         </li>
         <li><a href="#level-3">Conformance Level 3</a>
@@ -157,10 +170,29 @@
         <dd>As for CL2, plus test cases for optional requirements that are 
         essentially informative in nature.</dd>
       </dl>
-      <p><strong>Note</strong>: the prefix "kml" in this document is taken to 
-      designate the namespace name (URI) "http://www.opengis.net/kml/2.3". In 
-      an instance document the actual prefix bound to this namespace is not 
-      significant.</p>
+      <p>Several namespace bindings are assumed in this document (see Table 1). However, 
+      in an instance document the actual prefix bound to a given namespace is not 
+      significant; any legal <a href="http://www.w3.org/TR/xml-names/#NT-NCName" 
+      target="_blank">NCName</a> may be used.</p>
+      <table border="1">
+        <caption>Table 1: Namespace bindings</caption>
+        <thead>
+          <tr>
+            <th>Prefix</th>
+            <th>Namespace name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>kml</td>
+            <td>http://www.opengis.net/kml/2.3</td>
+          </tr>
+          <tr>
+            <td>xsd</td>
+            <td>http://www.w3.org/2001/XMLSchema</td>
+          </tr>
+        </tbody>
+      </table>
     </section>
 
     <section id="ref" data-type="sect1">
@@ -385,9 +417,9 @@
         <ol>
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-110</code></li>
           <li>Purpose: Confirm that a link element refers to the correct resource type according 
-          to the appropriate case in Table 1.
+          to the appropriate case in Table 2.
             <table border="1">
-              <caption>Table 1: Link referents by parent element</caption>
+              <caption>Table 2: Link referents by parent element</caption>
               <thead>
                 <tr>
                   <th>Parent element</th>
@@ -604,6 +636,150 @@
           <li>Test type: Capability</li>
         </ol>
       </div>
+      <div id="atc-120" class="atc">
+        <h2>ATC-120: NetworkLinkControl refresh interval</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-120</code></li>
+          <li>Purpose: Verify that the kml:NetworkLinkControl/kml:minRefreshPeriod element has 
+          a non-negative value (&gt;=0).</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. This element 
+          specifies the minimum time interval (in seconds) between refreshes of the 
+          referenced KML resource.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 13.2.3.1</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-121" class="atc">
+        <h2>ATC-121: KML object content</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-121</code></li>
+          <li>Purpose: Verify that a KML object that is not a descendant of kml:Update 
+          satisfies one of the following constraints:
+            <ol class="atc2">
+              <li>it is not empty;</li>
+              <li>it has an 'id' attribute value (to enable future updates).</li>
+            </ol>
+          </li>
+          <li>Method: Pass if the applicable assertion is satisfied; fail otherwise. The 
+          relevant context is <code>//<em>kml:AbstractObjectType</em>[not(ancestor::kml:Update)]</code>.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 8.1.3.1</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-122" class="atc">
+        <h2>ATC-122: Update referent</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-122</code></li>
+          <li>Purpose: Check that the value of the kml:Update/kml:targetHref element is an absolute 
+          URI that refers to a KML or KMZ resource.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. The URI is assumed to 
+          match the retrieval URI for a resource that was previously loaded (by some earth browser) 
+          with a network link (kml:NetworkLink/kml:Link/kml:href).</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 13.3.3.1</li>
+              <li>KML Reference - <a target="_blank" href="https://developers.google.com/kml/documentation/updates">Updates</a></li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-123" class="atc">
+        <h2>ATC-123: Update targets</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-123</code></li>
+          <li>Purpose: Check that a KML object which is a descendant (grandchild) of kml:Update 
+          satisfies the following constraints:
+            <ol class="atc2">
+              <li>it includes a 'targetId' attribute value that identifies the object to be updated;</li>
+              <li>it does not have an 'id' attribute.</li>
+            </ol>
+          </li>
+          <li>Method: Pass if all assertions are satisfied; fail otherwise. Examine the content 
+          of all kml:Create, kml:Delete and kml:Change elements comprising the update.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 13.3.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-124" class="atc">
+        <h2>ATC-124: Phone number</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-124</code></li>
+          <li>Purpose: Check that the value of the kml:phoneNumber element is a valid 'tel' URI 
+          that complies with <a target="_blank" href="http://tools.ietf.org/html/rfc3966">RFC 
+          3966</a> ("The tel URI for Telephone Numbers").</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. The "tel" URI is 
+          a globally unique identifier only; it does not refer to a specific physical 
+          device.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 9.1.3.8</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-125" class="atc">
+        <h2>ATC-125: Schema identifier</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-125</code></li>
+          <li>Purpose: Verify that a kml:Schema element has an 'id' attribute value.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. The schema is 
+          referenced by kml:SchemaData elements that contain custom data.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 9.8.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-126" class="atc">
+        <h2>ATC-126: SimpleField definition</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-126</code></li>
+          <li>Purpose:Verify that a kml:SimpleField element satisfies all of the following constraints:
+            <ol class="atc2">
+              <li>it has a 'name' attribute;</li>
+              <li>the value of the 'type' attribute is one of the supported XML Schema datatypes:
+                <ul>
+                  <li>xsd:string</li>
+                  <li>xsd:int</li>
+                  <li>xsd:unsignedInt</li>
+                  <li>xsd:short</li>
+                  <li>xsd:unsignedShort</li>
+                  <li>xsd:float</li>
+                  <li>xsd:double</li>
+                  <li>xsd:boolean</li>
+                </ul>
+              </li>
+            </ol>
+          </li>
+          <li>Method: Pass if all assertions are satisfied; fail otherwise.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 9.9.2</li>
+              <li>OGC 12-007, cl. 9.9.4.2</li>
+              <li>XML Schema Part 2: Datatypes - <a target="_blank" 
+              href="http://www.w3.org/TR/xmlschema-2/#built-in-datatypes">Built-in 
+              datatypes</a></li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
     </section>
 
     <section id="level-2" data-type="sect1">
@@ -613,7 +789,7 @@
       be satisfied by a KML document. Non-conformance at this level may hinder the utility, 
       portability, or interoperability of the document.</p>
       <div id="atc-201" class="atc">
-        <h2>ATC-201: PolyStyle content</h2>
+        <h2>ATC-201: PolyStyle not empty</h2>
         <ol>
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-201</code></li>
           <li>Purpose: Check that if a kml:PolyStyle element is not a descendant of kml:Update, 
@@ -908,7 +1084,7 @@
         <h2>ATC-217: BalloonStyle not empty</h2>
         <ol>
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-217</code></li>
-          <li>Check that if a kml:BalloonStyle element is not a descendant of kml:Update, it is not empty.</li>
+          <li>Purpose: Check that if a kml:BalloonStyle element is not a descendant of kml:Update, it is not empty.</li>
           <li>Method: Pass if the assertion is satisfied; fail otherwise.</li>
           <li>References:
             <ul>
@@ -922,7 +1098,7 @@
         <h2>ATC-218: ExtendedData not empty</h2>
         <ol>
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-218</code></li>
-          <li>Check that if a kml:ExtendedData element is not a descendant of kml:Update, it is not empty.</li>
+          <li>Purpose: Check that if a kml:ExtendedData element is not a descendant of kml:Update, it is not empty.</li>
           <li>Method: Pass if the assertion is satisfied; fail otherwise.</li>
           <li>References:
             <ul>
@@ -936,11 +1112,114 @@
         <h2>ATC-219: Folder not empty</h2>
         <ol>
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-219</code></li>
-          <li>Check that if a kml:Folder element is not a descendant of kml:Update, then it is not empty.</li>
+          <li>Purpose: Check that if a kml:Folder element is not a descendant of kml:Update, then it is not empty.</li>
           <li>Method: Pass if the assertion is satisfied; fail otherwise.</li>
           <li>References:
             <ul>
               <li>OGC 12-007, cl. 9.10.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-220" class="atc">
+        <h2>ATC-220: IconStyle not empty</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-220</code></li>
+          <li>Purpose: Check that if a kml:IconStyle element is NOT a descendant of kml:Update, it is not empty.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 12.8.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-221" class="atc">
+        <h2>ATC-221: Image tiling</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-221</code></li>
+          <li>Purpose: Check that if a kml:ImagePyramid element is not a descendant of kml:Update, 
+          it satisfies all of the following constraints:
+            <ol class="atc2">
+              <li>it has the kml:maxWidth and kml:maxHeight child elements;</li>
+              <li>the kml:tileSize value is a power of 2 (2<sup>n</sup>).</li>
+            </ol>
+          </li>
+          <li>Method: Pass if all assertions are satisfied; fail otherwise.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 11.6.2</li>
+              <li>KML Reference - <a target="_blank" 
+              href="https://developers.google.com/kml/documentation/kmlreference#imagepyramid">ImagePyramid</a></li>
+              <li>KML Developer's Guide - <a target="_blank" 
+              href="https://developers.google.com/kml/documentation/photos#megapixelPhotos">Adding 
+              PhotoOverlays</a></li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-222" class="atc">
+        <h2>ATC-222: LabelStyle not empty</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-222</code></li>
+          <li>Purpose: Check that if a kml:LabelStyle element is not a descendant of kml:Update, 
+          it has at least one of the following child elements: kml:color, kml:colorMode, or 
+          kml:scale.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 12.10.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-223" class="atc">
+        <h2>ATC-223: ListStyle not empty</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-223</code></li>
+          <li>Purpose: Check that if a kml:ListStyle element is not a descendant of kml:Update, 
+          it has at least one of the following child elements: kml:listItemType, kml:bgColor, 
+          or kml:ItemIcon.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 12.13.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-224" class="atc">
+        <h2>ATC-224: Style not empty</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-224</code></li>
+          <li>Purpose: Check that if a kml:Style element is not a descendant of kml:Update, 
+          it is not empty.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. A style group 
+          can be collected in a kml:Document container and shared by multiple features.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 12.2.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-225" class="atc">
+        <h2>ATC-225: MultiGeometry not empty</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-225</code></li>
+          <li>Purpose: Check that if a kml:MultiGeometry element is not a descendant of kml:Update, 
+          it contains two or more geometry elements.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. The members of the 
+          collection must substitute for <em>kml:AbstractGeometryGroup</em>.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 10.2.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
