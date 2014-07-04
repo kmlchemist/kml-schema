@@ -101,6 +101,7 @@
             <li><a href="#atc-124">ATC-124</a>: Phone number</li>
             <li><a href="#atc-125">ATC-125</a>: Schema identifier</li>
             <li><a href="#atc-126">ATC-126</a>: SimpleField definition</li>
+            <li><a href="#atc-127">ATC-127</a>: SchemaData content</li>
           </ol>
         </li>
         <li><a href="#level-2">Conformance Level 2</a>
@@ -130,6 +131,8 @@
             <li><a href="#atc-223">ATC-223</a>: ListStyle not empty</li>
             <li><a href="#atc-224">ATC-224</a>: Style not empty</li>
             <li><a href="#atc-225">ATC-225</a>: MultiGeometry not empty</li>
+            <li><a href="#atc-226">ATC-226</a>: Placemark has geometry</li>
+            <li><a href="#atc-227">ATC-227</a>: StyleMap content</li>
           </ol>
         </li>
         <li><a href="#level-3">Conformance Level 3</a>
@@ -780,6 +783,37 @@
           <li>Test type: Capability</li>
         </ol>
       </div>
+      <div id="atc-127" class="atc">
+        <h2>ATC-127: SchemaData content</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-127</code></li>
+          <li>Purpose: Confirm that a kml:SchemaData element satisfies all of the following 
+          constraints:
+            <ol class="atc2">
+              <li>the 'schemaUrl' attribute value is a URL (it may be an absolute URI) 
+              with a fragment component that refers to a kml:Schema element;</li>
+              <li>all kml:SimpleData child elements have a 'name' attribute that 
+              matches the name of a declared kml:SimpleField element in the associated 
+              kml:Schema element (see <a href="#atc-126">ATC-126</a>);</li>
+              <li>the values of all kml:SimpleData child elements conform to their 
+              declared types.</li>
+            </ol>
+          </li>
+          <li>Method: Pass if all assertions are satisfied; fail otherwise. This element 
+          is used in conjunction with kml:Schema to add (loosely) typed custom data to a 
+          KML feature.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 9.4.2</li>
+              <li>OGC 12-007, cl. 9.5.2</li>
+              <li>Uniform Resource Identifier (URI): Generic Syntax - <a target="_blank" 
+              href="http://tools.ietf.org/html/rfc3986#section-3.5">Fragment</a> (RFC 
+              3986)</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
     </section>
 
     <section id="level-2" data-type="sect1">
@@ -1220,6 +1254,39 @@
           <li>References:
             <ul>
               <li>OGC 12-007, cl. 10.2.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-226" class="atc">
+        <h2>ATC-226: Placemark has geometry</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-226</code></li>
+          <li>Purpose: Check that if a kml:Placemark element is not a descendant of kml:Update, it 
+          includes a geometry element (any element that substitutes for <em>kml:AbstractGeometryGroup</em>).</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 9.11.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-227" class="atc">
+        <h2>ATC-227: StyleMap content</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-227</code></li>
+          <li>Purpose: Check that if a kml:StyleMap element is not a descendant of kml:Update, 
+          it contains two kml:Pair elements where one has the key value "normal" and the 
+          other has the key value "highlight".</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. This element is 
+          used to provide alternative styles for Placemark features; each style is identified 
+          by a 'key' value corresponding to a display mode.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 12.3.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
