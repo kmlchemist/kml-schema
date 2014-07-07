@@ -13,7 +13,7 @@
     td, th { padding: 0.2em; vertical-align: top;}
     nav ol {list-style-type: none;}
     .atc ol {list-style-type: lower-alpha;}
-    ol.atc2 {list-style-type: decimal;}
+    ol.list2 {list-style-type: decimal;}
     </style>
   </head>
   <body>
@@ -102,6 +102,10 @@
             <li><a href="#atc-125">ATC-125</a>: Schema identifier</li>
             <li><a href="#atc-126">ATC-126</a>: SimpleField definition</li>
             <li><a href="#atc-127">ATC-127</a>: SchemaData content</li>
+            <li><a href="#atc-128">ATC-128</a>: Data element has distinct name</li>
+            <li><a href="#atc-129">ATC-129</a>: Valid texture alias</li>
+            <li><a href="#atc-130">ATC-130</a>: Feature metadata - atom:author</li>
+            <li><a href="#atc-131">ATC-131</a>: Feature metadata - atom:link</li>
           </ol>
         </li>
         <li><a href="#level-2">Conformance Level 2</a>
@@ -283,7 +287,7 @@
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-104</code></li>
           <li>Purpose: Verify that a TimeSpan element satisfies <em>all</em> of the following 
           constraints:
-            <ol class="atc2">
+            <ol class="list2">
               <li>it includes at least one child element (kml:begin or kml:end);</li>
               <li>if it is a definite interval (that is, both kml:begin and kml:end are present), 
               then the begin value is earlier than the end value.</li>
@@ -321,7 +325,7 @@
         <ol>
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-106</code></li>
           <li>Purpose: Check that a kml:styleUrl element satisfies all of the following constraints:
-            <ol class="atc2">
+            <ol class="list2">
               <li>its value is a valid relative or absolute URL that refers to a shared style definition 
               (any element that substitutes for <em>kml:AbstractStyleSelectorGroup</em>);</li>
               <li>if the reference is an absolute URI, it conforms to the 'http' or 'file' URI schemes;</li>
@@ -351,7 +355,7 @@
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-107</code></li>
           <li>Purpose: Confirm that a shared style definition (any element that may substitute for 
             <em>kml:AbstractStyleSelectorGroup</em>) satisfies all of the following constraints:
-            <ol class="atc2">
+            <ol class="list2">
               <li>its parent element is kml:Document;</li>
               <li>it has an 'id' attribute value.</li>
             </ol>
@@ -372,7 +376,7 @@
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-108</code></li>
           <li>Purpose: Verify that the content of a kml:LatLonAltBox element satisfies all of 
           the following conditions:
-            <ol class="atc2">
+            <ol class="list2">
               <li>kml:north &gt; kml:south;</li>
               <li>kml:east &gt; kml:west;</li>
               <li>kml:minAltitude &lt;= kml:maxAltitude;</li>
@@ -397,7 +401,7 @@
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-109</code></li>
           <li>Purpose: Check that a link element (of type kml:LinkType) satisfies all of the 
           following constraints:
-            <ol class="atc2">
+            <ol class="list2">
               <li>if present, the child kml:refreshInterval element has a positive value (&gt; 0);</li>
               <li>if present, the child kml:viewRefreshTime element has a positive value (&gt; 0);</li>
               <li>if present, the child kml:viewBoundScale element has a positive value (&gt; 0).</li>
@@ -473,7 +477,7 @@
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-111</code></li>
           <li>Purpose: Verify that the content of a kml:LatLonBox element satisfies all of the 
           following constraints:
-            <ol class="atc2">
+            <ol class="list2">
               <li>it contains the kml:north, kml:south, kml:east, and kml:west elements;</li>
               <li>kml:north &gt; kml:south;</li>
               <li>kml:east &gt; kml:west.</li>
@@ -561,7 +565,7 @@
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-116</code></li>
           <li>Purpose: Check that the kml:coordinates element in a kml:LinearRing geometry 
           satisfies all of the following assertions:
-            <ol class="atc2">
+            <ol class="list2">
               <li>it contains at least 4 coordinate tuples;</li>
               <li>the first and last control points are identical (the ring is closed).</li>
             </ol>
@@ -581,7 +585,7 @@
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-117</code></li>
           <li>Purpose: Verify that the boundary of a kml:Polygon element satisfies all 
           of the following constraints:
-            <ol class="atc2">
+            <ol class="list2">
               <li>if it is not a descendant of kml:Update, then the kml:Polygon has a child 
               kml:outerBoundaryIs element containing a kml:LinearRing element;</li>
               <li>each interior boundary defines a "hole" in the Polygon such that it lies 
@@ -662,7 +666,7 @@
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-121</code></li>
           <li>Purpose: Verify that a KML object that is not a descendant of kml:Update 
           satisfies one of the following constraints:
-            <ol class="atc2">
+            <ol class="list2">
               <li>it is not empty;</li>
               <li>it has an 'id' attribute value (to enable future updates).</li>
             </ol>
@@ -701,7 +705,7 @@
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-123</code></li>
           <li>Purpose: Check that a KML object which is a descendant (grandchild) of kml:Update 
           satisfies the following constraints:
-            <ol class="atc2">
+            <ol class="list2">
               <li>it includes a 'targetId' attribute value that identifies the object to be updated;</li>
               <li>it does not have an 'id' attribute.</li>
             </ol>
@@ -754,7 +758,7 @@
         <ol>
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-126</code></li>
           <li>Purpose:Verify that a kml:SimpleField element satisfies all of the following constraints:
-            <ol class="atc2">
+            <ol class="list2">
               <li>it has a 'name' attribute;</li>
               <li>the value of the 'type' attribute is one of the supported XML Schema datatypes:
                 <ul>
@@ -789,7 +793,7 @@
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-127</code></li>
           <li>Purpose: Confirm that a kml:SchemaData element satisfies all of the following 
           constraints:
-            <ol class="atc2">
+            <ol class="list2">
               <li>the 'schemaUrl' attribute value is a URL (it may be an absolute URI) 
               with a fragment component that refers to a kml:Schema element;</li>
               <li>all kml:SimpleData child elements have a 'name' attribute that 
@@ -809,6 +813,100 @@
               <li>Uniform Resource Identifier (URI): Generic Syntax - <a target="_blank" 
               href="http://tools.ietf.org/html/rfc3986#section-3.5">Fragment</a> (RFC 
               3986)</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-128" class="atc">
+        <h2>ATC-128: Data element has distinct name</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-128</code></li>
+          <li>Purpose: Check that the value of the 'name' attribute is unique within the 
+          context of the parent kml:ExtendedData element.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. Each kml:Data 
+          element represents an untyped name-value pair.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 9.3.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-129" class="atc">
+        <h2>ATC-129: Valid texture alias</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-129</code></li>
+          <li>Purpose: Verify that a kml:Alias element satisfies all of the following assertions:
+            <ol class="list2">
+              <li>the value of the child kml:targetHref element is a URI reference to an 
+              image (texture) resource;</li>
+              <li>the value of the child kml:sourceHref element corresponds to a file reference 
+              that appears within the 3D object resource referenced in the preceding sibling 
+              kml:Link element.</li>
+            </ol>
+          </li>
+          <li>Method: Pass if all assertions are satisfied; fail otherwise. The source 
+          file is expected to be a textual (including XML) digital asset resource such 
+          as a COLLADA file.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 10.14.3</li>
+              <li><a target="_blank" href="http://www.khronos.org/files/collada_spec_1_5.pdf">COLLADA 
+              1.5.0 Specification</a> (April 2008)</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-130" class="atc">
+        <h2>ATC-130: Feature metadata - atom:author</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-130</code></li>
+          <li>Purpose: Check that an atom:author element satisfies all of the following assertions:
+            <ol class="list2">
+              <li>the content of the child atom:uri element is an IRI reference;</li>
+              <li>the content of the child atom:email element conforms to the "addr-spec" 
+              production rule in RFC 5322 (<em>Internet Message Format</em>).</li>
+            </ol>
+          </li>
+          <li>Method: Pass if all assertions are satisfied; fail otherwise. The content 
+          model is specified by the <code>atomPersonConstruct</code> pattern in the RELAX 
+          NG schema. Note that within a container element authorship is inherited by all 
+          child feature members; it may be overridden on a per-feature basis.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 9.1.3.4</li>
+              <li>The Atom Syndication Format - <a target="_blank" 
+              href="http://tools.ietf.org/html/rfc4287#section-3.2">Person Constructs</a> 
+              (RFC 4287)</li>
+              <li><a target="_blank" href="http://tools.ietf.org/html/rfc3987">Internationalized 
+              Resource Identifiers (IRIs)</a> (RFC 3987)</li>
+              <li>Internet Message Format - <a target="_blank" 
+              href="http://tools.ietf.org/html/rfc5322#section-3.4.1">Addr-spec specification</a> 
+              (RFC 5322)</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-131" class="atc">
+        <h2>ATC-131: Feature metadata - atom:link</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-131</code></li>
+          <li>Purpose: Check that the value of the atom:link/@rel attribute is "related".</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. If the attribute 
+          is not present, the link must be interpreted as if @rel = "alternate" (i.e. the 
+          referent is an alternate version of the resource). The value "related" simply 
+          denotes a generic relationship. The atom:link element applies to all child features 
+          in a container unless overridden.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 9.1.3.5</li>
+              <li>The Atom Syndication Format - <a target="_blank" 
+              href="http://tools.ietf.org/html/rfc4287#section-4.2.7">The "atom:link" Element</a> 
+              (RFC 4287)</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -979,7 +1077,7 @@
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-210</code></li>
           <li>Purpose: Check that a kml:Link or a kml:Icon element (of type kml:LinkType) 
           adheres to all of the following constraints:
-            <ol class="atc2">
+            <ol class="list2">
               <li>if the kml:refreshInterval element is present, the kml:refreshMode value 
               must be "onInterval";</li>
               <li>if the kml:viewRefreshTime element is present, the kml:refreshMode value 
@@ -1040,7 +1138,7 @@
         <ol>
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-213</code></li>
           <li>Purpose: Check that a kml:Camera element satisfies all of the following constraints:
-            <ol class="atc2">
+            <ol class="list2">
               <li>if it is not a descendant of kml:Update, then the following child elements 
               are present: kml:latitude, kml:longitude, and kml:altitude;</li>
               <li>the value of kml:altitudeMode is not "clampToGround".</li>
@@ -1063,7 +1161,7 @@
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-214</code></li>
           <li>Purpose: Check that a kml:Location element satisfies all of the following 
           constraints:
-            <ol class="atc2">
+            <ol class="list2">
               <li>it contains the kml:longitude and kml:latitude elements;</li>
               <li>if the parent kml:Model element has a kml:altitudeMode value that is 
                 <strong>not</strong> "clampToGround", then the kml:altitude element must 
@@ -1176,7 +1274,7 @@
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-221</code></li>
           <li>Purpose: Check that if a kml:ImagePyramid element is not a descendant of kml:Update, 
           it satisfies all of the following constraints:
-            <ol class="atc2">
+            <ol class="list2">
               <li>it has the kml:maxWidth and kml:maxHeight child elements;</li>
               <li>the kml:tileSize value is a power of 2 (2<sup>n</sup>).</li>
             </ol>
@@ -1307,7 +1405,7 @@
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-3/atc-301</code></li>
           <li>Purpose: Confirm that the rings comprising the boundary of a kml:Polygon geometry 
           satisfy the constraints listed below.
-            <ol class="atc2">
+            <ol class="list2">
               <li>no two rings cross (but they may intersect at a single point);</li>
               <li>the (exterior) coordinates are specified in a counterclockwise order.</li>
             </ol>
