@@ -23,7 +23,7 @@
       <table>
         <tr>
           <td>Date:</td>
-          <td>2014-MM-DD</td>
+          <td>2014-07-08</td>
         </tr>
         <tr>
           <td>Document identifier:</td>
@@ -106,6 +106,11 @@
             <li><a href="#atc-129">ATC-129</a>: Valid texture alias</li>
             <li><a href="#atc-130">ATC-130</a>: Feature metadata - atom:author</li>
             <li><a href="#atc-131">ATC-131</a>: Feature metadata - atom:link</li>
+            <li><a href="#atc-132">ATC-132</a>: Model orientation not empty</li>
+            <li><a href="#atc-133">ATC-133</a>: GroundOverlay with altitude</li>
+            <li><a href="#atc-134">ATC-134</a>: Model referents</li>
+            <li><a href="#atc-135">ATC-135</a>: PhotoOverlay</li>
+            <li><a href="#atc-136">ATC-136</a>: Mode-specific feature style</li>
           </ol>
         </li>
         <li><a href="#level-2">Conformance Level 2</a>
@@ -147,7 +152,7 @@
             <li><a href="#atc-304">ATC-304</a>: Metadata element (deprecated)</li>
             <li><a href="#atc-305">ATC-305</a>: Model scale factors</li>
             <li><a href="#atc-306">ATC-306</a>: LOD visibility</li>
-            <li><a href="#atc-307">ATC-307</a>: Model orientation</li>
+            <li><a href="#atc-307">ATC-307</a>: Model orientation is fully specified</li>
             <li><a href="#atc-308">ATC-308</a>: Snippet element (deprecated)</li>
             <li><a href="#atc-309">ATC-309</a>: Url element (deprecated)</li>
           </ol>
@@ -912,6 +917,103 @@
           <li>Test type: Capability</li>
         </ol>
       </div>
+      <div id="atc-132" class="atc">
+        <h2>ATC-132: Model orientation not empty</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-132</code></li>
+          <li>Purpose: Verify that if a kml:Orientation element is not a descendant of kml:Update, 
+          then it contains at least one of the following elements: kml:heading, kml:tilt, or 
+          kml:roll.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 10.11.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-133" class="atc">
+        <h2>ATC-133: GroundOverlay with altitude</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-133</code></li>
+          <li>Purpose: Verify that a kml:GroundOverlay with an kml:altitudeMode value of "absolute" 
+          includes a kml:altitude element.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 9.16.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-134" class="atc">
+        <h2>ATC-134: Model referents</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-134</code></li>
+          <li>Purpose: Check that a kml:Model element adheres to all of the following constraints 
+          if it is not a descendant of kml:Update:
+            <ol class="list2">
+              <li>it contains a child kml:Link element (refers to a 3D model);</li>
+              <li>it has a child kml:Location element (specifies model position);</li>
+              <li>if the referenced model has any associated texture files, then there is 
+              a kml:ResourceMap/kml:Alias element for each one.</li>
+            </ol>
+          </li>
+          <li>Method: Pass if all assertions are satisfied; fail otherwise. The KML standard does 
+          not mention any particular type of 3D model. However, Google Earth only handles COLLADA 
+          files (<code>model/vnd.collada+xml</code>).</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 10.9.2</li>
+              <li>KML Reference - <a target="_blank" 
+              href="https://developers.google.com/kml/documentation/kmlreference#model">Model</a></li>
+              <li>KML Developer's Guide - <a target="_blank" 
+              href="https://developers.google.com/kml/documentation/models">Models</a></li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-135" class="atc">
+        <h2>ATC-135: PhotoOverlay</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-135</code></li>
+          <li>Purpose: Check that if a kml:PhotoOverlay element is not a descendant of kml:Update, 
+          then it has all of the following child elements: kml:Icon, kml:ViewVolume, kml:Point, 
+          and kml:Camera.</li>
+          <li>Method: Pass if all assertions are satisfied; fail otherwise.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 11.5.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-136" class="atc">
+        <h2>ATC-136: Mode-specific feature style</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-136</code></li>
+          <li>Purpose: Check that if a kml:Pair element is not a descendant of kml:Update, then it 
+          contains the following elements:
+            <ol class="list2">
+              <li>a kml:key element (identifies the style mode);</li>
+              <li>a kml:styleURL or kml:Style element.</li>
+            </ol>
+          </li>
+          <li>Method: Pass if the assertions are satisfied; fail otherwise. The parent 
+          kml:StyleMap element contains alternative styles that apply for a particular mode; 
+          two values are defined in kml:styleStateEnumType: "normal" (default) and "highlight".</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 12.4.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
     </section>
 
     <section id="level-2" data-type="sect1">
@@ -1547,7 +1649,7 @@
         </ol>
       </div>
       <div id="atc-307" class="atc">
-        <h2>ATC-307: Model orientation</h2>
+        <h2>ATC-307: Model orientation is fully specified</h2>
         <ol>
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-3/atc-307</code></li>
           <li>Purpose: Verify that a kml:Orientation element includes the following child elements: 
