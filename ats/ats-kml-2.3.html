@@ -112,6 +112,7 @@
             <li><a href="#atc-134">ATC-134</a>: Model referents</li>
             <li><a href="#atc-135">ATC-135</a>: PhotoOverlay</li>
             <li><a href="#atc-136">ATC-136</a>: Mode-specific feature style</li>
+            <li><a href="#atc-137">ATC-137</a>: ItemIcon refers to image</li>
           </ol>
         </li>
         <li><a href="#level-2">Conformance Level 2</a>
@@ -1010,6 +1011,26 @@
           <li>References:
             <ul>
               <li>OGC 12-007, cl. 12.4.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-137" class="atc">
+        <h2>ATC-137: ItemIcon refers to image</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-137</code></li>
+          <li>Purpose: Check that if a kml:ItemIcon element is not a descendant of kml:Update, 
+          then it has a kml:href child element that refers to an image resource.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. The referenced 
+          image is the icon used to indicate the state of a Folder or Link fetch.
+            <span style="background-color:Yellow;">TODO? verify state according to 12.14.3: 
+          icons associated with the error and fetching modes apply to network links.</span></li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 12.14.2</li>
+              <li>KML Reference - <a target="_blank" 
+              href="https://developers.google.com/kml/documentation/kmlreference#itemicon">ItemIcon</a></li>
             </ul>
           </li>
           <li>Test type: Capability</li>
