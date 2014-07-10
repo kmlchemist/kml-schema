@@ -9,10 +9,11 @@
     h2 {font-size: 1.1em;}
     h3 {font-size: 1em;}
     pre {padding: 0.5em; background-color: LightGray }
-    table {margin-top: 1em; margin-bottom: 1em; border-collapse: collapse;}
-    td, th { padding: 0.2em; vertical-align: top;}
+    table {margin-top: 1em; margin-bottom: 1em;  border: 1px solid black; border-collapse: collapse;}
+    td, th { padding: 0.2em; vertical-align: top; border: 1px solid black;}
     nav ol {list-style-type: none;}
     .atc ol {list-style-type: lower-alpha;}
+    .borderless td {border: none;}
     ol.list2 {list-style-type: decimal;}
     </style>
   </head>
@@ -20,10 +21,10 @@
     <section data-type="titlepage">
       <img src="http://www.opengeospatial.org/themes/ogc/logo.png" alt="OGC logo" />
       <p><strong>Open Geospatial Consortium</strong></p>
-      <table>
+      <table class="borderless" style="border: none;">
         <tr>
           <td>Date:</td>
-          <td>2014-07-08</td>
+          <td>2014-07-10</td>
         </tr>
         <tr>
           <td>Document identifier:</td>
@@ -1519,38 +1520,7 @@
           "top" of the surface); interior boundaries are clockwise.
             <figure>
               <figcaption><strong>Figure 1</strong> - Correctly oriented polygon</figcaption>
-              <svg width="400" height="150" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
-                <defs>
-                  <marker id="se_marker_end_svg_1" markerUnits="strokeWidth" orient="auto" viewBox="0 0 100 100" markerWidth="5" markerHeight="5" refX="50" refY="50">
-                    <path id="svg_2" d="m100,50l-100,40l30,-40l-30,-40l100,40z" fill="#000000" stroke="#000000" stroke-width="10"/>
-                  </marker>
-                </defs>
-                <g>
-                  <line transform="rotate(-21.7271, 133.583, 46.6793)" fill="none" stroke="#000000" stroke-width="3" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" fill-opacity="0" x1="122.73541" y1="74.261231" x2="144.430054" y2="19.09485" id="svg_4" marker-end="url(#se_marker_end_svg_1)"/>
-                  <text font-weight="normal" fill="#000000" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="180" y="26" id="svg_5" font-size="16" font-family="Sans-serif" text-anchor="middle" xml:space="preserve">up (+)</text>
-                  <line fill="none" stroke="#000000" stroke-width="3" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" fill-opacity="0" x1="27" y1="2" x2="28" y2="2" id="svg_17"/>
-                  <line fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" fill-opacity="0" x1="226.5" y1="60.999999" x2="267.499999" y2="60.999999" marker-end="url(#se_marker_end_svg_1)" id="svg_19"/>
-                  <polygon strokeWidth="2" strokecolor="#000000" fill="#000000" edge="0" orient="x" sides="5" shape="regularPoly" id="svg_9" cy="247" cx="31"/>
-                  <polygon strokeWidth="2" strokecolor="none" fill="#000000" edge="0" orient="x" sides="5" shape="regularPoly" id="svg_12" cy="262" cx="123"/>
-                  <polygon strokeWidth="2" strokecolor="none" fill="#000000" edge="0" orient="x" sides="5" shape="regularPoly" id="svg_13" cy="214" cx="41"/>
-                  <polygon strokeWidth="2" strokecolor="none" fill="#000000" edge="0" orient="x" sides="5" shape="regularPoly" id="svg_14" cy="212" cx="18"/>
-                  <polygon strokeWidth="2" strokecolor="none" fill="#000000" edge="0" orient="x" sides="5" shape="regularPoly" id="svg_21" cy="218" cx="11"/>
-                  <polygon strokeWidth="2" strokecolor="none" fill="#000000" edge="0" orient="x" sides="5" shape="regularPoly" id="svg_22" cy="232" cx="30"/>
-                  <polygon strokeWidth="2" strokecolor="none" fill="#000000" edge="0" orient="x" sides="5" shape="regularPoly" id="svg_24" cy="199" cx="-1"/>
-                  <polygon strokeWidth="2" strokecolor="none" fill="#000000" edge="0" orient="x" sides="4" shape="regularPoly" id="svg_25" cy="239" cx="96"/>
-                  <polygon strokeWidth="2" strokecolor="none" fill="#000000" edge="0" orient="x" sides="4" shape="regularPoly" id="svg_26" cy="232" cx="40"/>
-                  <polygon stroke-width="2" points="147.47140502929688,104 147,104.47140502929688 146.52859497070312,104 147,103.52859497070312 147.47140502929688,104 " strokeWidth="2" strokecolor="none" fill="#000000" edge="0.666667" orient="x" sides="4" shape="regularPoly" id="svg_29" cy="276" cx="226"/>
-                  <polygon strokeWidth="2" strokecolor="none" fill="#000000" edge="0" orient="x" sides="4" shape="regularPoly" id="svg_31" cy="301" cx="349"/>
-                  <polygon strokeWidth="2" strokecolor="none" fill="#000000" edge="0" orient="x" sides="4" shape="regularPoly" id="svg_32" cy="231" cx="105"/>
-                  <polygon strokeWidth="2" strokecolor="none" fill="#000000" edge="0" orient="x" sides="4" shape="regularPoly" id="svg_33" cy="209" cx="48"/>
-                  <polygon strokeWidth="2" strokecolor="none" fill="#000000" edge="0" orient="x" sides="4" shape="regularPoly" id="svg_34" cy="214" cx="36"/>
-                  <polygon strokeWidth="2" strokecolor="none" fill="#000000" edge="0" orient="x" sides="4" shape="regularPoly" id="svg_35" cy="216" cx="1"/>
-                  <path id="svg_40" d="m21.000008,129.821075l98.807793,-88.314072l258.19223,0.521423l-98.851196,87.435104l-258.148827,0.357544z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="none"/>
-                  <path id="svg_41" d="m142.5,101.029144l40.131897,-31.775543l104.868103,0.187622l-40.14978,31.45929l-104.85022,0.128632z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#bfbfbf"/>
-                  <line id="svg_43" transform="rotate(50.5942, 355, 77.3963)" fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" fill-opacity="0" x1="355" y1="93.999999" x2="355" y2="60.79563" marker-end="url(#se_marker_end_svg_1)"/>
-                  <line id="svg_45" fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" fill-opacity="0" x1="116" y1="139.999999" x2="156.999999" y2="139.999999" marker-end="url(#se_marker_end_svg_1)"/>
-                </g>
-              </svg>
+              <img src="fig1-polygon.svg" alt="SVG image not displayed" />
             </figure>
           </li>
           <li>References:
