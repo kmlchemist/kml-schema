@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="250" height="150" xmlns="http://www.w3.org/2000/svg" version="1.1">
+  <defs>
+    <marker id="arrow01" refY="50" refX="50" markerHeight="5" markerWidth="5" viewBox="0 0 100 100" orient="auto" markerUnits="strokeWidth">
+      <path stroke-width="10" stroke="#000000" fill="#000000" d="m100,50l-100,40l30,-40l-30,-40z"/>
+    </marker>
+  </defs>
+  <g>
+    <path fill="none" stroke-width="2" stroke-linejoin="miter" d="m9.647614,85.058601l116.501663,-48.501312l116.501602,48.501312l-116.501602,48.501305l-116.501663,-48.501305z" id="svg_1" stroke="#000000"/>
+    <path fill="#7f7f7f" stroke="#000000" stroke-width="2" stroke-linejoin="miter" d="m86.312721,90.027313l55.000893,-18.497696l54.997742,18.497696l-54.997742,18.497734l-55.000893,-18.497734z" id="svg_2"/>
+    <text fill="#000000" stroke="#000000" stroke-width="0" stroke-linecap="butt" x="133" y="27" id="svg_4" font-size="18" font-family="Sans-serif" text-anchor="middle" xml:space="preserve" font-weight="normal">up (+)</text>
+    <line marker-end="url(#arrow01)" id="svg_6" y2="18.992288" x2="88" y1="73" x1="88" stroke-width="3" stroke="#000000" fill="none"/>
+    <line marker-end="url(#arrow01)" id="svg_7" y2="133" x2="101" y1="118" x1="64" stroke-linecap="butt" stroke-dasharray="5 5" stroke-width="2" stroke="#000000" fill="none"/>
+    <line marker-end="url(#arrow01)" id="svg_11" y2="98" x2="233" y1="114" x1="193" stroke-linecap="butt" stroke-dasharray="5 5" stroke-width="2" stroke="#000000" fill="none"/>
+    <line id="svg_13" marker-end="url(#arrow01)" y2="80" x2="192" y1="70.43271" x1="163.000001" stroke-linecap="butt" stroke-dasharray="5 5" stroke-width="2" stroke="#000000" fill="none"/>
+  </g>
+</svg>
