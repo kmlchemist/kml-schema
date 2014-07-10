@@ -113,6 +113,10 @@
             <li><a href="#atc-135">ATC-135</a>: PhotoOverlay</li>
             <li><a href="#atc-136">ATC-136</a>: Mode-specific feature style</li>
             <li><a href="#atc-137">ATC-137</a>: ItemIcon refers to image</li>
+            <li><a href="#atc-138">ATC-138</a>: LookAt viewpoint</li>
+            <li><a href="#atc-139">ATC-139</a>: Region visibility (LOD)</li>
+            <li><a href="#atc-140">ATC-140</a>: Link reference</li>
+            <li><a href="#atc-141">ATC-141</a>: Region</li>
           </ol>
         </li>
         <li><a href="#level-2">Conformance Level 2</a>
@@ -153,7 +157,7 @@
             <li><a href="#atc-303">ATC-303</a>: BalloonStyle with color (deprecated)</li>
             <li><a href="#atc-304">ATC-304</a>: Metadata element (deprecated)</li>
             <li><a href="#atc-305">ATC-305</a>: Model scale factors</li>
-            <li><a href="#atc-306">ATC-306</a>: LOD visibility</li>
+            <li><a href="#atc-306">ATC-306</a>: LOD fade range</li>
             <li><a href="#atc-307">ATC-307</a>: Model orientation is fully specified</li>
             <li><a href="#atc-308">ATC-308</a>: Snippet element (deprecated)</li>
             <li><a href="#atc-309">ATC-309</a>: Url element (deprecated)</li>
@@ -1036,6 +1040,103 @@
           <li>Test type: Capability</li>
         </ol>
       </div>
+      <div id="atc-138" class="atc">
+        <h2>ATC-138: LookAt viewpoint</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-138</code></li>
+          <li>Purpose: Check that a kml:LookAt element satisfies all of the following constraints:
+            <ol class="list2">
+              <li>if it is not a descendant of kml:Update, it contains all of the following 
+              child elements: kml:longitude, kml:latitude, and kml:range;</li>
+              <li>0 &lt;= kml:tilt &lt;= 90;</li>
+              <li>if kml:altitudeMode does not have the value "clampToGround", then the 
+              kml:altitude element is present.</li>
+            </ol>
+          </li>
+          <li>Method: Pass if all assertions are satisfied; fail otherwise. The LookAt element 
+          positions a "virtual camera" in relation to the feature that is being viewed.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 14.3.2</li>
+              <li>OGC 12-007, cl. 14.3.3</li>
+              <li>KML Reference - <a target="_blank" 
+              href="https://developers.google.com/kml/documentation/kmlreference#lookat">LookAt</a></li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-139" class="atc">
+        <h2>ATC-139: Region visibility (LOD)</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-139</code></li>
+          <li>Purpose: Check that a kml:Lod element satisfies all of the following constraints:
+            <ol class="list2">
+              <li>if it is not a descendant of kml:Update, it contains the kml:minLodPixels 
+              element;</li>
+              <li>kml:minLodPixels &lt; kml:maxLodPixels (Note: -1 denotes positive infinity).</li>
+            </ol>
+          </li>
+          <li>Method: Pass if all assertions are satisfied; fail otherwise. The visibility 
+          of a region (and its associated features) is determined as indicated below, where 
+            <var>P</var> denotes the calculated projected pixel size.
+            <pre>if (P &lt; minLodPixels)
+  opacity = 0
+else if (P &lt; minLodPixels + minFadeExtent)
+  opacity = (P - minLodPixels)/minFadeExtent
+else if (P &lt; maxLodPixels - maxFadeExtent)
+  opacity = 1
+else if (P &lt; maxLodPixels)
+  opacity = (maxLodPixels-P)/maxFadeExtent
+else
+  opacity=0</pre>
+          </li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 9.18.2</li>
+              <li>KML Reference - <a target="_blank" 
+              href="https://developers.google.com/kml/documentation/kmlreference#lod">Lod</a></li>
+              <li>KML Developer's Guide - <a target="_blank"
+              href="https://developers.google.com/kml/documentation/regions">Working with Regions</a></li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-140" class="atc">
+        <h2>ATC-140: Link reference</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-140</code></li>
+          <li>Purpose: Check that if a kml:Link or a kml:Icon element (both of type 
+          kml:LinkType) is not a descendant of kml:Update, then it contains a kml:href 
+          child element.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. The value is a 
+          URI reference. The type of resource referred to depends on the parent element 
+          (see <a href="#atc-110">ATC-110</a>).</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 13.1.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-141" class="atc">
+        <h2>ATC-141: Region</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-141</code></li>
+          <li>Purpose: Confirm that if a kml:Region element is not a descendant of kml:Update, 
+          it contains the kml:LatLonAltBox and kml:Lod elements.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. These elements 
+          are used to determine whether or not a region is considered to be "active".</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 9.13.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
     </section>
 
     <section id="level-2" data-type="sect1">
@@ -1623,17 +1724,21 @@
         </ol>
       </div>
       <div id="atc-306" class="atc">
-        <h2>ATC-306: LOD visibility</h2>
+        <h2>ATC-306: LOD fade range</h2>
         <ol>
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-3/atc-306</code></li>
           <li>Purpose: Verify that the following expression holds for the pixel ramp values that 
           determine whether or not a region is active:
-            <pre>kml:minFadeExtent + kml:maxFadeExtent &lt;= kml:maxLodPixels - kml:minLodPixels</pre></li>
+            <pre>kml:minFadeExtent + kml:maxFadeExtent &lt;= 
+kml:maxLodPixels - kml:minLodPixels</pre>
+          </li>
           <li>Method: Pass if the assertion is satisfied; fail otherwise.</li>
           <li>References:
             <ul>
               <li>OGC 12-007, cl. 9.18.2</li>
               <li>OGC 12-007, cl. 9.13</li>
+              <li>KML Developer's Guide - Regions - <a target="_blank"
+              href="https://developers.google.com/kml/documentation/regions#fadeextent">Fade Extent</a></li>
             </ul>
           </li>
           <li>Test type: Capability</li>
