@@ -117,6 +117,7 @@
             <li><a href="#atc-139">ATC-139</a>: Region visibility (LOD)</li>
             <li><a href="#atc-140">ATC-140</a>: Link reference</li>
             <li><a href="#atc-141">ATC-141</a>: Region</li>
+            <li><a href="#atc-142">ATC-142</a>: Tour playlist</li>
           </ol>
         </li>
         <li><a href="#level-2">Conformance Level 2</a>
@@ -1137,6 +1138,22 @@ else
           <li>Test type: Capability</li>
         </ol>
       </div>
+      <div id="atc-142" class="atc">
+        <h2>ATC-142: Tour playlist</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-142</code></li>
+          <li>Purpose: Verify that if a kml:Tour element is not a descendant of kml:Update, 
+          then it has a kml:Playlist child element that contains one or more tour primitives.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. A tour primitive 
+          is any element that can substitute for <em>kml:AbstractTourPrimitiveGroup</em>.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 9.20.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
     </section>
 
     <section id="level-2" data-type="sect1">
@@ -1643,7 +1660,6 @@ http://server.example.org/bigphoto/$[level]/row_$[x]_column_$[y].jpg</pre>
           when viewed from the side of the surface indicated by the upward normal (the 
           "top" of the surface); interior boundaries are clockwise.
             <figure>
-              <figcaption><strong>Figure 1</strong> - Correctly oriented polygon</figcaption>
               <img src="fig1-polygon.svg" alt="SVG image not displayed" />
             </figure>
           </li>
@@ -1734,7 +1750,12 @@ http://server.example.org/bigphoto/$[level]/row_$[x]_column_$[y].jpg</pre>
             <pre>kml:minFadeExtent + kml:maxFadeExtent &lt;= 
 kml:maxLodPixels - kml:minLodPixels</pre>
           </li>
-          <li>Method: Pass if the assertion is satisfied; fail otherwise.</li>
+          <li><p>Method: Pass if the assertion is satisfied; fail otherwise. The fade range is 
+          depicted in the following figure.</p>
+            <figure>
+              <img src="fig2-lod.svg" alt="SVG image not displayed" />
+            </figure>
+          </li>
           <li>References:
             <ul>
               <li>OGC 12-007, cl. 9.18.2</li>

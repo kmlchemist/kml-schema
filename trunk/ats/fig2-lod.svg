@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="150" xmlns="http://www.w3.org/2000/svg" version="1.1">
+  <g>
+    <path id="svg_13" d="m70,28l10,0l-2,88c96,0 193,0 289,0" stroke-width="2" stroke="#000000" fill="none"/>
+    <text xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="14" id="svg_12" y="34" x="53" stroke-width="0" stroke="#000000" fill="#000000">1</text>
+    <text xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="14" id="svg_11" y="120" x="56" stroke-width="0" stroke="#000000" fill="#000000">0</text>
+    <text xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="14" id="svg_10" y="73" x="43" stroke-width="0" stroke="#000000" fill="#000000">Opacity</text>
+    <path id="svg_9" d="m362.472443,116.642578l-6.095276,-6.101578l4.014069,0l6.095337,6.101578l-6.095337,6.101593l-4.014069,0l6.095276,-6.101593z" stroke-width="2" stroke="#000000" fill="#000000"/>
+    <text xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="14" id="svg_8" y="139" x="223" stroke-width="0" stroke="#000000" fill="#000000">P</text>
+    <path id="svg_7" d="m77,116l65,0l40,-85l83,0l38,85l55,0" stroke-width="4" stroke="#0000ff" fill="none"/>
+    <line fill="none" stroke="#0000ff" stroke-width="2" stroke-dasharray="4 4" x1="183.08334" y1="29.25" x2="183.08334" y2="116.30171" id="svg_6"/>
+    <line fill="none" stroke="#0000ff" stroke-width="2" stroke-dasharray="4 4" x1="264.25131" y1="29.72461" x2="264.25131" y2="116.77632" id="svg_5"/>
+    <text xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="12" id="svg_4" y="133.08334" x="142.91666" stroke-width="0" stroke="#000000" fill="#000000">minLodPixels</text>
+    <text xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="12" id="svg_3" y="132.08334" x="305.91666" stroke-width="0" stroke="#000000" fill="#000000">maxLodPixels</text>
+    <circle fill="#000000" stroke="#000000" stroke-width="4" cx="142.91694" cy="116.08306" r="3.236328" id="svg_2"/>
+    <circle fill="#000000" stroke="#000000" stroke-width="4" cx="302.25093" cy="115.24907" r="3.236328" id="svg_1"/>
+    <rect fill="none" stroke="#000000" x="347" y="73" width="1" height="0" id="svg_16"/>
+    <text fill="#000000" stroke="#000000" stroke-width="0" x="164.121187" y="16.545459" id="svg_20" font-size="12" font-family="Sans-serif" text-anchor="middle" xml:space="preserve">minFadeExtent</text>
+    <line id="svg_22" y2="30" x2="177.332878" y1="30" x1="146.332878" stroke-width="null" stroke="#000000" fill="none"/>
+    <path id="svg_23" d="m178.10675,29.507202l-3.343216,-6.001404l6.01123,6.001404l-6.01123,6.001343l3.343216,-6.001343z" stroke-width="null" stroke="#000000" fill="#000000"/>
+    <path transform="rotate(-178.147, 147.17, 30.168)" id="svg_25" d="m147.505859,30.16803l-3.343231,-6.001419l6.01123,6.001419l-6.01123,6.001343l3.343231,-6.001343z" stroke-width="null" stroke="#000000" fill="#000000"/>
+    <line id="svg_26" y2="30.367187" x2="298.612209" y1="30.367187" x1="268.61221" stroke-width="null" stroke="#000000" fill="none"/>
+    <path id="svg_27" d="m298.386047,29.87439l-3.343201,-6.001404l6.01123,6.001404l-6.01123,6.001343l3.343201,-6.001343z" stroke-width="null" stroke="#000000" fill="#000000"/>
+    <path id="svg_28" transform="rotate(-178.147, 268.447, 29.5351)" d="m268.785156,29.535217l-3.343231,-6.001419l6.01123,6.001419l-6.01123,6.001343l3.343231,-6.001343z" stroke-width="null" stroke="#000000" fill="#000000"/>
+    <text xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="12" id="svg_29" y="16.916656" x="286" stroke-width="0" stroke="#000000" fill="#000000">maxFadeExtent</text>
+  </g>
+</svg>
