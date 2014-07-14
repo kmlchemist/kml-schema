@@ -24,7 +24,7 @@
       <table class="borderless" style="border: none;">
         <tr>
           <td>Date:</td>
-          <td>2014-07-10</td>
+          <td>2014-07-14</td>
         </tr>
         <tr>
           <td>Document identifier:</td>
@@ -118,6 +118,7 @@
             <li><a href="#atc-140">ATC-140</a>: Link reference</li>
             <li><a href="#atc-141">ATC-141</a>: Region</li>
             <li><a href="#atc-142">ATC-142</a>: Tour playlist</li>
+            <li><a href="#atc-143">ATC-143</a>: FlyTo view</li>
           </ol>
         </li>
         <li><a href="#level-2">Conformance Level 2</a>
@@ -149,6 +150,8 @@
             <li><a href="#atc-225">ATC-225</a>: MultiGeometry not empty</li>
             <li><a href="#atc-226">ATC-226</a>: Placemark has geometry</li>
             <li><a href="#atc-227">ATC-227</a>: StyleMap content</li>
+            <li><a href="#atc-228">ATC-228</a>: FlyTo duration</li>
+            <li><a href="#atc-229">ATC-229</a>: Wait duration</li>
           </ol>
         </li>
         <li><a href="#level-3">Conformance Level 3</a>
@@ -443,24 +446,38 @@
                 <tr>
                   <th>Parent element</th>
                   <th>Referent</th>
-                  <th>Media type</th>
+                  <th>Acceptable media types</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>kml:NetworkLink</td>
                   <td>A KML (or KMZ) resource</td>
-                  <td>application/vnd.google-earth.kml+xml, application/vnd.google-earth.kmz</td>
+                  <td>
+                    <ul>
+                      <li>application/vnd.google-earth.kml+xml</li>
+                      <li>application/vnd.google-earth.kmz</li>
+                    </ul>
+                  </td>
                 </tr>
                 <tr>
                   <td>kml:Model</td>
                   <td>A textured 3D object resource, such as a COLLADA file</td>
-                  <td>model/vnd.collada+xml, model/*</td>
+                  <td>
+                    <ul>
+                      <li>model/vnd.collada+xml</li>
+                      <li>model/*</li>
+                    </ul>
+                  </td>
                 </tr>
                 <tr>
                   <td><em>kml:AbstractOverlayType</em><sup>a</sup></td>
                   <td>An image resource</td>
-                  <td>image/*</td>
+                  <td>
+                    <ul>
+                      <li>image/*</li>    
+                    </ul>
+                  </td>
                 </tr>
               </tbody>
               <tfoot>
@@ -1144,11 +1161,31 @@ else
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-142</code></li>
           <li>Purpose: Verify that if a kml:Tour element is not a descendant of kml:Update, 
           then it has a kml:Playlist child element that contains one or more tour primitives.</li>
-          <li>Method: Pass if the assertion is satisfied; fail otherwise. A tour primitive 
-          is any element that can substitute for <em>kml:AbstractTourPrimitiveGroup</em>.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. A virtual tour 
+          consists of a sequence of tour primitives. A tour primitive is any element that 
+          can substitute for <em>kml:AbstractTourPrimitiveGroup</em>.</li>
           <li>References:
             <ul>
               <li>OGC 12-007, cl. 9.20.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-143" class="atc">
+        <h2>ATC-143: FlyTo view</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-143</code></li>
+          <li>Purpose: Verify that a kml:FlyTo element contains a child view element 
+          (kml:Camera or kml:LookAt).</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. A view element 
+          must substitute for <em>kml:AbstractViewGroup</em>.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 9.23.2</li>
+              <li>KML Developer's Guide - <a target="_blank"
+              href="https://developers.google.com/kml/documentation/touring#flyto">FlyTo 
+              and flyToMode</a></li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -1629,6 +1666,48 @@ http://server.example.org/bigphoto/$[level]/row_$[x]_column_$[y].jpg</pre>
           <li>References:
             <ul>
               <li>OGC 12-007, cl. 12.3.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-228" class="atc">
+        <h2>ATC-228: FlyTo duration</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-228</code></li>
+          <li>Purpose: Verify that a kml:FlyTo element satisfies all of the following constraints:
+            <ol class="list2">
+              <li>it has a specified flight duration (in seconds) &gt; 0;</li>
+              <li>it specifies a method of flight (flyToMode).</li>
+            </ol>
+            <span style="background-color:Yellow;">TODO? If flyToMode is 'smooth', duration 
+          must be &gt; 0. Recommendation: initial FlyTo has duration &gt;= 5.</span>
+          </li>
+          <li>Method: Pass if all assertions are satisfied; fail otherwise. The flyToMode 
+          element informs an earth browser about how to approach the viewing position; the default 
+          value is "bounce" (begin and end at rest).</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 9.23.3</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-229" class="atc">
+        <h2>ATC-229: Wait duration</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-2/atc-229</code></li>
+          <li>Purpose: Check that a kml:Wait element specifies a duration (in seconds) &gt; 0.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. This tour primitive 
+          pauses the view, but not the tour timeline&#8211;sound files and animated updates 
+          should continue to play.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 9.26.2</li>
+              <li>KML Developer's Guide - <a target="_blank"
+              href="https://developers.google.com/kml/documentation/touring#pausing">Waiting 
+              and pausing</a></li>
             </ul>
           </li>
           <li>Test type: Capability</li>
