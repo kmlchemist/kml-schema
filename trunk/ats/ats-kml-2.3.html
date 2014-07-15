@@ -24,7 +24,7 @@
       <table class="borderless" style="border: none;">
         <tr>
           <td>Date:</td>
-          <td>2014-07-14</td>
+          <td>2014-07-15</td>
         </tr>
         <tr>
           <td>Document identifier:</td>
@@ -112,13 +112,16 @@
             <li><a href="#atc-134">ATC-134</a>: Model referents</li>
             <li><a href="#atc-135">ATC-135</a>: PhotoOverlay</li>
             <li><a href="#atc-136">ATC-136</a>: Mode-specific feature style</li>
-            <li><a href="#atc-137">ATC-137</a>: ItemIcon refers to image</li>
+            <li><a href="#atc-137">ATC-137</a>: ItemIcon refers to image resource</li>
             <li><a href="#atc-138">ATC-138</a>: LookAt viewpoint</li>
             <li><a href="#atc-139">ATC-139</a>: Region visibility (LOD)</li>
             <li><a href="#atc-140">ATC-140</a>: Link reference</li>
             <li><a href="#atc-141">ATC-141</a>: Region</li>
             <li><a href="#atc-142">ATC-142</a>: Tour playlist</li>
             <li><a href="#atc-143">ATC-143</a>: FlyTo view</li>
+            <li><a href="#atc-144">ATC-144</a>: TourControl not empty</li>
+            <li><a href="#atc-145">ATC-145</a>: SoundCue refers to audio resource</li>
+            <li><a href="#atc-146">ATC-146</a>: AnimatedUpdate referent</li>
           </ol>
         </li>
         <li><a href="#level-2">Conformance Level 2</a>
@@ -152,6 +155,7 @@
             <li><a href="#atc-227">ATC-227</a>: StyleMap content</li>
             <li><a href="#atc-228">ATC-228</a>: FlyTo duration</li>
             <li><a href="#atc-229">ATC-229</a>: Wait duration</li>
+            <li><a href="#atc-230">ATC-230</a>: AnimatedUpdate duration</li>
           </ol>
         </li>
         <li><a href="#level-3">Conformance Level 3</a>
@@ -1039,7 +1043,7 @@
         </ol>
       </div>
       <div id="atc-137" class="atc">
-        <h2>ATC-137: ItemIcon refers to image</h2>
+        <h2>ATC-137: ItemIcon refers to image resource</h2>
         <ol>
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-137</code></li>
           <li>Purpose: Check that if a kml:ItemIcon element is not a descendant of kml:Update, 
@@ -1186,6 +1190,76 @@ else
               <li>KML Developer's Guide - <a target="_blank"
               href="https://developers.google.com/kml/documentation/touring#flyto">FlyTo 
               and flyToMode</a></li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-144" class="atc">
+        <h2>ATC-144: TourControl not empty</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-144</code></li>
+          <li>Purpose: Verify that if a kml:TourControl element is not a descendant of kml:Update, 
+          then it contains a child kml:playMode element.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. This element may be 
+          used to insert a user-controlled pause.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 9.25.2</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-145" class="atc">
+        <h2>ATC-145: SoundCue refers to audio resource</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-145</code></li>
+          <li>Purpose: Check that if a kml:SoundCue element is not a descendant of 
+          kml:Update, then it has a kml:href child element that refers to an audio 
+          resource (media type <code>audio/*</code>).</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. Sounds are 
+          played in parallel with the rest of the tour. Commonly used audio formats 
+          are listed below.
+            <ul>
+              <li>MP3 (audio/mpeg)</li>
+              <li>M4A (audio/mp4, with AAC encoding)</li>
+            </ul>
+          </li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 9.24.2</li>
+              <li>KML Developer's Guide - Touring in KML - <a target="_blank"
+              href="https://developers.google.com/kml/documentation/touring#sound">Adding 
+              sound</a></li>
+              <li>IANA Media Type Register - <a target="_blank" 
+              href="http://www.iana.org/assignments/media-types/media-types.xhtml#audio">
+              audio</a></li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-146" class="atc">
+        <h2>ATC-146: AnimatedUpdate referent</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-146</code></li>
+          <li>Purpose: Check that the value of the kml:AnimatedUpdate/kml:Update/kml:targetHref 
+          element satisfies one of the following cases:
+            <ol class="list2">
+              <li>it is an absolute URI that refers to a KML or KMZ resource;</li>
+              <li>it is empty (the target elements are in the same document).</li>
+            </ol>
+          </li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. Changes to 
+          KML features will be reverted when the tour is over, and will not be saved 
+          at any time.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 9.22.2</li>
+              <li>KML Reference - <a target="_blank" 
+              href="https://developers.google.com/kml/documentation/kmlreference#gxanimatedupdate">
+              AnimatedUpdate</a></li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -1708,6 +1782,31 @@ http://server.example.org/bigphoto/$[level]/row_$[x]_column_$[y].jpg</pre>
               <li>KML Developer's Guide - <a target="_blank"
               href="https://developers.google.com/kml/documentation/touring#pausing">Waiting 
               and pausing</a></li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-230" class="atc">
+        <h2>ATC-230: AnimatedUpdate duration</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-230</code></li>
+          <li>Purpose: Verify that the kml:AnimatedUpdate/kml:duration element specifies 
+          a duration (in seconds) &gt; 0.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. Any changes that 
+          can be interpolated (e.g. properties with numeric or geometry values) are animated 
+          over the specified duration; otherwise the changes are applied at the end of the 
+          specified duration.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 9.22.3</li>
+              <li>KML Reference - <a target="_blank" 
+              href="https://developers.google.com/kml/documentation/kmlreference#gxanimatedupdate">
+              AnimatedUpdate</a></li>
+              <li>KML Developer's Guide - Touring in KML - <a target="_blank"
+              href="https://developers.google.com/kml/documentation/touring#updates">Updates</a></li>
+              <li>KML Developer's Guide - <a target="_blank"
+              href="https://developers.google.com/kml/documentation/updates">Updates</a></li>
             </ul>
           </li>
           <li>Test type: Capability</li>
