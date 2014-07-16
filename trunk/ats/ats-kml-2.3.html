@@ -3,6 +3,9 @@
   <head>
     <title>OGC KML 2.3 &#8211; Abstract Test Suite</title>
     <style>
+    @media print {
+      section {page-break-before: always;}
+    }
     body {color: black; background-color: White;}
     h1, h2, h3 {font-family: Verdana, sans-serif; color: #000099; text-align: left;}
     h1 {font-size: 1.3em;}
@@ -24,7 +27,7 @@
       <table class="borderless" style="border: none;">
         <tr>
           <td>Date:</td>
-          <td>2014-07-15</td>
+          <td>2014-07-16</td>
         </tr>
         <tr>
           <td>Document identifier:</td>
@@ -72,7 +75,7 @@
     <nav data-type="toc">
       <h1>Contents</h1>
       <ol>
-        <li><a href="#scope">Scope</a></li>
+        <li><a href="#intro">Scope</a></li>
         <li><a href="#ref">References</a></li>
         <li><a href="#level-1">Conformance Level 1</a>
           <ol>
@@ -174,7 +177,7 @@
       </ol>
     </nav>
 
-    <section id="scope" data-type="sect1">
+    <section id="intro" data-type="sect1">
       <h1>Scope</h1>
       <p>This document specifies an abstract test suite (ATS) consisting of a set 
       of implementation-independent test cases that provide a basis for verifying 
@@ -219,10 +222,8 @@
           </tr>
         </tbody>
       </table>
-    </section>
 
-    <section id="ref" data-type="sect1">
-      <h1>References</h1>
+      <h1 id="ref">References</h1>
       <p>The following normative documents contain provisions that, through 
       reference in this text, constitute provisions of this document. For dated 
       references, subsequent revisions do not apply. For undated references, 
