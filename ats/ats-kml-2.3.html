@@ -27,7 +27,7 @@
       <table class="borderless" style="border: none;">
         <tr>
           <td>Date:</td>
-          <td>2014-07-16</td>
+          <td>2014-07-17</td>
         </tr>
         <tr>
           <td>Document identifier:</td>
@@ -125,6 +125,8 @@
             <li><a href="#atc-144">ATC-144</a>: TourControl not empty</li>
             <li><a href="#atc-145">ATC-145</a>: SoundCue refers to audio resource</li>
             <li><a href="#atc-146">ATC-146</a>: AnimatedUpdate referent</li>
+            <li><a href="#atc-147">ATC-147</a>: Track positions</li>
+            <li><a href="#atc-148">ATC-148</a>: Track timestamps</li>
           </ol>
         </li>
         <li><a href="#level-2">Conformance Level 2</a>
@@ -1261,6 +1263,46 @@ else
               <li>KML Reference - <a target="_blank" 
               href="https://developers.google.com/kml/documentation/kmlreference#gxanimatedupdate">
               AnimatedUpdate</a></li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-147" class="atc">
+        <h2>ATC-147: Track positions</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-147</code></li>
+          <li>Purpose: Verify that the coordinates specifying the track positions (kml:coord) 
+          consist of space-delimited numeric values in the applicable coordinate reference 
+          system (CRS).</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. In the default CRS 
+          (see Annex B), the coordinate tuple values are longitude, latitude, and altitude.
+          <span style="background-color:Yellow;">TODO? May be empty or nill for 'sparse' 
+          data, but interpolation methods are unspecified and probably best left to specific 
+          applications.</span></li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 10.15.3</li>
+              <li>OGC 12-007, Annex B</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-148" class="atc">
+        <h2>ATC-148: Track timestamps</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-148</code></li>
+          <li>Purpose: Check that for every time value (kml:when) in a kml:Track there is a 
+          position (kml:coord) value. That is, the following XPath expression must be true: 
+          count(kml:when) = count(kml:coord).
+          </li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. A timestamp may be 
+          represented by a period such a day, month, or year; this might be the case for a 
+          slow-moving object or if position is determined infrequently.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 10.15.3</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
