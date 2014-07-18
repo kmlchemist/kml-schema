@@ -27,7 +27,7 @@
       <table class="borderless" style="border: none;">
         <tr>
           <td>Date:</td>
-          <td>2014-07-17</td>
+          <td>2014-07-18</td>
         </tr>
         <tr>
           <td>Document identifier:</td>
@@ -126,7 +126,8 @@
             <li><a href="#atc-145">ATC-145</a>: SoundCue refers to audio resource</li>
             <li><a href="#atc-146">ATC-146</a>: AnimatedUpdate referent</li>
             <li><a href="#atc-147">ATC-147</a>: Track positions</li>
-            <li><a href="#atc-148">ATC-148</a>: Track timestamps</li>
+            <li><a href="#atc-148">ATC-148</a>: Track temporal values</li>
+            <li><a href="#atc-149">ATC-149</a>: Track orientations</li>
           </ol>
         </li>
         <li><a href="#level-2">Conformance Level 2</a>
@@ -1275,11 +1276,13 @@ else
           <li>Purpose: Verify that the coordinates specifying the track positions (kml:coord) 
           consist of space-delimited numeric values in the applicable coordinate reference 
           system (CRS).</li>
-          <li>Method: Pass if the assertion is satisfied; fail otherwise. In the default CRS 
-          (see Annex B), the coordinate tuple values are longitude, latitude, and altitude.
-          <span style="background-color:Yellow;">TODO? May be empty or nill for 'sparse' 
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. A kml:Track element 
+          may be used to describe the time-varying position of a Placemark feature that 
+          represents a moving object. In the default CRS (see Annex B), the coordinate 
+          tuple values are longitude, latitude, and altitude.
+            <span style="background-color:Yellow;">TODO? May be empty or nill for 'sparse' 
           data, but interpolation methods are unspecified and probably best left to specific 
-          applications.</span></li>
+          applications as an implementation detail.</span></li>
           <li>References:
             <ul>
               <li>OGC 12-007, cl. 10.15.3</li>
@@ -1290,16 +1293,39 @@ else
         </ol>
       </div>
       <div id="atc-148" class="atc">
-        <h2>ATC-148: Track timestamps</h2>
+        <h2>ATC-148: Track temporal values</h2>
         <ol>
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-148</code></li>
-          <li>Purpose: Check that for every time value (kml:when) in a kml:Track there is a 
-          position (kml:coord) value. That is, the following XPath expression must be true: 
-          count(kml:when) = count(kml:coord).
+          <li>Purpose: Check that for every temporal value (kml:when) in a kml:Track there 
+          is a position (kml:coord) value. That is, the following XPath expression must be 
+          true: count(kml:when) = count(kml:coord).
           </li>
-          <li>Method: Pass if the assertion is satisfied; fail otherwise. A timestamp may be 
-          represented by a period such a day, month, or year; this might be the case for a 
-          slow-moving object or if position is determined infrequently.</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. A temporal value 
+          may be represented by a period such a day, month, or year; this might be the case 
+          for an object that moves slowly or one whose position is observed infrequently.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 10.15.3</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-149" class="atc">
+        <h2>ATC-149: Track orientations</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-149</code></li>
+          <li>Purpose: Verify that each orientation element contained by a track (kml:angles) 
+          satisfies the following constraints:
+            <ol class="list2">
+              <li>contains 1 or 3 space-delimited numeric values specifying an angle of 
+              rotation (heading, tilt, roll);</li>
+              <li>if the track has no model, then only one angle is specified (heading).</li>
+            </ol>
+          </li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. 
+            <span style="background-color:Yellow;">TODO: Mention how track orientations are 
+          combined with underlying model orientation. Superimposed?</span></li>
           <li>References:
             <ul>
               <li>OGC 12-007, cl. 10.15.3</li>
