@@ -614,16 +614,10 @@
   </complexType>
   <element name="SchemaDataExtension" abstract="true"/>
 
-  <!-- SA: Changed SimpleDataType to final="extension" to allow XSD restrictions
-       for XSD validation of user types. -->
   <element name="SimpleData" type="kml:SimpleDataType"/>
-<<<<<<< .mine
   <!-- SA: Changed SimpleDataType to final="extension" to allow XSD restrictions
        for XSD validation of user types. -->
   <complexType name="SimpleDataType" final="extension">
-=======
-  <complexType name="SimpleDataType" final="extension">
->>>>>>> .r84
     <simpleContent>
       <!-- TODO: Changed <SimpleData> from string to anySimpleType to allow instances to define types -->
       <extension base="anySimpleType">
