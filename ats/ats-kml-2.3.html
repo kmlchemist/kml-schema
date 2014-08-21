@@ -27,7 +27,7 @@
       <table class="borderless" style="border: none;">
         <tr>
           <td>Date:</td>
-          <td>2014-07-18</td>
+          <td>2014-08-21</td>
         </tr>
         <tr>
           <td>Document identifier:</td>
@@ -128,6 +128,7 @@
             <li><a href="#atc-147">ATC-147</a>: Track positions</li>
             <li><a href="#atc-148">ATC-148</a>: Track temporal values</li>
             <li><a href="#atc-149">ATC-149</a>: Track orientations</li>
+            <li><a href="#atc-150">ATC-150</a>: LatLonQuad coordinates</li>
           </ol>
         </li>
         <li><a href="#level-2">Conformance Level 2</a>
@@ -1329,6 +1330,30 @@ else
           <li>References:
             <ul>
               <li>OGC 12-007, cl. 10.15.3</li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-150" class="atc">
+        <h2>ATC-150: LatLonQuad coordinates</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-150</code></li>
+          <li>Purpose: Verify that the coordinates of a LatLonQuad element contained by 
+          a GroundOverlay feature satisfies the following constraints:
+            <ol class="list2">
+              <li>it contains exactly four coordinate tuples;</li>
+              <li>the coordinates are specified in counter-clockwise order with the first 
+              coordinate corresponding to the lower-left corner of the overlayed image;</li>
+              <li>the quadrilateral is convex (every internal angle &lt;= 180 degrees).</li>
+            </ol>
+          </li>
+          <li>Method: Pass if all constraints are satisfied; fail otherwise. If present, the 
+          third value in a coordinate tuple is ignored (altitude is set using the kml:altitude 
+          element).</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 11.4.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
