@@ -22,12 +22,6 @@
   <import namespace="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
     schemaLocation="http://docs.oasis-open.org/election/external/xAL.xsd"/>
 
-  <!-- Attribute group allowing any attributes from other namespaces. -->
-  <!-- TODO: Should we choose lax or strict processing? -->
-  <attributeGroup name="extensionOtherAttributes">
-    <anyAttribute namespace="##other" processContents="strict"/>
-  </attributeGroup>
-
   <!-- KML field types (simple content) -->
 
   <simpleType name="anglepos90Type">
@@ -219,7 +213,7 @@
     -->
     <attribute name="name" type="string"/>
     <attribute name="enabled" type="boolean"/>
-    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
 
   <complexType name="vec2Type" abstract="false">
@@ -229,7 +223,7 @@
       default="fraction"/>
     <attribute name="yunits" type="kml:unitsEnumType" use="optional"
       default="fraction"/>
-    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
 
   <element name="address" type="string"/>
@@ -408,7 +402,7 @@
         maxOccurs="unbounded"/>
     </sequence>
     <attributeGroup ref="kml:idAttributes"/>
-    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
   <element name="ObjectSimpleExtensionGroup" abstract="true"
     type="anySimpleType"/>
@@ -478,7 +472,7 @@
     <simpleContent>
       <extension base="string">
         <attribute name="maxLines" type="int" use="optional" default="2"/>
-        <attributeGroup ref="kml:extensionOtherAttributes"/>
+        <anyAttribute namespace="##other" processContents="lax"/>
       </extension>
     </simpleContent>
   </complexType>
@@ -594,7 +588,7 @@
       <any namespace="##other" processContents="lax" minOccurs="0"
         maxOccurs="unbounded"/>
     </sequence>
-    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
 
   <element name="SchemaData" type="kml:SchemaDataType"
@@ -608,7 +602,7 @@
             maxOccurs="unbounded"/>
         </sequence>
         <attribute name="schemaUrl" type="anyURI"/>
-        <attributeGroup ref="kml:extensionOtherAttributes"/>
+        <anyAttribute namespace="##other" processContents="lax"/>
       </extension>
     </complexContent>
   </complexType>
@@ -622,7 +616,7 @@
       <!-- TODO: Changed <SimpleData> from string to anySimpleType to allow instances to define types -->
       <extension base="anySimpleType">
         <attribute name="name" type="string" use="required"/>
-        <attributeGroup ref="kml:extensionOtherAttributes"/>
+        <anyAttribute namespace="##other" processContents="lax"/>
       </extension>
     </simpleContent>
   </complexType>
@@ -636,7 +630,7 @@
           <element ref="kml:SimpleArrayDataExtension" minOccurs="0" maxOccurs="unbounded"/>
         </sequence>
         <attribute name="name" type="string"/>
-        <attributeGroup ref="kml:extensionOtherAttributes"/>
+        <anyAttribute namespace="##other" processContents="lax"/>
       </extension>
     </complexContent>
   </complexType>
@@ -653,7 +647,7 @@
           <element ref="kml:DataExtension" minOccurs="0" maxOccurs="unbounded"/>
         </sequence>
         <attribute name="name" type="string"/>
-        <attributeGroup ref="kml:extensionOtherAttributes"/>
+        <anyAttribute namespace="##other" processContents="lax"/>
       </extension>
     </complexContent>
   </complexType>
@@ -781,7 +775,7 @@
         maxOccurs="unbounded"/>
     </sequence>
     <attribute name="hint" type="string"/>
-    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
   <element name="KmlSimpleExtensionGroup" abstract="true" type="anySimpleType"/>
   <element name="KmlObjectExtensionGroup" abstract="true"
@@ -809,7 +803,7 @@
       <element ref="kml:NetworkLinkControlObjectExtensionGroup" minOccurs="0"
         maxOccurs="unbounded"/>
     </sequence>
-    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
   <element name="NetworkLinkControlSimpleExtensionGroup" abstract="true"
     type="anySimpleType"/>
@@ -847,7 +841,7 @@
     </sequence>
     <attribute name="name" type="string"/>
     <attribute name="id" type="ID"/>
-    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
   <element name="SchemaExtension" abstract="true"/>
 
@@ -860,7 +854,7 @@
     </sequence>
     <attribute name="type" type="string"/>
     <attribute name="name" type="string"/>
-    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
   <element name="SimpleFieldExtension" abstract="true"/>
 
@@ -877,7 +871,7 @@
     -->
     <attribute name="type" type="string"/>
     <attribute name="name" type="string"/>
-    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
   <element name="SimpleArrayFieldExtension" abstract="true"/>
 
@@ -1231,7 +1225,7 @@
       <element ref="kml:BoundaryObjectExtensionGroup" minOccurs="0"
         maxOccurs="unbounded"/>
     </sequence>
-    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
   <element name="BoundarySimpleExtensionGroup" abstract="true"
     type="anySimpleType"/>
@@ -2042,7 +2036,7 @@
       <element ref="kml:UpdateExtensionGroup" minOccurs="0"
         maxOccurs="unbounded"/>
     </sequence>
-    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
   <element name="UpdateOpExtensionGroup" abstract="true"/>
   <element name="UpdateExtensionGroup" abstract="true"/>
@@ -2060,7 +2054,7 @@
       <element ref="kml:AbstractContainerGroup" minOccurs="0"
         maxOccurs="unbounded"/>
     </sequence>
-    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
 
   <element name="Delete" type="kml:DeleteType"/>
@@ -2076,7 +2070,7 @@
       <element ref="kml:AbstractFeatureGroup" minOccurs="0"
         maxOccurs="unbounded"/>
     </sequence>
-    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
 
   <element name="Change" type="kml:ChangeType"/>
@@ -2085,7 +2079,7 @@
       <element ref="kml:AbstractObjectGroup" minOccurs="0"
         maxOccurs="unbounded"/>
     </sequence>
-    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
 
   <element name="AbstractTourPrimitiveGroup" type="kml:AbstractTourPrimitiveType"
