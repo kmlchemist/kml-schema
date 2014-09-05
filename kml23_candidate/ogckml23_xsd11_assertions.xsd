@@ -20,11 +20,8 @@
   <import namespace="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
     schemaLocation="http://docs.oasis-open.org/election/external/xAL.xsd"/>
 
-  <!-- TODO: Decide if we want to do this. Allows ##other elements anywhere
-    in KML. Might be too loose??
-  -->
   <defaultOpenContent mode="interleave">
-    <any namespace="##other" processContents="strict"/>
+    <any namespace="##other" processContents="lax"/>
   </defaultOpenContent>
 
   <!-- Attribute group allowing any attributes from other namespaces. -->
