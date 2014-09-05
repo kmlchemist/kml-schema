@@ -33,7 +33,7 @@
     elements, or leave it lax?
   -->
   <defaultOpenContent mode="interleave">
-    <any namespace="##other" processContents="strict"/>
+    <any namespace="##other" processContents="lax"/>
   </defaultOpenContent>
 
   <!-- Attribute group allowing any attributes from other namespaces. -->
