@@ -8,6 +8,7 @@
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xsi:schemaLocation=
     "http://www.opengis.net/kml/2 ./standard_v20.xsd">
+  <!-- Instance of KML 2.0. -->
   
 
   <Kml20Container>

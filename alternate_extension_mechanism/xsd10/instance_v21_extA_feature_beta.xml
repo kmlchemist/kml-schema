@@ -9,7 +9,9 @@
   xsi:schemaLocation=
     "http://www.opengis.net/kml/2 ./standard_v21_core.xsd
      http://www.opengis.net/kml/2.1 ./accepted_direct_swg_additions_to_v21.xsd
-     http://www.opengis.net/kml/2/ext/extensionA draft_extA_feature_beta_extending_v21.xsd">
+     http://www.opengis.net/kml/2/ext/extensionA draft_extA_feature_beta_extending_v21.xsd"
+     version="2.1.0">
+  <!-- Instance of KML 2.1 (including Organization A's accepted extensions) plus Organization A's extensions not accepted into 2.1. -->
   <Kml20Container>
     <Kml20Feature>
       <name>Untitled Placemark</name>

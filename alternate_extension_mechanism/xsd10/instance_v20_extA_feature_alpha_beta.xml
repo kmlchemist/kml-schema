@@ -10,6 +10,7 @@
     "http://www.opengis.net/kml/2 ./standard_v20.xsd   
      
      http://www.opengis.net/kml/2/ext/extensionA ./draft_extA_features_alpha_beta_extending_v20.xsd">
+  <!-- Instance of KML 2.0 plus Organization A's extensions. -->
   <Kml20Container>
     <Kml20Feature>
       <name>Untitled Placemark</name>

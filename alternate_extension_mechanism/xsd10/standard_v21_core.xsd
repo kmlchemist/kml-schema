@@ -8,6 +8,8 @@
   <!-- 
     This schema contains the redefined elements/types from the 2.1 minor revision of a standard.
     
+    Note that a version attribute was added to the <kml> element.
+    
     <kml20FeatureChild> has been changed to accept anySimpleType instead of just integer.
   -->
   
@@ -20,6 +22,7 @@
     <sequence>
       <element ref="kml:AbstractFeatureGroup" minOccurs="0"/>
     </sequence>
+    <attribute name="version" type="string" use="optional"/>
   </complexType>
   
   <element name="name" type="string"/>

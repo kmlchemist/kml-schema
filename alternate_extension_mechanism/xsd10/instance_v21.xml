@@ -7,7 +7,9 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xsi:schemaLocation=
-    "http://www.opengis.net/kml/2 ./standard_v21.xsd">
+    "http://www.opengis.net/kml/2 ./standard_v21.xsd"
+  version="2.1.0">
+  <!-- Instance of KML 2.1 which includes some of Organization A's extensions, modified 2.0 elements and new KML 2.1 elements. -->
   
 
   <Kml20Container>
