@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml
+  xmlns="http://www.opengis.net/kml/2"
+  xmlns:kml="http://www.opengis.net/kml/2"
+  
+  xmlns:extA="http://www.opengis.net/kml/2/ext/extensionA"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xsi:schemaLocation=
+    "http://www.opengis.net/kml/2 ./standard_v21_core.xsd
+     http://www.opengis.net/kml/2.1 ./accepted_direct_swg_additions_to_v21.xsd
+     http://www.opengis.net/kml/2/ext/extensionA draft_extA_feature_beta_extending_v21.xsd">
+  <Kml20Container>
+    <Kml20Feature>
+      <name>Untitled Placemark</name>
+      <kml20FeatureChild>100</kml20FeatureChild>
+      <extA:extensionToKml20Feature>something</extA:extensionToKml20Feature>
+    </Kml20Feature>
+    <extA:Kml20ExtensionFeatureAlpha>
+      <name>foo</name>
+      <extA:kml20ExtensionFeatureAlphaChild>something</extA:kml20ExtensionFeatureAlphaChild>
+    </extA:Kml20ExtensionFeatureAlpha>
+    <extA:Kml20ExtensionFeatureBeta>
+      <name>foo</name>
+      <extA:kml20ExtensionFeatureBetaChild>something</extA:kml20ExtensionFeatureBetaChild>
+    </extA:Kml20ExtensionFeatureBeta>
+
+    
+    
+    
+    <extA:extensionToKml20Container>something</extA:extensionToKml20Container>
+  </Kml20Container>
+</kml>

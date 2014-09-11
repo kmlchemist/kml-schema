@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+  xmlns="http://www.w3.org/2001/XMLSchema"
+  xmlns:kml="http://www.opengis.net/kml/2"
+  xmlns:extA="http://www.opengis.net/kml/2/ext/extensionA"
+  targetNamespace="http://www.opengis.net/kml/2/ext/extensionA"
+  elementFormDefault="qualified">
+  
+  <!-- 
+   Organization A's feature Beta and extension to the KML20Container was not accepted to the
+   KML 2.1 minor revision.
+   
+   However, they can still use this feature as an extension of KML 2.1, in the same namespace
+   as their original proposed extensions to KML 2.0. This allows the organization to continue
+   using the extension accepted into 2.1, and those that weren't (now considered an extension
+   of 2.1).
+  -->
+
+  <import namespace="http://www.opengis.net/kml/2" schemaLocation="./standard_v21_core.xsd"/>
+  <include schemaLocation="./accepted_extA_feature_alpha_into_v21.xsd"/>
+  
+  <element name="extensionToKml20Container" type="string" substitutionGroup="kml:Kml20ContainerSimpleExtensionGroup"/>
+
+  <element name="kml20ExtensionFeatureBetaChild" type="string"/>
+
+  <element name="Kml20ExtensionFeatureBeta" type="extA:Kml20ExtensionFeatureBetaType"
+    substitutionGroup="kml:AbstractFeatureGroup"/>
+  <complexType name="Kml20ExtensionFeatureBetaType">
+    <complexContent>
+      <extension base="kml:AbstractFeatureType">
+        <sequence>
+          <element ref="extA:kml20ExtensionFeatureBetaChild" minOccurs="0"/>
+          <element ref="extA:Kml20ExtensionFeatureBetaSimpleExtensionGroup" minOccurs="0" maxOccurs="unbounded"/>
+          <element ref="extA:Kml20ExtensionFeatureBetaObjectExtensionGroup" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="Kml20ExtensionFeatureBetaSimpleExtensionGroup" abstract="true" type="anySimpleType"/>
+  <element name="Kml20ExtensionFeatureBetaObjectExtensionGroup" abstract="true"
+    substitutionGroup="kml:AbstractObjectGroup"/>
+
+</schema>

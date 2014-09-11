@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+  xmlns="http://www.w3.org/2001/XMLSchema"
+  xmlns:kml="http://www.opengis.net/kml/2"
+  targetNamespace="http://www.opengis.net/kml/2"
+  elementFormDefault="qualified" version="2.0.0">
+  
+  <!-- 
+    This schema contains the redefined elements/types from the 2.1 minor revision of a standard.
+    
+    <kml20FeatureChild> has been changed to accept anySimpleType instead of just integer.
+  -->
+  
+  <element name="kml" type="kml:KmlType">
+    <annotation>
+      <documentation><![CDATA[<kml> is the root element.]]></documentation>
+    </annotation>
+  </element>
+  <complexType name="KmlType" final="#all">
+    <sequence>
+      <element ref="kml:AbstractFeatureGroup" minOccurs="0"/>
+    </sequence>
+  </complexType>
+  
+  <element name="name" type="string"/>
+  <!-- kml20FeatureChild has been changed from type "integer" in 2.0 to anySimpleType in 2.1. -->
+  <element name="kml20FeatureChild" type="anySimpleType"/>
+  
+  <element name="AbstractObjectGroup" type="kml:AbstractObjectType" abstract="true"/>
+  <complexType name="AbstractObjectType" abstract="true">
+    <sequence>
+      <element ref="kml:ObjectSimpleExtensionGroup" minOccurs="0" maxOccurs="unbounded"/>
+    </sequence>
+    <attribute name="id" type="ID" use="optional"/>
+  </complexType>
+  <element name="ObjectSimpleExtensionGroup" abstract="true" type="anySimpleType"/>
+  
+  <element name="AbstractFeatureGroup" type="kml:AbstractObjectType" abstract="true"
+    substitutionGroup="kml:AbstractObjectGroup"/>
+  <complexType name="AbstractFeatureType" abstract="true">
+    <complexContent>
+      <extension base="kml:AbstractObjectType">
+        <sequence>
+          <element ref="kml:name" minOccurs="0"/>
+          <element ref="kml:AbstractFeatureSimpleExtensionGroup" minOccurs="0" maxOccurs="unbounded"/>
+          <element ref="kml:AbstractFeatureObjectExtensionGroup" minOccurs="0" maxOccurs="unbounded"
+          />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="AbstractFeatureSimpleExtensionGroup" abstract="true" type="anySimpleType"/>
+  <element name="AbstractFeatureObjectExtensionGroup" abstract="true"
+    substitutionGroup="kml:AbstractObjectGroup"/>
+  
+  <element name="Kml20Feature" type="kml:Kml20FeatureType" substitutionGroup="kml:AbstractFeatureGroup"/>
+  <complexType name="Kml20FeatureType">
+    <complexContent>
+      <extension base="kml:AbstractFeatureType">
+        <sequence>
+          <element ref="kml:kml20FeatureChild" minOccurs="0" maxOccurs="unbounded"/>
+          <element ref="kml:Kml20FeatureSimpleExtensionGroup" minOccurs="0" maxOccurs="unbounded"/>
+          <element ref="kml:Kml20FeatureObjectExtensionGroup" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="Kml20FeatureSimpleExtensionGroup" abstract="true" type="anySimpleType"/>
+  <element name="Kml20FeatureObjectExtensionGroup" abstract="true"
+    substitutionGroup="kml:AbstractObjectGroup"/>
+  
+  <element name="Kml20Container" type="kml:Kml20ContainerType" substitutionGroup="kml:AbstractFeatureGroup"/>
+  <complexType name="Kml20ContainerType">
+    <complexContent>
+      <extension base="kml:AbstractFeatureType">
+        <sequence>
+          <element ref="kml:AbstractFeatureGroup" minOccurs="0" maxOccurs="unbounded"/>
+          <element ref="kml:Kml20ContainerSimpleExtensionGroup" minOccurs="0" maxOccurs="unbounded"/>
+          <element ref="kml:Kml20ContainerObjectExtensionGroup" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="Kml20ContainerSimpleExtensionGroup" abstract="true" type="anySimpleType"/>
+  <element name="Kml20ContainerObjectExtensionGroup" abstract="true"
+    substitutionGroup="kml:AbstractObjectGroup"/>
+
+</schema>
