@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+  xmlns="http://www.w3.org/2001/XMLSchema"
+  xmlns:kml="http://www.opengis.net/kml/2"
+  xmlns:kml21="http://www.opengis.net/kml/2.1"
+  xmlns:extensionA="http://www.opengis.net/kml/2/ext/extensionA"
+  targetNamespace="http://www.opengis.net/kml/2"
+  elementFormDefault="qualified"
+  version="2.1.0">
+   
+  <!-- 
+    Standard 2.1 minor revision combined schema, including:
+     1a. The original elements and types from the 2.0 standard, OR...
+     1b. elements/types redefined from 2.0 with backwards-compatible changes.
+     2. Extensions accepted into the minor revision.
+     3. New element additions directly added by the SWG.
+    
+    Option #1a: If no changes need to be made to existing elements, simply include the 2.0 schema.  
+      <include schemaLocation="./standard_v20_core.xsd"/>
+
+    Option #1b: To make backwards-compatible changes to 2.0 elements, redefine the entire schema and include here.
+      <include schemaLocation="./standard_v21_core.xsd"/>
+  -->
+  
+  <include schemaLocation="./standard_v21_core.xsd"/>
+  
+  <!-- Import any extensions that were accepted into the minor revision. -->
+  <import namespace="http://www.opengis.net/kml/2/ext/extensionA" schemaLocation="./accepted_extA_feature_alpha_into_v21.xsd"/>
+  
+  <!-- Import any new elements added by the SWG in the same way extensions would be added. -->
+  <import namespace="http://www.opengis.net/kml/2.1" schemaLocation="./accepted_direct_swg_additions_to_v21.xsd"/>
+
+</schema>

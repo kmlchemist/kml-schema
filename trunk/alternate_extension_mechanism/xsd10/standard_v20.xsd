@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+  xmlns="http://www.w3.org/2001/XMLSchema"
+  xmlns:kml="http://www.opengis.net/kml/2"
+  xmlns:kml21="http://www.opengis.net/kml/2.1"
+  xmlns:extensionA="http://www.opengis.net/kml/2/ext/extensionA"
+  targetNamespace="http://www.opengis.net/kml/2"
+  elementFormDefault="qualified"
+  version="2.0.0">
+  
+  <!-- Major version of the standard. -->
+  
+  <!--
+    It's not really necessary to have a separate core file, but since it will
+    be for SWG additions to minor revisions, I'm using the pattern here.
+  -->
+  <include schemaLocation="./standard_v20_core.xsd"/> 
+
+</schema>

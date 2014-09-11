@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+  xmlns="http://www.w3.org/2001/XMLSchema"
+  xmlns:kml="http://www.opengis.net/kml/2"
+  xmlns:kml21="http://www.opengis.net/kml/2.1"
+  targetNamespace="http://www.opengis.net/kml/2.1"
+  elementFormDefault="qualified"
+  version="2.1.0">
+
+  <!-- 
+   This element was added to the KML 2.1 standard by the SWG during the minor revision process.
+   These could be entirely novel elements, or they could be a reworking of an extension
+   proposed, but not accepted verbatim, into the 2.1 revision. 
+  -->
+
+  <import namespace="http://www.opengis.net/kml/2" schemaLocation="./standard_v21_core.xsd"/>
+
+  <element name="kml21FeatureChild" type="string"/>
+
+  <element name="Kml21Feature" type="kml21:Kml21Type" substitutionGroup="kml:AbstractFeatureGroup"/>
+  <complexType name="Kml21Type">
+    <complexContent>
+      <extension base="kml:AbstractFeatureType">
+        <sequence>
+          <element ref="kml21:kml21FeatureChild"/>
+          <element ref="kml21:Kml21TypeSimpleExtensionGroup" minOccurs="0" maxOccurs="unbounded"/>
+          <element ref="kml21:Kml21TypeObjectExtensionGroup" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="Kml21TypeSimpleExtensionGroup" abstract="true" type="anySimpleType"/>
+  <element name="Kml21TypeObjectExtensionGroup" abstract="true"
+    substitutionGroup="kml:AbstractObjectGroup"/>
+
+</schema>

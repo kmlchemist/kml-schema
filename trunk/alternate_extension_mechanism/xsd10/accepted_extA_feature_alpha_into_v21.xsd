@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+  xmlns="http://www.w3.org/2001/XMLSchema"
+  xmlns:kml="http://www.opengis.net/kml/2"
+  xmlns:extA="http://www.opengis.net/kml/2/ext/extensionA"
+  targetNamespace="http://www.opengis.net/kml/2/ext/extensionA"
+  elementFormDefault="qualified">
+  
+  <!-- 
+   These are extension proposed by organization "A" on top of the KML 2.0 standard
+   that were accepted into the KML 2.1 standard, under the same namespace.
+   
+   It includes:
+    - new elements added to existing KML 2.0 features
+    - Only new feature Alpha and the extension to KML20Feature.
+    - Feature Beta and the extension to the KML20Container were not accepted into the 2.1 minor revision.
+  -->
+
+  <import namespace="http://www.opengis.net/kml/2" schemaLocation="./standard_v21_core.xsd"/>
+  
+  <element name="extensionToKml20Feature" type="string" substitutionGroup="kml:Kml20FeatureSimpleExtensionGroup"/>
+
+  <element name="kml20ExtensionFeatureAlphaChild" type="string"/>
+
+  <element name="Kml20ExtensionFeatureAlpha" type="extA:Kml20ExtensionFeatureAlphaType" substitutionGroup="kml:AbstractFeatureGroup"/>
+  <complexType name="Kml20ExtensionFeatureAlphaType">
+    <complexContent>
+      <extension base="kml:AbstractFeatureType">
+        <sequence>
+          <element ref="extA:kml20ExtensionFeatureAlphaChild" minOccurs="0"/>
+          <element ref="extA:Kml20ExtensionFeatureAlphaSimpleExtensionGroup" minOccurs="0" maxOccurs="unbounded"/>
+          <element ref="extA:Kml20ExtensionFeatureAlphaObjectExtensionGroup" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+  <element name="Kml20ExtensionFeatureAlphaSimpleExtensionGroup" abstract="true" type="anySimpleType"/>
+  <element name="Kml20ExtensionFeatureAlphaObjectExtensionGroup" abstract="true"
+    substitutionGroup="kml:AbstractObjectGroup"/>
+  
+</schema>

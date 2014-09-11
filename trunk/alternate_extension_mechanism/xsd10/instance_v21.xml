@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml
+  xmlns="http://www.opengis.net/kml/2"
+  xmlns:kml="http://www.opengis.net/kml/2"
+  xmlns:kml21="http://www.opengis.net/kml/2.1"
+  xmlns:extA="http://www.opengis.net/kml/2/ext/extensionA"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xsi:schemaLocation=
+    "http://www.opengis.net/kml/2 ./standard_v21.xsd">
+  
+
+  <Kml20Container>
+    <Kml20Feature>
+      <name>Untitled Placemark</name>
+      <kml20FeatureChild>anySimpleType goes here</kml20FeatureChild> <!-- Per 2.1 schema, anySimpleType is now valid -->
+      <extA:extensionToKml20Feature>something</extA:extensionToKml20Feature>
+    </Kml20Feature>
+    <extA:Kml20ExtensionFeatureAlpha>
+      <name>foo</name>
+      <extA:kml20ExtensionFeatureAlphaChild>something</extA:kml20ExtensionFeatureAlphaChild>
+    </extA:Kml20ExtensionFeatureAlpha>
+    <!-- <extA:Kml20ExtensionFeatureBeta> ##This inaccepted extension isn't valid under KML 2.1.
+      <name>foo</name>
+      <extA:kml20ExtensionFeatureBetaChild>something</extA:kml20ExtensionFeatureBetaChild>
+    </extA:Kml20ExtensionFeatureBeta> -->
+    <kml21:Kml21Feature>
+      <name>foo</name>
+      <kml21:kml21FeatureChild>asdasd</kml21:kml21FeatureChild>
+    </kml21:Kml21Feature>
+     <!-- <extA:extensionToKml20Container>something</extA:extensionToKml20Container> ##This inaccepted extension isn't valid under KML 2.1. -->
+  </Kml20Container>
+</kml>
