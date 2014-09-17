@@ -26,21 +26,9 @@
   <import namespace="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
     schemaLocation="http://docs.oasis-open.org/election/external/xAL.xsd"/>
 
-  <!-- TODO: XSD 1.1
-    Decide if we want to do this. Allows ##other elements anywhere
-    in KML. Might be too loose?? If we do decide to allow this, should we
-    processContents as strict (forcing people to create simple schemas for
-    elements, or leave it lax?
-  -->
   <defaultOpenContent mode="interleave">
     <any namespace="##other" processContents="lax"/>
   </defaultOpenContent>
-
-  <!-- Attribute group allowing any attributes from other namespaces. -->
-  <!-- TODO: Should we choose lax or strict processing? -->
-  <attributeGroup name="extensionOtherAttributes">
-    <anyAttribute namespace="##other" processContents="strict"/>
-  </attributeGroup>
 
   <!-- KML field types (simple content) -->
 
@@ -77,6 +65,10 @@
       <minInclusive value="-360.0"/>
       <maxInclusive value="360.0"/>
     </restriction>
+  </simpleType>
+  
+  <simpleType name="enumBaseType">
+    <restriction base="string" />
   </simpleType>
 
   <simpleType name="altitudeModeEnumType">
@@ -115,7 +107,7 @@
   </simpleType>
 
   <simpleType name="colorModeEnumType">
-    <restriction base="string">
+    <restriction base="kml:enumBaseType">
       <enumeration value="normal"/>
       <enumeration value="random"/>
     </restriction>
@@ -126,31 +118,32 @@
   </simpleType>
 
   <simpleType name="displayModeEnumType">
-    <restriction base="string">
+    <restriction base="kml:enumBaseType">
       <enumeration value="default"/>
       <enumeration value="hide"/>
     </restriction>
   </simpleType>
 
   <simpleType name="flyToModeEnumType">
-    <restriction base="string">
+    <restriction base="kml:enumBaseType">
       <enumeration value="bounce"/>
       <enumeration value="smooth"/>
     </restriction>
   </simpleType>
 
   <simpleType name="gridOriginEnumType">
-    <restriction base="string">
+    <restriction base="kml:enumBaseType">
       <enumeration value="lowerLeft"/>
       <enumeration value="upperLeft"/>
     </restriction>
   </simpleType>
+  
   <simpleType name="itemIconStateType">
     <list itemType="kml:itemIconStateEnumType"/>
   </simpleType>
 
   <simpleType name="itemIconStateEnumType">
-    <restriction base="string">
+    <restriction base="kml:enumBaseType">
       <enumeration value="open"/>
       <enumeration value="closed"/>
       <enumeration value="error"/>
@@ -161,7 +154,7 @@
   </simpleType>
 
   <simpleType name="listItemTypeEnumType">
-    <restriction base="string">
+    <restriction base="kml:enumBaseType">
       <enumeration value="radioFolder"/>
       <enumeration value="check"/>
       <enumeration value="checkHideChildren"/>
@@ -177,13 +170,13 @@
   </simpleType>
 
   <simpleType name="playModeEnumType">
-    <restriction base="string">
+    <restriction base="kml:enumBaseType">
       <enumeration value="pause"/>
     </restriction>
   </simpleType>
 
   <simpleType name="refreshModeEnumType">
-    <restriction base="string">
+    <restriction base="kml:enumBaseType">
       <enumeration value="onChange"/>
       <enumeration value="onInterval"/>
       <enumeration value="onExpire"/>
@@ -191,7 +184,7 @@
   </simpleType>
 
   <simpleType name="viewRefreshModeEnumType">
-    <restriction base="string">
+    <restriction base="kml:enumBaseType">
       <enumeration value="never"/>
       <enumeration value="onRequest"/>
       <enumeration value="onStop"/>
@@ -200,7 +193,7 @@
   </simpleType>
 
   <simpleType name="shapeEnumType">
-    <restriction base="string">
+    <restriction base="kml:enumBaseType">
       <enumeration value="rectangle"/>
       <enumeration value="cylinder"/>
       <enumeration value="sphere"/>
@@ -208,112 +201,72 @@
   </simpleType>
 
   <simpleType name="styleStateEnumType">
-    <restriction base="string">
+    <restriction base="kml:enumBaseType">
       <enumeration value="normal"/>
       <enumeration value="highlight"/>
     </restriction>
   </simpleType>
 
   <simpleType name="unitsEnumType">
-    <restriction base="string">
+    <restriction base="kml:enumBaseType">
       <enumeration value="fraction"/>
       <enumeration value="pixels"/>
       <enumeration value="insetPixels"/>
     </restriction>
   </simpleType>
 
-  <complexType name="optionType">
-    <!--
-      TODO: In Earth 6.0, the name attribute is restricted to Google Earth specific items, streetview, historicalimagery, and sunlight.
-      However, in a future version of this schema, we may remove this
-      restriction, so we are using a string instead of a enumeration.
-
-      See comment in ViewerOptionType... this might be too specific to Earth.
-      Should this stay in the gx namespace?
-    -->
-    <attribute name="name" type="string"/>
-    <attribute name="enabled" type="boolean"/>
-    <attributeGroup ref="kml:extensionOtherAttributes"/>
-  </complexType>
-
   <complexType name="vec2Type" abstract="false">
     <attribute name="x" type="double" default="1.0"/>
     <attribute name="y" type="double" default="1.0"/>
-    <attribute name="xunits" type="kml:unitsEnumType" use="optional"
+    <attribute name="xunits" type="kml:unitsEnumType"
       default="fraction"/>
-    <attribute name="yunits" type="kml:unitsEnumType" use="optional"
+    <attribute name="yunits" type="kml:unitsEnumType"
       default="fraction"/>
-    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
 
-  <!--
-    TODO: XSD 1.1
-    <choice> is not allowed in <all>, so we have to work around
-    this method, used mostly for deprecated elements (and <Update>).
-
-    One approach is to create new abstract groups because which both
-    the current and deprecated elements can replace.
-  -->
-  <element name="AbstractBgColorGroup" abstract="true"/>
-  <element name="AbstractExtendedDataGroup" abstract="true"/>
-  <element name="AbstractLinkGroup" abstract="true"/>
-  <element name="AbstractSnippetGroup" abstract="true"/>
-  <element name="AbstractUpdateOptionGroup" abstract="true"/>
+  <!-- TODO: Add comments about which concrete elements subsitute here and which are deprecated. -->
+  <element name="AbstractBgColorGroup" abstract="true" type="kml:colorType"/>
+  <element name="AbstractExtendedDataGroup" abstract="true" type="anyType"/>
+  <element name="AbstractLinkGroup" abstract="true" type="kml:AbstractObjectType"/> <!-- Make more specific AbstractLinkType... -->
+  <element name="AbstractSnippetGroup" abstract="true" type="anyType"/>
+  <element name="AbstractUpdateOptionGroup" abstract="true" type="anyType"/>
 
   <element name="address" type="string"/>
   <element name="altitude" type="double" default="0.0"/>
-  <!--
-    TODO: Is removing altitudeModeGroup and replacing with refs to
-    both the replacements for kml:altitudeMode and gx:altitudeMode
-    the best approach?
-
-    What was the original intention of the altitudeModeGroup? For
-    extension purposes? The original design failed because it did
-    not allow for including both kml:altitudeMode and gx:altitudeMode
-    for backwards compatibility.
-
-    Is there anything else we can do to make enumerations more extensible?
-
-    <element name="altitudeModeGroup" abstract="true"/>
-    <element name="altitudeMode" type="kml:altitudeModeEnumType"
-    default="clampToGround" substitutionGroup="kml:altitudeModeGroup"/>
-  -->
   <element name="altitudeMode" type="kml:altitudeModeEnumType"
     default="clampToGround"/>
-  <!-- TODO: Should we have a better name for seaFloorAltitudeMode? -->
   <element name="seaFloorAltitudeMode"
     type="kml:seaFloorAltitudeModeEnumType"/>
   <element name="altitudeOffset" type="double"/>
   <element name="angles" type="string"/>
   <element name="balloonVisibility" type="boolean" default="true"/>
   <element name="begin" type="kml:dateTimeType"/>
-  <!-- TODO: XSD 1.1
-    <choice> is not allowed in <all>, so we need to use an sub group
-    to provide backwards compatibility for kml:bgColor / kml:color
-  -->
   <element name="bgColor" type="kml:colorType" default="ffffffff" substitutionGroup="kml:AbstractBgColorGroup"/>
   <element name="bottomFov" type="kml:angle90Type" default="0.0"/>
   <element name="color" type="kml:colorType" default="ffffffff" substitutionGroup="kml:AbstractBgColorGroup"/>
-  <element name="colorMode" type="kml:colorModeEnumType" default="normal"/>
+  <element name="abstractColorMode" abstract="true" type="kml:enumBaseType"/>
+  <element name="colorMode" type="kml:colorModeEnumType" default="normal" substitutionGroup="kml:abstractColorMode"/>
   <element name="cookie" type="string"/>
   <element name="coord" type="string"/>
   <element name="coordinates" type="kml:coordinatesType"/>
   <element name="delayedStart" type="double" default="0.0"/>
   <element name="description" type="string"/>
   <element name="displayName" type="string"/>
-  <element name="displayMode" type="kml:displayModeEnumType" default="default"/>
-  <!-- TODO: Annotate: As of Earth 6.0, drawOrder only works in LineStrings & Overlays.-->
+  <element name="abstractDisplayMode" abstract="true" type="kml:enumBaseType"/>
+  <element name="displayMode" type="kml:displayModeEnumType" default="default" substitutionGroup="kml:abstractDisplayMode"/>
   <element name="drawOrder" type="int" default="0"/>
   <element name="duration" type="double" default="0.0"/>
-  <!-- TODO: Provide more documentation on overlays spanning anti-meridian -->
   <element name="east" type="kml:angle360Type" default="180.0"/>
   <element name="end" type="kml:dateTimeType"/>
   <element name="expires" type="kml:dateTimeType"/>
   <element name="extrude" type="boolean" default="0"/>
   <element name="fill" type="boolean" default="1"/>
-  <element name="flyToMode" type="kml:flyToModeEnumType" default="bounce"/>
-  <element name="flyToView" type="boolean" default="0"/>
-  <element name="gridOrigin" type="kml:gridOriginEnumType" default="lowerLeft"/>
+  <element name="abstractFlyToMode" abstract="true" type="kml:enumBaseType"/>
+  <element name="flyToMode" type="kml:flyToModeEnumType" default="bounce" substitutionGroup="kml:abstractFlyToMode"/>
+  <element name="flyToView" type="boolean" default="0"/>  
+  <element name="abstractGridOrigin" abstract="true" type="kml:enumBaseType"/>
+  <element name="gridOrigin" type="kml:gridOriginEnumType" default="lowerLeft"  substitutionGroup="kml:abstractGridOrigin"/>
   <element name="heading" type="kml:angle360Type" default="0.0"/>
   <element name="href" type="string">
     <annotation>
@@ -322,19 +275,12 @@
     </annotation>
   </element>
   <element name="httpQuery" type="string"/>
-  <!-- TODO: horizFov in Google Earth only works in a range of 10-170 degress
-    in Google Earth 6.1-->
   <element name="horizFov" type="kml:anglepos180Type"/>
   <element name="hotSpot" type="kml:vec2Type"/>
   <element name="interpolate" type="boolean" default="false"/>
-  <element name="key" type="kml:styleStateEnumType" default="normal"/>
-  <!--
-    TODO: Currently only works on LineStyle as applied to a LineString.
-    Does not work on LineStyle as applied to Polygons or extruded Points.
-    However, it might in the future. How would we better support extensions
-    for defining where point, line and polygon labels appear?
-  -->
-  <element name="labelVisibility" type="boolean" default="0"/>
+  <element name="abstractKey" abstract="true" type="kml:enumBaseType"/>
+  <element name="key" type="kml:styleStateEnumType" default="normal"
+    substitutionGroup="kml:abstractKey"/>
   <element name="latitude" type="kml:angle90Type" default="0.0"/>
   <element name="leftFov" type="kml:angle180Type" default="0.0"/>
   <element name="linkDescription" type="string"/>
@@ -344,7 +290,9 @@
     What about linkSnippet, which is of also of that type?
   -->
   <element name="linkSnippet" type="kml:SnippetType"/>
-  <element name="listItemType" type="kml:listItemTypeEnumType" default="check"/>
+  <element name="abstractListItemType" abstract="true" type="kml:enumBaseType"/>
+  <element name="listItemType" type="kml:listItemTypeEnumType" default="check"
+    substitutionGroup="kml:abstractListItemType"/>
   <element name="longitude" type="kml:angle180Type" default="0.0"/>
   <element name="maxSnippetLines" type="int" default="2"/>
   <element name="maxSessionLength" type="double" default="-1.0"/>
@@ -360,23 +308,21 @@
   <element name="maxWidth" type="int" default="0"/>
   <element name="name" type="string"/>
   <element name="near" type="double" default="0.0"/>
-  <!-- TODO: Mention that values > 90 are valid, but may not be sensical -->
-  <!-- DSB: default changed from 180 to 90 -->
   <element name="north" type="kml:angle180Type" default="90.0"/>
   <element name="open" type="boolean" default="0"/>
-  <element name="option" type="kml:optionType"/>
   <element name="outerColor" type="kml:colorType" default="ffffffff"/>
   <element name="outerWidth" type="kml:outerWidthType" default="0.0"/>
   <element name="outline" type="boolean" default="1"/>
   <element name="overlayXY" type="kml:vec2Type"/>
   <element name="phoneNumber" type="string"/>
   <element name="physicalWidth" type="float" default="0.0"/>
-  <element name="playMode" type="kml:playModeEnumType" default="pause"/>
+  <element name="abstractPlayMode" abstract="true" type="kml:enumBaseType"/>
+  <element name="playMode" type="kml:playModeEnumType" default="pause"
+    substitutionGroup="kml:abstractPlayMode"/>
   <element name="range" type="double" default="0.0"/>
-  <!-- TODO: Not yet documented on Google's KML Documentation site. -->
-  <element name="rank" type="double" default="0.0"/>
-  <element name="refreshMode" type="kml:refreshModeEnumType"
-    default="onChange"/>
+  <element name="abstractRefreshMode" abstract="true" type="kml:enumBaseType"/>
+  <element name="refreshMode" type="kml:refreshModeEnumType" default="onChange"
+    substitutionGroup="kml:abstractRefreshMode"/>
   <element name="refreshInterval" type="double" default="4.0"/>
   <element name="refreshVisibility" type="boolean" default="0"/>
   <element name="rightFov" type="kml:angle180Type" default="0.0"/>
@@ -385,18 +331,16 @@
   <element name="rotationXY" type="kml:vec2Type"/>
   <element name="scale" type="double" default="1.0"/>
   <element name="screenXY" type="kml:vec2Type"/>
-  <element name="shape" type="kml:shapeEnumType" default="rectangle"/>
+  <element name="abstractShape" abstract="true" type="kml:enumBaseType"/>
+  <element name="shape" type="kml:shapeEnumType" default="rectangle"
+    substitutionGroup="kml:abstractShape"/>
   <element name="size" type="kml:vec2Type"/>
-  <!-- TODO: Mention that values < -90 are valid, but may not be sensical -->
-  <!-- DSB: default changed from -180 to -90 -->
   <element name="south" type="kml:angle180Type" default="-90.0"/>
   <element name="sourceHref" type="anyURI"/>
-  <!-- TODO: XSD 1.1
-    <choice> is not allowed in <all>, so we need to use an sub group
-    to provide backwards compatibility for kml:Snippet / kml:color
-  -->
   <element name="snippet" type="string" substitutionGroup="kml:AbstractSnippetGroup"/>
-  <element name="state" type="kml:itemIconStateType"/>
+  <element name="abstractState" abstract="true" type="anySimpleType"/>
+  <element name="state" type="kml:itemIconStateType" 
+    substitutionGroup="kml:abstractState"/>
   <element name="styleUrl" type="anyURI"/>
   <element name="targetHref" type="anyURI"/>
   <element name="tessellate" type="boolean" default="0"/>
@@ -405,30 +349,32 @@
   <element name="tileSize" type="int" default="256"/>
   <element name="tilt" type="kml:anglepos180Type" default="0.0"/>
   <element name="topFov" type="kml:angle90Type" default="0.0"/>
-  <!--
-    TODO: Changed <value> from string to anySimpleType to allow instances to define types.
-    Does this help when people want to specify their own simple data styles? Do they just
-    use xs:type?
-    
-    However, kml:value when used in <Data> is "untyped" in KML, so we don't really need to
-    use anySimpleType to allow xsi:type in the instances. However, kml:value used in
-    kml:SimpleArrayData is "typed" and therefore users might want to use xsi:type there.
-  -->
   <element name="value" type="anySimpleType"/>
   <element name="viewBoundScale" type="double" default="1.0"/>
   <element name="viewFormat" type="string"/>
+  <element name="abstractViewRefreshMode" abstract="true" type="kml:enumBaseType"/>
   <element name="viewRefreshMode" type="kml:viewRefreshModeEnumType"
-    default="never"/>
+    default="never" substitutionGroup="kml:abstractViewRefreshMode"/>
   <element name="viewRefreshTime" type="double" default="4.0"/>
   <element name="visibility" type="boolean" default="1"/>
-  <!-- TODO: Provide more documentation on overlays spanning anti-meridian -->
   <element name="west" type="kml:angle360Type" default="-180.0"/>
   <element name="when" type="kml:dateTimeType"/>
   <element name="width" type="double" default="1.0"/>
   <element name="x" type="double" default="1.0"/>
   <element name="y" type="double" default="1.0"/>
   <element name="z" type="double" default="1.0"/>
-
+  
+  <group name="AltitudeModeGroup">
+    <all>
+      <element ref="kml:altitudeMode" minOccurs="0"/>
+      <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
+      <element ref="kml:AltitudeModeSimpleExtensionGroup" minOccurs="0" maxOccurs="unbounded"/>
+      <element ref="kml:AltitudeModeObjectExtensionGroup" minOccurs="0" maxOccurs="unbounded"/>
+    </all>
+  </group>  
+  <element name="AltitudeModeSimpleExtensionGroup" abstract="true" type="anySimpleType"/>
+  <element name="AltitudeModeObjectExtensionGroup" abstract="true"
+    substitutionGroup="kml:AbstractObjectGroup"/>
 
   <!--
     TODO: There's a type collision between kml:x & kml:y and gx:x & gx:y
@@ -448,14 +394,14 @@
         maxOccurs="unbounded"/>
     </all>
     <attributeGroup ref="kml:idAttributes"/>
-    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
   <element name="ObjectSimpleExtensionGroup" abstract="true"
     type="anySimpleType"/>
 
   <attributeGroup name="idAttributes">
-    <attribute name="id" type="ID" use="optional"/>
-    <attribute name="targetId" type="NCName" use="optional"/>
+    <attribute name="id" type="ID"/>
+    <attribute name="targetId" type="NCName"/>
   </attributeGroup>
 
   <element name="AbstractFeatureGroup" type="kml:AbstractFeatureType"
@@ -466,47 +412,21 @@
         <all>
           <element ref="kml:name" minOccurs="0"/>
           <element ref="kml:visibility" minOccurs="0"/>
+          <element ref="kml:balloonVisibility" minOccurs="0"/>
           <element ref="kml:open" minOccurs="0"/>
           <element ref="atom:author" minOccurs="0"/>
           <element ref="atom:link" minOccurs="0"/>
           <element ref="kml:address" minOccurs="0"/>
           <element ref="xal:AddressDetails" minOccurs="0"/>
           <element ref="kml:phoneNumber" minOccurs="0"/>
-          <!--
-            TODO: Have to remove choice from all, using sub group instead
-            <choice>
-              <annotation>
-                <documentation>Snippet deprecated in 2.2</documentation>
-              </annotation>
-              <element ref="kml:Snippet" minOccurs="0"/>
-              <element ref="kml:snippet" minOccurs="0"/>
-            </choice>
-          -->
           <element ref="kml:AbstractSnippetGroup" minOccurs="0"/>
           <element ref="kml:description" minOccurs="0"/>
-          <!--
-            TODO: What should the order be for balloonviz & rank?
-            in gx: they are placed at the end of the feature. However, it would
-            make more sense for balloonVisibility to appear at the beginning.
-          -->
-          <element ref="kml:balloonVisibility" minOccurs="0"/>
-          <element ref="kml:rank" minOccurs="0"/>
           <element ref="kml:AbstractViewGroup" minOccurs="0"/>
           <element ref="kml:AbstractTimePrimitiveGroup" minOccurs="0"/>
           <element ref="kml:styleUrl" minOccurs="0"/>
           <element ref="kml:AbstractStyleSelectorGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:Region" minOccurs="0"/>
-          <!--
-            TODO: Had to remove choice from all. Using sub group instead
-            <choice>
-              <annotation>
-                <documentation>Metadata deprecated in 2.2</documentation>
-              </annotation>
-              <element ref="kml:Metadata" minOccurs="0"/>
-              <element ref="kml:ExtendedData" minOccurs="0"/>
-            </choice>
-          -->
           <element ref="kml:AbstractExtendedDataGroup" minOccurs="0"/>
           <element ref="kml:AbstractFeatureSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
@@ -521,16 +441,12 @@
   <element name="AbstractFeatureSimpleExtensionGroup" abstract="true"
     type="anySimpleType"/>
 
-  <!-- TODO: XSD 1.1
-    <choice> is not allowed in <all>, so we need to use an sub group
-    to provide backwards compatibility for kml:Snippet / kml:snippet
-  -->
   <element name="Snippet" type="kml:SnippetType" substitutionGroup="kml:AbstractSnippetGroup"/>
   <complexType name="SnippetType" final="#all">
     <simpleContent>
       <extension base="string">
-        <attribute name="maxLines" type="int" use="optional" default="2"/>
-        <attributeGroup ref="kml:extensionOtherAttributes"/>
+        <attribute name="maxLines" type="int" default="2"/>
+        <anyAttribute namespace="##other" processContents="lax"/>
       </extension>
     </simpleContent>
   </complexType>
@@ -567,8 +483,7 @@
           <element ref="kml:heading" minOccurs="0"/>
           <element ref="kml:tilt" minOccurs="0"/>
           <element ref="kml:range" minOccurs="0"/>
-          <element ref="kml:altitudeMode" minOccurs="0"/>
-          <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
+          <group ref="kml:AltitudeModeGroup"/>
           <element ref="kml:horizFov" minOccurs="0"/>
           <element ref="kml:LookAtSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
@@ -595,8 +510,7 @@
           <element ref="kml:heading" minOccurs="0"/>
           <element ref="kml:tilt" minOccurs="0"/>
           <element ref="kml:roll" minOccurs="0"/>
-          <element ref="kml:altitudeMode" minOccurs="0"/>
-          <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
+          <group ref="kml:AltitudeModeGroup"/>
           <element ref="kml:horizFov" minOccurs="0"/>
           <element ref="kml:CameraSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
@@ -610,10 +524,6 @@
     type="anySimpleType"/>
   <element name="CameraObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
-  <!-- TODO: XSD 1.1
-    <choice> is not allowed in <all>, so we need to use an sub group
-    to provide backwards compatibility for kml:Metadata / kml:ExtendedData
-  -->
   <element name="Metadata" type="kml:MetadataType" substitutionGroup="kml:AbstractExtendedDataGroup">
     <annotation>
       <documentation>Metadata deprecated in 2.2</documentation>
@@ -630,10 +540,6 @@
     </all>
   </complexType>
 
-  <!-- TODO: XSD 1.1
-    <choice> is not allowed in <all>, so we need to use an sub group
-    to provide backwards compatibility for kml:Metadata / kml:ExtendedData
-  -->
   <element name="ExtendedData" type="kml:ExtendedDataType" substitutionGroup="kml:AbstractExtendedDataGroup"/>
   <complexType name="ExtendedDataType" final="#all">
     <all>
@@ -642,7 +548,7 @@
       <any namespace="##other" processContents="lax" minOccurs="0"
         maxOccurs="unbounded"/>
     </all>
-    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
 
   <element name="SchemaData" type="kml:SchemaDataType"
@@ -652,11 +558,12 @@
       <extension base="kml:AbstractObjectType">
         <all>
           <element ref="kml:SimpleData" minOccurs="0" maxOccurs="unbounded"/>
+          <element ref="kml:SimpleArrayData" minOccurs="0" maxOccurs="unbounded"/>
           <element ref="kml:SchemaDataExtension" minOccurs="0"
             maxOccurs="unbounded"/>
         </all>
         <attribute name="schemaUrl" type="anyURI"/>
-        <attributeGroup ref="kml:extensionOtherAttributes"/>
+        <anyAttribute namespace="##other" processContents="lax"/>
       </extension>
     </complexContent>
   </complexType>
@@ -667,10 +574,9 @@
        for XSD validation of user types. -->
   <complexType name="SimpleDataType" final="extension">
     <simpleContent>
-      <!-- TODO: Changed <SimpleData> from string to anySimpleType to allow instances to define types -->
       <extension base="anySimpleType">
         <attribute name="name" type="string" use="required"/>
-        <attributeGroup ref="kml:extensionOtherAttributes"/>
+        <anyAttribute namespace="##other" processContents="lax"/>
       </extension>
     </simpleContent>
   </complexType>
@@ -684,7 +590,7 @@
           <element ref="kml:SimpleArrayDataExtension" minOccurs="0" maxOccurs="unbounded"/>
         </all>
         <attribute name="name" type="string"/>
-        <attributeGroup ref="kml:extensionOtherAttributes"/>
+        <anyAttribute namespace="##other" processContents="lax"/>
       </extension>
     </complexContent>
   </complexType>
@@ -701,7 +607,7 @@
           <element ref="kml:DataExtension" minOccurs="0" maxOccurs="unbounded"/>
         </all>
         <attribute name="name" type="string"/>
-        <attributeGroup ref="kml:extensionOtherAttributes"/>
+        <anyAttribute namespace="##other" processContents="lax"/>
       </extension>
     </complexContent>
   </complexType>
@@ -732,8 +638,6 @@
     <complexContent>
       <extension base="kml:AbstractObjectType">
         <all>
-          <!-- TODO: Annotate: As of Earth 6.0, drawOrder only works in LineStrings & Overlays.-->
-          <element ref="kml:drawOrder" minOccurs="0"/>
           <element ref="kml:AbstractGeometrySimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:AbstractGeometryObjectExtensionGroup" minOccurs="0"
@@ -829,7 +733,8 @@
         maxOccurs="unbounded"/>
     </all>
     <attribute name="hint" type="string"/>
-    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <attribute name="version" type="string"/>  <!-- TODO: decide on default value, add regex for 2+.3+.[0-9]+ -->
+    <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
   <element name="KmlSimpleExtensionGroup" abstract="true" type="anySimpleType"/>
   <element name="KmlObjectExtensionGroup" abstract="true"
@@ -857,7 +762,7 @@
       <element ref="kml:NetworkLinkControlObjectExtensionGroup" minOccurs="0"
         maxOccurs="unbounded"/>
     </all>
-    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
   <element name="NetworkLinkControlSimpleExtensionGroup" abstract="true"
     type="anySimpleType"/>
@@ -895,7 +800,7 @@
     </all>
     <attribute name="name" type="string"/>
     <attribute name="id" type="ID"/>
-    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
   <element name="SchemaExtension" abstract="true"/>
 
@@ -909,7 +814,7 @@
     <!-- TODO: Would the use of anyAtomicType or anySimpleType negate the need for @type? -->
     <attribute name="type" type="string"/>
     <attribute name="name" type="string"/>
-    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
   <element name="SimpleFieldExtension" abstract="true"/>
 
@@ -926,7 +831,7 @@
     -->
     <attribute name="type" type="string"/>
     <attribute name="name" type="string"/>
-    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
   <element name="SimpleArrayFieldExtension" abstract="true"/>
 
@@ -979,27 +884,7 @@
         <all>
           <element ref="kml:refreshVisibility" minOccurs="0"/>
           <element ref="kml:flyToView" minOccurs="0"/>
-          <!--
-            TODO: Had to remove choice from all, using sub group instead
-            <choice>
-              <annotation>
-                <documentation>Url deprecated in 2.2</documentation>
-              </annotation>
-              <element ref="kml:Url" minOccurs="0"/>
-              <element ref="kml:Link" minOccurs="0"/>
-            </choice>
-            
-            If we use multiple substitution groups, we'd use this:
-              <element ref="kml:AbstractLinkGroup" minOccurs="0"/>
-              
-            ...instead of the assert to prevent both URL and Link here.
-          -->
-          <element ref="kml:Url" minOccurs="0">            
-            <annotation>
-              <documentation>Url deprecated in 2.2</documentation>
-            </annotation>
-          </element>
-          <element ref="kml:Link" minOccurs="0"/>
+          <element ref="kml:AbstractLinkGroup" minOccurs="0"/>
           <element ref="kml:NetworkLinkSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:NetworkLinkObjectExtensionGroup" minOccurs="0"
@@ -1021,17 +906,7 @@
     <complexContent>
       <extension base="kml:AbstractObjectType">
         <all>
-          <!--
-            TODO: Should we use the substitutionGroup AbstractBoundingBoxGroup
-            here? LatLonBox and LatLonQuad won't work in a Region in
-            Google Earth, but it would be nice to have some tile system-
-            based bounding box definition for Regions. E.g. show this
-            region only when below a certain altitude or LOD level.
-
-            We could also use <assert> to disallow LatLonQuad, but allow other
-            members of that subsitutionGroup.
-          -->
-          <element ref="kml:LatLonAltBox" minOccurs="0"/>
+          <element ref="kml:AbstractBoundingBoxGroup" minOccurs="0"/>
           <element ref="kml:Lod" minOccurs="0"/>
           <element ref="kml:RegionSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
@@ -1054,8 +929,7 @@
         <all>
           <element ref="kml:minAltitude" minOccurs="0"/>
           <element ref="kml:maxAltitude" minOccurs="0"/>
-          <element ref="kml:altitudeMode" minOccurs="0"/>
-          <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
+          <group ref="kml:AltitudeModeGroup"/>
           <element ref="kml:LatLonAltBoxSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:LatLonAltBoxObjectExtensionGroup" minOccurs="0"
@@ -1158,9 +1032,9 @@
     <complexContent>
       <extension base="kml:BasicLinkType">
         <all>
-          <element ref="kml:refreshMode" minOccurs="0"/>
+          <element ref="kml:abstractRefreshMode" minOccurs="0"/>
           <element ref="kml:refreshInterval" minOccurs="0"/>
-          <element ref="kml:viewRefreshMode" minOccurs="0"/>
+          <element ref="kml:abstractViewRefreshMode" minOccurs="0"/>
           <element ref="kml:viewRefreshTime" minOccurs="0"/>
           <element ref="kml:viewBoundScale" minOccurs="0"/>
           <element ref="kml:viewFormat" minOccurs="0"/>
@@ -1206,8 +1080,7 @@
       <extension base="kml:AbstractGeometryType">
         <all>
           <element ref="kml:extrude" minOccurs="0"/>
-          <element ref="kml:altitudeMode" minOccurs="0"/>
-          <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
+          <group ref="kml:AltitudeModeGroup"/>
           <element ref="kml:coordinates" minOccurs="0"/>
           <element ref="kml:PointSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
@@ -1230,8 +1103,7 @@
         <all>
           <element ref="kml:extrude" minOccurs="0"/>
           <element ref="kml:tessellate" minOccurs="0"/>
-          <element ref="kml:altitudeMode" minOccurs="0"/>
-          <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
+          <group ref="kml:AltitudeModeGroup"/>
           <element ref="kml:coordinates" minOccurs="0"/>
           <element ref="kml:altitudeOffset" minOccurs="0"/>
           <element ref="kml:LineStringSimpleExtensionGroup" minOccurs="0"
@@ -1255,8 +1127,7 @@
         <all>
           <element ref="kml:extrude" minOccurs="0"/>
           <element ref="kml:tessellate" minOccurs="0"/>
-          <element ref="kml:altitudeMode" minOccurs="0"/>
-          <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
+          <group ref="kml:AltitudeModeGroup"/>
           <element ref="kml:coordinates" minOccurs="0"/>
           <element ref="kml:altitudeOffset" minOccurs="0"/>
           <element ref="kml:LinearRingSimpleExtensionGroup" minOccurs="0"
@@ -1280,8 +1151,7 @@
         <all>
           <element ref="kml:extrude" minOccurs="0"/>
           <element ref="kml:tessellate" minOccurs="0"/>
-          <element ref="kml:altitudeMode" minOccurs="0"/>
-          <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
+          <group ref="kml:AltitudeModeGroup"/>
           <element ref="kml:outerBoundaryIs" minOccurs="0"/>
           <element ref="kml:innerBoundaryIs" minOccurs="0"
             maxOccurs="unbounded"/>
@@ -1298,10 +1168,6 @@
   <element name="PolygonObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
 
-  <!--
-    TODO: Why isn't boundary type an AbstractObject?
-    Is this to prevent the use of <Update>?
-  -->
   <element name="outerBoundaryIs" type="kml:BoundaryType"/>
   <element name="innerBoundaryIs" type="kml:BoundaryType"/>
   <complexType name="BoundaryType" final="#all">
@@ -1312,7 +1178,7 @@
       <element ref="kml:BoundaryObjectExtensionGroup" minOccurs="0"
         maxOccurs="unbounded"/>
     </all>
-    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
   <element name="BoundarySimpleExtensionGroup" abstract="true"
     type="anySimpleType"/>
@@ -1325,8 +1191,7 @@
     <complexContent>
       <extension base="kml:AbstractGeometryType">
         <all>
-          <element ref="kml:altitudeMode" minOccurs="0"/>
-          <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
+          <group ref="kml:AltitudeModeGroup"/>
           <element ref="kml:Location" minOccurs="0"/>
           <element ref="kml:Orientation" minOccurs="0"/>
           <element ref="kml:Scale" minOccurs="0"/>
@@ -1353,8 +1218,7 @@
         <all>
           <element ref="kml:extrude" minOccurs="0"/>
           <element ref="kml:tessellate" minOccurs="0"/>
-          <element ref="kml:altitudeMode" minOccurs="0"/>
-          <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
+          <group ref="kml:AltitudeModeGroup"/>
           <element ref="kml:when" minOccurs="0" maxOccurs="unbounded"/>
           <element ref="kml:coord" minOccurs="0" maxOccurs="unbounded"/>
           <element ref="kml:angles" minOccurs="0" maxOccurs="unbounded"/>
@@ -1380,8 +1244,7 @@
     <complexContent>
       <extension base="kml:AbstractGeometryType">
         <all>
-          <element ref="kml:altitudeMode" minOccurs="0"/>
-          <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
+          <group ref="kml:AltitudeModeGroup"/>
           <element ref="kml:interpolate" minOccurs="0"/>
           <element ref="kml:Track" minOccurs="0" maxOccurs="unbounded"/>
           <element ref="kml:MultiTrackSimpleExtensionGroup" minOccurs="0"
@@ -1511,8 +1374,7 @@
       <extension base="kml:AbstractOverlayType">
         <all>
           <element ref="kml:altitude" minOccurs="0"/>
-          <element ref="kml:altitudeMode" minOccurs="0"/>
-          <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
+          <group ref="kml:AltitudeModeGroup"/>
           <!--
             TODO: This has the undersirable consequence that LatLonAltBox is also
             valid in GroundOverlay. However, in Google Earth 6.1, using
@@ -1660,7 +1522,7 @@
           <element ref="kml:ViewVolume" minOccurs="0"/>
           <element ref="kml:ImagePyramid" minOccurs="0"/>
           <element ref="kml:Point" minOccurs="0"/>
-          <element ref="kml:shape" minOccurs="0"/>
+          <element ref="kml:abstractShape" minOccurs="0"/>
           <element ref="kml:PhotoOverlaySimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:PhotoOverlayObjectExtensionGroup" minOccurs="0"
@@ -1707,7 +1569,7 @@
           <element ref="kml:tileSize" minOccurs="0"/>
           <element ref="kml:maxWidth" minOccurs="0"/>
           <element ref="kml:maxHeight" minOccurs="0"/>
-          <element ref="kml:gridOrigin" minOccurs="0"/>
+          <element ref="kml:abstractGridOrigin" minOccurs="0"/>
           <element ref="kml:ImagePyramidSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:ImagePyramidObjectExtensionGroup" minOccurs="0"
@@ -1772,7 +1634,7 @@
     <complexContent>
       <extension base="kml:AbstractObjectType">
         <all>
-          <element ref="kml:key" minOccurs="0"/>
+          <element ref="kml:abstractKey" minOccurs="0"/>
           <element ref="kml:styleUrl" minOccurs="0"/>
           <element ref="kml:AbstractStyleSelectorGroup" minOccurs="0"/>
           <element ref="kml:PairSimpleExtensionGroup" minOccurs="0"
@@ -1814,9 +1676,7 @@
       <extension base="kml:AbstractSubStyleType">
         <all>
           <element ref="kml:color" minOccurs="0"/>
-          <element ref="kml:colorMode" minOccurs="0"/>
-          <!-- TODO: Add to AbstractSubStyleType instead?? -->
-          <element ref="kml:labelVisibility" minOccurs="0"/>
+          <element ref="kml:abstractColorMode" minOccurs="0"/>
           <element ref="kml:AbstractColorStyleSimpleExtensionGroup"
             minOccurs="0" maxOccurs="unbounded"/>
           <element ref="kml:AbstractColorStyleObjectExtensionGroup"
@@ -2003,38 +1863,14 @@
     <complexContent>
       <extension base="kml:AbstractSubStyleType">
         <all>
-          <!--
-            TODO: Had to remove choice from all, using sub group instead
-            <choice>
-              <annotation>
-                <documentation>color deprecated in 2.1</documentation>
-              </annotation>
-              <element ref="kml:color" minOccurs="0"/>
-              <element ref="kml:bgColor" minOccurs="0"/>
-            </choice>
-          -->
-
           <element ref="kml:AbstractBgColorGroup" minOccurs="0"/>
           <element ref="kml:textColor" minOccurs="0"/>
           <element ref="kml:text" minOccurs="0"/>
-          <element ref="kml:displayMode" minOccurs="0"/>
+          <element ref="kml:abstractDisplayMode" minOccurs="0"/>
           <element ref="kml:BalloonStyleSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:BalloonStyleObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-          <!--Alternative encoding of choice using assert:
-        Declare each of the elements, then constrain to a choice using assert below:
-
-         <all>
-          ...
-           <element ref="kml:color"/>
-           <element ref="kml:bgColor"/>
-          ...
-         </all>
-          ...
-        <assert test="count(./kml:bgColor) + count(./kml:color) &lt; 2"/>
-
-          -->
         </all>
       </extension>
     </complexContent>
@@ -2050,7 +1886,7 @@
     <complexContent>
       <extension base="kml:AbstractSubStyleType">
         <all>
-          <element ref="kml:listItemType" minOccurs="0"/>
+          <element ref="kml:abstractListItemType" minOccurs="0"/>
           <element ref="kml:bgColor" minOccurs="0"/>
           <element ref="kml:ItemIcon" minOccurs="0" maxOccurs="unbounded"/>
           <element ref="kml:maxSnippetLines" minOccurs="0"/>
@@ -2073,7 +1909,7 @@
     <complexContent>
       <extension base="kml:AbstractObjectType">
         <all>
-          <element ref="kml:state" minOccurs="0"/>
+          <element ref="kml:abstractState" minOccurs="0"/>
           <element ref="kml:href" minOccurs="0"/>
           <element ref="kml:ItemIconSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
@@ -2130,36 +1966,15 @@
     substitutionGroup="kml:AbstractObjectGroup"/>
 
   <element name="Update" type="kml:UpdateType"/>
-  <!-- TODO:
-     Does switching to unbounded sequence mean they must appear in this order
-     This could be a problem for old docs that had choice inside sequence
-     meaning that there didn't have to be any order. Is this a moot point?
-  -->
   <complexType name="UpdateType" final="#all">
     <all>
       <element ref="kml:targetHref"/>
       <element ref="kml:AbstractUpdateOptionGroup" minOccurs="1" maxOccurs="unbounded"/>
-      <!-- Had to remove <choice> to use <all>
-        <choice maxOccurs="unbounded">
-          <element ref="kml:Create"/>
-          <element ref="kml:Delete"/>
-          <element ref="kml:Change"/>
-          <element ref="kml:UpdateOpExtensionGroup"/>
-        </choice>
-      -->
-      <!-- TODO: XSD 1.1
-        Do we need UpdateOpExtensionGroup group now that we use AbstractUpdateOptionGroup?
-      -->
       <element ref="kml:UpdateExtensionGroup" minOccurs="0"
         maxOccurs="unbounded"/>
     </all>
-    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
-  <!--
-    TODO: Do we still need an UpdateOpExtensionGroup & UpdateExtensionGroup
-    if we have AbstractUpdateOptionGroup??
-    <element name="UpdateOpExtensionGroup" abstract="true"/>
-  -->
   <element name="UpdateExtensionGroup" abstract="true"/>
 
   <element name="Create" type="kml:CreateType" substitutionGroup="kml:AbstractUpdateOptionGroup"/>
@@ -2184,8 +1999,9 @@
         Earth doesn't render it.
       -->
       <element ref="kml:MultiTrack" minOccurs="0" maxOccurs="unbounded"/>
+      <element ref="kml:MultiGeometry" minOccurs="0" maxOccurs="unbounded"/>
     </all>
-    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
 
   <element name="Delete" type="kml:DeleteType" substitutionGroup="kml:AbstractUpdateOptionGroup"/>
@@ -2200,8 +2016,10 @@
     <all>
       <element ref="kml:AbstractFeatureGroup" minOccurs="0"
         maxOccurs="unbounded"/>
+      <element ref="kml:MultiTrack" minOccurs="0" maxOccurs="unbounded"/>
+      <element ref="kml:MultiGeometry" minOccurs="0" maxOccurs="unbounded"/>
     </all>
-    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
 
   <element name="Change" type="kml:ChangeType" substitutionGroup="kml:AbstractUpdateOptionGroup"/>
@@ -2210,16 +2028,11 @@
       <element ref="kml:AbstractObjectGroup" minOccurs="0"
         maxOccurs="unbounded"/>
     </all>
-    <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
 
   <element name="AbstractTourPrimitiveGroup" type="kml:AbstractTourPrimitiveType"
     abstract="true" substitutionGroup="kml:AbstractObjectGroup"/>
-
-  <!--
-    TODO: It's unclear why this is in the Google gx schema. It isn't used anywhere. It also isn't marked as an abstract element!!
-    <element name="AbstractTourPrimitive" type="kml:AbstractTourPrimitiveType"/>
-  -->
   <complexType name="AbstractTourPrimitiveType">
     <complexContent>
       <extension base="kml:AbstractObjectType">
@@ -2266,7 +2079,7 @@
       <extension base="kml:AbstractTourPrimitiveType">
         <all>
           <element ref="kml:duration" minOccurs="0"/>
-          <element ref="kml:flyToMode" minOccurs="0"/>
+          <element ref="kml:abstractFlyToMode" minOccurs="0"/>
           <element ref="kml:AbstractViewGroup" minOccurs="0"/>
           <element ref="kml:FlyToSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
@@ -2349,7 +2162,7 @@
     <complexContent>
       <extension base="kml:AbstractTourPrimitiveType">
         <all>
-          <element ref="kml:playMode" minOccurs="0"/>
+          <element ref="kml:abstractPlayMode" minOccurs="0"/>
           <element ref="kml:TourControlSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:TourControlObjectExtensionGroup" minOccurs="0"
@@ -2381,33 +2194,6 @@
   <element name="WaitSimpleExtensionGroup" abstract="true"
     type="anySimpleType"/>
   <element name="WaitObjectExtensionGroup" abstract="true"
-    substitutionGroup="kml:AbstractObjectGroup"/>
-
-  <!--
-    TODO: Is this too specific to Google Earth?
-    It only allows "enabling" of named features. Is this too limiting?
-    Do we need something more generate to allow enumerations?
-    Granted, third-parties can put whatever they want into <ViewerOptions>
-    in their own namespace.
-  -->
-  <element name="ViewerOptions" type="kml:ViewerOptionsType"
-    substitutionGroup="kml:AbstractViewObjectExtensionGroup"/>
-  <complexType name="ViewerOptionsType">
-    <complexContent>
-      <extension base="kml:AbstractObjectType">
-        <all>
-          <element ref="kml:option" maxOccurs="unbounded"/>
-          <element ref="kml:ViewerOptionsSimpleExtensionGroup" minOccurs="0"
-            maxOccurs="unbounded"/>
-          <element ref="kml:ViewerOptionsObjectExtensionGroup" minOccurs="0"
-            maxOccurs="unbounded"/>
-        </all>
-      </extension>
-    </complexContent>
-  </complexType>
-  <element name="ViewerOptionsSimpleExtensionGroup" abstract="true"
-    type="anySimpleType"/>
-  <element name="ViewerOptionsObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
 
 </schema>
