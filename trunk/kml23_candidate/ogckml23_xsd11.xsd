@@ -257,7 +257,11 @@
   <element name="displayMode" type="kml:displayModeEnumType" default="default" substitutionGroup="kml:abstractDisplayMode"/>
   <element name="drawOrder" type="int" default="0"/>
   <element name="duration" type="double" default="0.0"/>
-  <element name="east" type="kml:angle360Type" default="180.0"/>
+  <element name="east" type="kml:angle360Type" default="180.0">
+   <annotation>
+    <documentation>See kml:AbstractLatLonBoxType regarding the extension of the longitude range in KML 2.3 and the associated contraints on east and west values. </documentation>
+   </annotation>
+  </element>
   <element name="end" type="kml:dateTimeType"/>
   <element name="expires" type="kml:dateTimeType"/>
   <element name="extrude" type="boolean" default="0"/>
@@ -308,7 +312,13 @@
   <element name="maxWidth" type="int" default="0"/>
   <element name="name" type="string"/>
   <element name="near" type="double" default="0.0"/>
-  <element name="north" type="kml:angle180Type" default="90.0"/>
+  <element name="north" type="kml:angle180Type" default="90.0">
+   <annotation>
+    <documentation><![CDATA[
+Specifies the north latitude value in decimal degrees in the interval: -180 < north ≤ 180. Note that the value of kml:north is never equal to -180 because it must be strictly greater than the value of kml:south. Note also that values of |latitude| > 90 are atypical, but allowed for backwards compatibility with KML 2.2. The default value of kml:north is 90 (which differs from the default value of 180 in KML 2.2).
+]]></documentation>
+   </annotation>
+  </element>
   <element name="open" type="boolean" default="0"/>
   <element name="outerColor" type="kml:colorType" default="ffffffff"/>
   <element name="outerWidth" type="kml:outerWidthType" default="0.0"/>
@@ -335,7 +345,13 @@
   <element name="shape" type="kml:shapeEnumType" default="rectangle"
     substitutionGroup="kml:abstractShape"/>
   <element name="size" type="kml:vec2Type"/>
-  <element name="south" type="kml:angle180Type" default="-90.0"/>
+  <element name="south" type="kml:angle180Type" default="-90.0">
+   <annotation>
+    <documentation><![CDATA[
+Specifies the south latitude value in decimal degrees in the interval: -180 ≤ south < 180. Note that the value of kml:south is never equal to 180 because it must be strictly less than the value of kml:north. Note also that values of |latitude| > 90 are atypical, but allowed for backwards compatibility with KML 2.2. The default value of kml:south is -90 (which differs from the default value of -180 in KML 2.2).
+]]></documentation>
+   </annotation>
+  </element>
   <element name="sourceHref" type="anyURI"/>
   <element name="snippet" type="string" substitutionGroup="kml:AbstractSnippetGroup"/>
   <element name="abstractState" abstract="true" type="anySimpleType"/>
@@ -357,7 +373,11 @@
     default="never" substitutionGroup="kml:abstractViewRefreshMode"/>
   <element name="viewRefreshTime" type="double" default="4.0"/>
   <element name="visibility" type="boolean" default="1"/>
-  <element name="west" type="kml:angle360Type" default="-180.0"/>
+  <element name="west" type="kml:angle360Type" default="-180.0">
+   <annotation>
+    <documentation>See kml:AbstractLatLonBoxType regarding the extension of the longitude range KML 2.3 and the associated contraints on east and west values. </documentation>
+   </annotation>
+  </element>
   <element name="when" type="kml:dateTimeType"/>
   <element name="width" type="double" default="1.0"/>
   <element name="x" type="double" default="1.0"/>
@@ -1448,7 +1468,18 @@
   <element name="AbstractLatLonBoxGroup" type="kml:AbstractLatLonBoxType"
     substitutionGroup="kml:AbstractBoundingBoxGroup" abstract="true"/>
   <complexType name="AbstractLatLonBoxType" abstract="true">
-    <complexContent>
+   <annotation>
+    <documentation><![CDATA[
+In KML 2.3, the allowed value range in decimal degrees used by kml:east and kml:west was extended by a factor of 2 (from ±180 in KML 2.2) to ±360. This was done in order to accommodate bounding boxes anywhere on the earth, including overlaps of the anti-meridian, and of any size up to full global coverage. With the extension of the longitude range, all degree values, except -360 = 0 = 360 (mod 360), have exactly two equivalent choices modulo 360, e.g. -359 = 1 (mod 360). The latitude range for kml:north and kml:south remain the same as in KML 2.2 and the following constraints C1 (i.e. the non-trivial latitude interval constraint) and C2 (i.e. the non-trivial longitude interval constraint) are unchanged: 
+    C1  kml:south < kml:north (non-trivial latitude interval); 
+    C2  kml:west < kml:east (non-trivial longitude interval). 
+New constraints in KML 2.3 are introduced with the longitude range extension to avoid self overlaps and to preserve uniqueness of longitude interval values: 
+    C3  kml:east - kml:west ≤ 360 (non-self-overlap); 
+    C4  If (|kml:west| or |kml:east|) > 180, then kml:east > 0 and kml:west < 180 (uniqueness). 
+The constraint C3 ensures that the longitude interval does not overlap itself. The constraint C4 ensures the choice of the kml:west and kml:east values are unique for every longitude interval. See also: kml:east, kml:west, kml:north, kml:south.
+]]></documentation>
+   </annotation>
+   <complexContent>
       <extension base="kml:AbstractBoundingBoxType">
         <all>
           <element ref="kml:north" minOccurs="0"/>
