@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Samples from the Google KML Tutorial -->
 <!-- https://developers.google.com/kml/documentation/KML_Samples.kml -->
-<kml xmlns="http://www.opengis.net/kml/2.2">
+<kml xmlns="http://www.opengis.net/kml/2.2" version="2.3.0">
   <Document>
     <name>KML Samples</name>
     <open>1</open>
