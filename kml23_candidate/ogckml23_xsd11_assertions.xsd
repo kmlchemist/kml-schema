@@ -2,7 +2,8 @@
 <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns:kml="http://www.opengis.net/kml/2.3" xmlns:atom="http://www.w3.org/2005/Atom"
   xmlns:xal="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
-  targetNamespace="http://www.opengis.net/kml/2.3" elementFormDefault="qualified" version="2.3.0">
+  targetNamespace="http://www.opengis.net/kml/2.3" elementFormDefault="qualified" version="2.3.0"
+  xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" vc:minVersion="1.1">
   <!-- TODO: We could add defaultAttributes="kml:extensionOtherAttributes"
     But that would allow people to put attributes into simple elements, which
     implementation like Google Earth would like to avoid.
