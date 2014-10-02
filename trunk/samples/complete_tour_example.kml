@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!-- Sample from "Touring in KML": https://developers.google.com/kml/documentation/touring -->
 <!-- Source: https://developers.google.com/kml/documentation/kmlfiles/complete_tour_example.kml -->
+<?xml-model href="../kml-2.x.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron" phase="Main"?>
 <kml xmlns="http://www.opengis.net/kml/2.2" version="2.3"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.opengis.net/kml/2.2 ../kml23_candidate/ogckml23_xsd11.xsd">
