@@ -733,8 +733,16 @@
     </all>
     <attribute name="hint" type="string"/>
     <attributeGroup ref="kml:extensionOtherAttributes"/>
-    <!-- If the version is not 2.3 there must be no new 2.3 elements -->
-    <assert test="if (@version ne '2.3') then empty(.//kml:Track | .//kml:Tour) else true()"/>
+    <assert test="if (@version ne '2.3') then empty(.//kml:Track) else true()">
+      <annotation>
+        <documentation>Track elements are allowed only for version 2.3 or higher.</documentation>
+      </annotation>
+    </assert>
+    <assert test="if (@version ne '2.3') then empty(.//kml:Tour) else true()">
+      <annotation>
+        <documentation>Tour elements are allowed only for version 2.3 or higher</documentation>
+      </annotation>
+    </assert>
   </complexType>
   <element name="KmlSimpleExtensionGroup" abstract="true" type="anySimpleType"/>
   <element name="KmlObjectExtensionGroup" abstract="true"
