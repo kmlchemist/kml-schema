@@ -1,19 +1,20 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<!-- Sample from "Touring in KML" at https://developers.google.com/kml/documentation/touring -->
+<!-- Sample from "Touring in KML": https://developers.google.com/kml/documentation/touring -->
 <!-- Source: https://developers.google.com/kml/documentation/kmlfiles/complete_tour_example.kml -->
-<kml xmlns="http://www.opengis.net/kml/2.2"
-  xmlns:gx="http://www.google.com/kml/ext/2.2">
+<kml xmlns="http://www.opengis.net/kml/2.2" version="2.3"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.opengis.net/kml/2.2 ../kml23_candidate/ogckml23_xsd11.xsd">
 
   <Document>
     <name>A tour and some features</name>
     <open>1</open>
 
-    <gx:Tour>
+    <Tour>
       <name>Play me!</name>
-      <gx:Playlist>
+      <Playlist>
 
-        <gx:FlyTo>
-          <gx:duration>5.0</gx:duration>
+        <FlyTo>
+          <duration>5.0</duration>
           <!-- bounce is the default flyToMode -->
           <Camera>
             <longitude>170.157</longitude>
@@ -22,14 +23,14 @@
             <heading>-6.333</heading>
             <tilt>33.5</tilt>
           </Camera>
-        </gx:FlyTo>
+        </FlyTo>
 
-        <gx:Wait>
-          <gx:duration>1.0</gx:duration>
-        </gx:Wait>
+        <Wait>
+          <duration>1.0</duration>
+        </Wait>
 
-        <gx:FlyTo>
-          <gx:duration>6.0</gx:duration>
+        <FlyTo>
+          <duration>6.0</duration>
           <Camera>
             <longitude>174.063</longitude>
             <latitude>-39.663</latitude>
@@ -38,11 +39,11 @@
             <tilt>65</tilt>
             <altitudeMode>absolute</altitudeMode>
           </Camera>
-        </gx:FlyTo>
+        </FlyTo>
 
-        <gx:FlyTo>
-          <gx:duration>3.0</gx:duration>
-          <gx:flyToMode>smooth</gx:flyToMode>
+        <FlyTo>
+          <duration>3.0</duration>
+          <flyToMode>smooth</flyToMode>
           <LookAt>
             <longitude>174.007</longitude>
             <latitude>-39.279</latitude>
@@ -52,11 +53,11 @@
             <range>6811.884</range>
             <altitudeMode>relativeToGround</altitudeMode>
           </LookAt>
-        </gx:FlyTo>
+        </FlyTo>
 
-        <gx:FlyTo>
-          <gx:duration>3.0</gx:duration>
-          <gx:flyToMode>smooth</gx:flyToMode>
+        <FlyTo>
+          <duration>3.0</duration>
+          <flyToMode>smooth</flyToMode>
           <LookAt>
             <longitude>174.064</longitude>
             <latitude>-39.321</latitude>
@@ -66,10 +67,10 @@
             <range>4202.579</range>
             <altitudeMode>relativeToGround</altitudeMode>
           </LookAt>
-        </gx:FlyTo>
+        </FlyTo>
 
-        <gx:FlyTo>
-          <gx:duration>5.0</gx:duration>
+        <FlyTo>
+          <duration>5.0</duration>
           <LookAt>
             <longitude>175.365</longitude>
             <latitude>-36.523</latitude>
@@ -79,26 +80,26 @@
             <range>2500</range>
             <altitudeMode>relativeToGround</altitudeMode>
           </LookAt>
-        </gx:FlyTo>
+        </FlyTo>
 
-        <gx:AnimatedUpdate>
-          <gx:duration>0.0</gx:duration>
+        <AnimatedUpdate>
+          <duration>0.0</duration>
           <Update>
             <targetHref/>
             <Change>
               <Placemark targetId="pin2">
-                <gx:balloonVisibility>1</gx:balloonVisibility>
+                <balloonVisibility>1</balloonVisibility>
               </Placemark>
             </Change>
           </Update>
-        </gx:AnimatedUpdate>
+        </AnimatedUpdate>
 
-        <gx:Wait>
-          <gx:duration>6.0</gx:duration>
-        </gx:Wait>
+        <Wait>
+          <duration>6.0</duration>
+        </Wait>
 
-      </gx:Playlist>
-    </gx:Tour>
+      </Playlist>
+    </Tour>
 
     <Folder>
       <name>Points and polygons</name>
