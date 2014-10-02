@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  xmlns:kml="http://www.opengis.net/kml/2.3" xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom"
   xmlns:xal="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
-  targetNamespace="http://www.opengis.net/kml/2.3" elementFormDefault="qualified" version="2.3.0"
+  targetNamespace="http://www.opengis.net/kml/2.2" elementFormDefault="qualified" version="2.3.0"
   xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" vc:minVersion="1.1">
   <!-- TODO: We could add defaultAttributes="kml:extensionOtherAttributes"
     But that would allow people to put attributes into simple elements, which
     implementation like Google Earth would like to avoid.
   -->
   <annotation>
-    <appinfo>ogckml23.xsd 2012-01-23</appinfo>
-    <documentation>XML Schema Document for OGC KML version 2.3. Copyright (c) 2012 Open Geospatial
+    <documentation>XML Schema Document for OGC KML version 2.3. Copyright (c) 2014 Open Geospatial
       Consortium, Inc. All Rights Reserved. </documentation>
   </annotation>
 
@@ -734,6 +733,8 @@
     </all>
     <attribute name="hint" type="string"/>
     <attributeGroup ref="kml:extensionOtherAttributes"/>
+    <!-- If the version is not 2.3 there must be no new 2.3 elements -->
+    <assert test="if (@version ne '2.3') then empty(.//kml:Track | .//kml:Tour) else true()"/>
   </complexType>
   <element name="KmlSimpleExtensionGroup" abstract="true" type="anySimpleType"/>
   <element name="KmlObjectExtensionGroup" abstract="true"
