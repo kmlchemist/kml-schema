@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Samples from the Google KML Tutorial -->
-<!-- https://developers.google.com/kml/documentation/KML_Samples.kml -->
-<kml xmlns="http://www.opengis.net/kml/2.2" version="2.3.0">
+<!-- Source: https://developers.google.com/kml/documentation/KML_Samples.kml -->
+<kml xmlns="http://www.opengis.net/kml/2.2" version="2.3"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.opengis.net/kml/2.2 ../kml23_candidate/ogckml23_xsd11.xsd">
   <Document>
     <name>KML Samples</name>
     <open>1</open>
