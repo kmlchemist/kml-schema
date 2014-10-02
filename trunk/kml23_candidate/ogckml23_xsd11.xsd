@@ -755,8 +755,16 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
     <attribute name="hint" type="string"/>
     <attribute name="version" type="string"/>  <!-- TODO: decide on default value, add regex for 2+.3+.[0-9]+ -->
     <anyAttribute namespace="##other" processContents="lax"/>
-    <!-- If the version is not 2.3 there must be no new 2.3 elements -->
-    <assert test="if (@version ne '2.3') then empty(.//kml:Track | .//kml:Tour) else true()"/>  
+    <assert test="if (@version ne '2.3') then empty(.//kml:Track) else true()">
+      <annotation>
+        <documentation>Track elements are allowed only for version 2.3 or higher.</documentation>
+      </annotation>
+    </assert>
+    <assert test="if (@version ne '2.3') then empty(.//kml:Tour) else true()">
+      <annotation>
+        <documentation>Tour elements are allowed only for version 2.3 or higher</documentation>
+      </annotation>
+    </assert>
   </complexType>
   <element name="KmlSimpleExtensionGroup" abstract="true" type="anySimpleType"/>
   <element name="KmlObjectExtensionGroup" abstract="true"
