@@ -5,7 +5,8 @@
   xmlns:xal="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
   targetNamespace="http://www.opengis.net/kml/2.3"
   elementFormDefault="qualified"
-  version="2.3.0">
+  version="2.3.0"
+  xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" vc:minVersion="1.1">
   <!-- NOTE: XSD 1.1
     We do not want to add defaultAttributes="kml:extensionOtherAttributes"
     because that would allow people to put attributes into simple elements, which implementation like Google Earth would like to avoid.
