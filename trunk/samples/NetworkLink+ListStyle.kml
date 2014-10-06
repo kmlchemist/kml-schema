@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" version="2.3"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.opengis.net/kml/2.2 ../kml23_candidate/ogckml23_xsd11.xsd">
+    <NetworkLink>
+        <name>KML samples</name>
+        <Style id="style-1">
+            <ListStyle>
+                <listItemType>checkHideChildren</listItemType>
+                <bgColor>ff00ffff</bgColor>
+                <ItemIcon>
+                    <state>error</state>
+                    <href>http://iconizer.net/files/Led_Icons/orig/error.png</href>
+                </ItemIcon>
+            </ListStyle>
+        </Style>
+        <refreshVisibility>1</refreshVisibility>
+        <Link>
+            <href>https://developers.google.com/kml/documentation/KML_Samples.kml</href>
+            <refreshMode>onInterval</refreshMode>
+            <refreshInterval>10</refreshInterval>
+            <viewRefreshTime>2</viewRefreshTime>
+        </Link>
+    </NetworkLink>
+</kml>
