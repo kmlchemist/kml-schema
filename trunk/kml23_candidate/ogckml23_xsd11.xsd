@@ -914,7 +914,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
         <all>
           <element ref="kml:refreshVisibility" minOccurs="0"/>
           <element ref="kml:flyToView" minOccurs="0"/>
-          <element ref="kml:AbstractLinkGroup" minOccurs="0"/>
+          <element ref="kml:AbstractBasicLinkGroup" minOccurs="0"/>
           <element ref="kml:NetworkLinkSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:NetworkLinkObjectExtensionGroup" minOccurs="0"
