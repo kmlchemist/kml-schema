@@ -1054,11 +1054,17 @@
         <ol>
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-137</code></li>
           <li>Purpose: Check that if a kml:ItemIcon element is not a descendant of kml:Update, 
-          then it has a kml:href child element that refers to an image resource.</li>
-          <li>Method: Pass if the assertion is satisfied; fail otherwise. The referenced 
-          image is the icon used to indicate the state of a Folder or Link fetch.
-            <span style="background-color:Yellow;">TODO? verify state according to 12.14.3: 
-          icons associated with the error and fetching modes apply to network links.</span></li>
+          then it satisfies all of the following constraints: 
+            <ol class="list2">
+              <li>it has a kml:href child element that refers to an image resource;</li>
+              <li>if its state includes the values "error" or "fetchingN" (where N = 0-2), 
+              then the associated feature is a NetworkLink.</li>
+            </ol>
+          </li>
+          <li>Method: Pass if all assertions are satisfied; fail otherwise. The referenced 
+          image is the icon used to indicate the state of a Folder or Link fetch. The 
+          ancestor Style element may be referenced from or contained within the feature 
+          that uses it.</li>
           <li>References:
             <ul>
               <li>OGC 12-007, cl. 12.14.2</li>
@@ -1282,10 +1288,10 @@ else
           <li>Method: Pass if the assertion is satisfied; fail otherwise. A kml:Track element 
           may be used to describe the time-varying position of a Placemark feature that 
           represents a moving object. In the default CRS (see Annex B), the coordinate 
-          tuple values are longitude, latitude, and altitude.
-            <span style="background-color:Yellow;">TODO? May be empty or nill for 'sparse' 
-          data, but interpolation methods are unspecified and probably best left to specific 
-          applications as an implementation detail.</span></li>
+          tuple values are longitude, latitude, and altitude. An empty kml:coord element 
+          is permitted to indicate missing position data. The estimated position may be 
+          determined using some interpolation method. <span style="background-color:Yellow;">
+          Should interpolated positions be flagged somehow?</span></li>
           <li>References:
             <ul>
               <li>OGC 12-007, cl. 10.15.3</li>
