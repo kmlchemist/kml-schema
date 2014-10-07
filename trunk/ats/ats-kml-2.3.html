@@ -1334,7 +1334,8 @@ else
           </li>
           <li>Method: Pass if the assertion is satisfied; fail otherwise. 
             <span style="background-color:Yellow;">TODO: Mention how track orientations are 
-          combined with underlying model orientation. Superimposed?</span></li>
+          combined with underlying model orientation. Superimposed? Override? The specs states 
+          (10.15.3.1) that this is "an additional heading, tilt, and roll value".</span></li>
           <li>References:
             <ul>
               <li>OGC 12-007, cl. 10.15.3</li>
@@ -1857,7 +1858,9 @@ http://server.example.org/bigphoto/$[level]/row_$[x]_column_$[y].jpg</pre>
               <li>it specifies a method of flight (flyToMode).</li>
             </ol>
             <span style="background-color:Yellow;">TODO? If flyToMode is 'smooth', duration 
-          must be &gt; 0. Recommendation: initial FlyTo has duration &gt;= 5.</span>
+          must be &gt; 0. Add this recommendation? Initial FlyTo has duration &gt;= 5 (see 
+          <a href="https://developers.google.com/kml/documentation/touring#flyto" target="_blank">
+          Touring in KML - FlyTo and flyToMode</span>).
           </li>
           <li>Method: Pass if all assertions are satisfied; fail otherwise. The flyToMode 
           element informs an earth browser about how to approach the viewing position; the default 
