@@ -7,10 +7,6 @@
   elementFormDefault="qualified"
   version="2.3.0"
   xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" vc:minVersion="1.1">
-  <!-- NOTE: XSD 1.1
-    We do not want to add defaultAttributes="kml:extensionOtherAttributes"
-    because that would allow people to put attributes into simple elements, which implementation like Google Earth would like to avoid.
-  -->
 
   <annotation>
     <documentation>XML Schema Document for OGC KML version 2.3. Copyright (c)
@@ -182,6 +178,12 @@
       <enumeration value="onExpire"/>
     </restriction>
   </simpleType>
+  
+  <simpleType name="kmlVersionType">
+    <restriction base="string">
+      <pattern value="2.[2-3](.(0|[1-9][0-9]?))?"/>
+    </restriction>
+  </simpleType>
 
   <simpleType name="viewRefreshModeEnumType">
     <restriction base="kml:enumBaseType">
@@ -225,12 +227,36 @@
     <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
 
-  <!-- TODO: Add comments about which concrete elements subsitute here and which are deprecated. -->
-  <element name="AbstractBgColorGroup" abstract="true" type="kml:colorType"/>
-  <element name="AbstractExtendedDataGroup" abstract="true" type="anyType"/>
-  <element name="AbstractLinkGroup" abstract="true" type="kml:AbstractObjectType"/> <!-- Make more specific AbstractLinkType... -->
-  <element name="AbstractSnippetGroup" abstract="true" type="anyType"/>
-  <element name="AbstractUpdateOptionGroup" abstract="true" type="anyType"/>
+  <element name="AbstractBgColorGroup" abstract="true" type="kml:colorType">
+    <annotation>
+      <documentation>Elements that substitute for kml:AbstractBgColorGroup are kml:bgColor and kml:color.</documentation>
+    </annotation>
+  </element>
+  
+  <element name="AbstractExtendedDataGroup" abstract="true" type="anyType">
+    <annotation>
+      <documentation>Elements that substitute for kml:AbstractExtendedDataGroup are kml:ExtendedData and kml:Metadata.</documentation>
+    </annotation>
+  </element>
+  
+  <element name="AbstractLinkGroup" abstract="true" type="kml:AbstractObjectType"
+    substitutionGroup="kml:AbstractObjectGroup">
+    <annotation>
+      <documentation>Elements that substitute for kml:AbstractLinkGroup are kml:Link and kml:Url.</documentation>
+    </annotation>
+  </element> 
+  
+  <element name="AbstractSnippetGroup" abstract="true" type="anyType">
+    <annotation>
+      <documentation>Elements that substitute for kml:AbstractSnippetGroup are kml:snippet and kml:Snippet.</documentation>
+    </annotation>
+  </element> 
+  
+  <element name="AbstractUpdateOptionGroup" abstract="true" type="anyType">
+    <annotation>
+      <documentation>Elements that substitute for kml:AbstractUpdateOptionGroup are kml:Create, kml:Change and kml:Delete.</documentation>
+    </annotation>
+  </element> 
 
   <element name="address" type="string"/>
   <element name="altitude" type="double" default="0.0"/>
@@ -289,10 +315,6 @@
   <element name="leftFov" type="kml:angle180Type" default="0.0"/>
   <element name="linkDescription" type="string"/>
   <element name="linkName" type="string"/>
-  <!--
-    TODO: We are deprecating the use of Snippet, which is of SnippetType.
-    What about linkSnippet, which is of also of that type?
-  -->
   <element name="linkSnippet" type="kml:SnippetType"/>
   <element name="abstractListItemType" abstract="true" type="kml:enumBaseType"/>
   <element name="listItemType" type="kml:listItemTypeEnumType" default="check"
@@ -451,7 +473,11 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <element name="AbstractFeatureSimpleExtensionGroup" abstract="true"
     type="anySimpleType"/>
 
-  <element name="Snippet" type="kml:SnippetType" substitutionGroup="kml:AbstractSnippetGroup"/>
+  <element name="Snippet" type="kml:SnippetType" substitutionGroup="kml:AbstractSnippetGroup">
+    <annotation>
+      <documentation>kml:Snippet was deprecated in KML 2.2</documentation>
+    </annotation>
+  </element>
   <complexType name="SnippetType" final="#all">
     <simpleContent>
       <extension base="string">
@@ -534,15 +560,15 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
     type="anySimpleType"/>
   <element name="CameraObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
+  
   <element name="Metadata" type="kml:MetadataType" substitutionGroup="kml:AbstractExtendedDataGroup">
     <annotation>
-      <documentation>Metadata deprecated in 2.2</documentation>
+      <documentation>kml:Metadata was deprecated in KML 2.2</documentation>
     </annotation>
   </element>
-
   <complexType name="MetadataType" final="#all">
     <annotation>
-      <documentation>MetadataType deprecated in 2.2</documentation>
+      <documentation>kml:MetadataType was deprecated in KML 2.2</documentation>
     </annotation>
     <all>
       <any namespace="##any" processContents="lax" minOccurs="0"
@@ -580,8 +606,6 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <element name="SchemaDataExtension" abstract="true"/>
 
   <element name="SimpleData" type="kml:SimpleDataType"/>
-  <!-- SA: Changed SimpleDataType to final="extension" to allow XSD restrictions
-       for XSD validation of user types. -->
   <complexType name="SimpleDataType" final="extension">
     <simpleContent>
       <extension base="anySimpleType">
@@ -617,6 +641,11 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
           <element ref="kml:DataExtension" minOccurs="0" maxOccurs="unbounded"/>
         </all>
         <attribute name="name" type="string"/>
+        <attribute name="uom" type="anyURI">
+          <annotation>
+            <documentation>The symbol for the unit of measure for the kml:Data values.</documentation>
+          </annotation>      
+        </attribute>
         <anyAttribute namespace="##other" processContents="lax"/>
       </extension>
     </complexContent>
@@ -722,15 +751,10 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
     type="anySimpleType"/>
   <element name="AbstractTimePrimitiveObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
-
-  <!-- TODO: Considering adding a version attribute to the kml element, defaults to 2.3 -->
+  
   <element name="kml" type="kml:KmlType">
     <annotation>
-      <documentation><![CDATA[
-
-      <kml> is the root element.
-
-      ]]></documentation>
+      <documentation><![CDATA[<kml> is the root element.]]></documentation>
     </annotation>
   </element>
   <complexType name="KmlType" final="#all">
@@ -743,16 +767,84 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
         maxOccurs="unbounded"/>
     </all>
     <attribute name="hint" type="string"/>
-    <attribute name="version" type="string"/>  <!-- TODO: decide on default value, add regex for 2+.3+.[0-9]+ -->
+    <attribute name="version" type="kml:kmlVersionType" default="2.2"/>
     <anyAttribute namespace="##other" processContents="lax"/>
-    <assert test="if (@version ne '2.3') then empty(.//kml:Track) else true()">
+    <!-- TODO(sean): Make sure these are all the parent elements we care about. -->
+    <assert test="if (.//kml:Track)
+      then starts-with(@version,'2.3')
+      else true()">
       <annotation>
-        <documentation>Track elements are allowed only for version 2.3 or higher.</documentation>
+        <documentation>kml:Track is not allowed in versions of KML prior to 2.3.0.</documentation>
       </annotation>
     </assert>
-    <assert test="if (@version ne '2.3') then empty(.//kml:Tour) else true()">
+    <assert test="if (.//kml:MultiTrack)
+      then starts-with(@version,'2.3')
+      else true()">
       <annotation>
-        <documentation>Tour elements are allowed only for version 2.3 or higher</documentation>
+        <documentation>kml:MultiTrack is not allowed in versions of KML prior to 2.3.0.</documentation>
+      </annotation>
+    </assert>
+    <assert test="if (.//kml:Tour)
+      then starts-with(@version,'2.3')
+      else true()">
+      <annotation>
+        <documentation>kml:Tour is not allowed in versions of KML prior to 2.3.0.</documentation>
+      </annotation>
+    </assert>
+    <assert test="if (.//kml:LatLonQuad)
+      then starts-with(@version,'2.3')
+      else true()">
+      <annotation>
+        <documentation>kml:LatLonQuad is not allowed in versions of KML prior to 2.3.0.</documentation>
+      </annotation>
+    </assert>
+    <assert test="if (.//kml:seaFloorAltitudeMode)
+      then starts-with(@version,'2.3')
+      else true()">
+      <annotation>
+        <documentation>kml:seaFloorAltitudeMode is not allowed in versions of KML prior to 2.3.0.</documentation>
+      </annotation>
+    </assert>
+    <assert test="if (.//kml:altitudeOffset)
+      then starts-with(@version,'2.3')
+      else true()">
+      <annotation>
+        <documentation>kml:altitudeOffset is not allowed in versions of KML prior to 2.3.0.</documentation>
+      </annotation>
+    </assert>
+    <assert test="if (.//kml:balloonVisibility)
+      then starts-with(@version,'2.3')
+      else true()">
+      <annotation>
+        <documentation>kml:balloonVisibility is not allowed in versions of KML prior to 2.3.0.</documentation>
+      </annotation>
+    </assert>
+    <assert test="if (.//kml:Camera/kml:TimeStamp)
+      then starts-with(@version,'2.3')
+      else true()">
+      <annotation>
+        <documentation>kml:TimeStamp is not a valid child of kml:Camera in versions of KML prior to 2.3.0.</documentation>
+      </annotation>
+    </assert>
+    <assert test="if (.//kml:Camera/kml:TimeSpan)
+      then starts-with(@version,'2.3')
+      else true()">
+      <annotation>
+        <documentation>kml:TimeSpan is not a valid child of kml:Camera in versions of KML prior to 2.3.0.</documentation>
+      </annotation>
+    </assert>
+    <assert test="if (.//kml:LookAt/kml:TimeStamp)
+      then starts-with(@version,'2.3')
+      else true()">
+      <annotation>
+        <documentation>kml:TimeStamp is not a valid child of kml:LookAt in versions of KML prior to 2.3.0.</documentation>
+      </annotation>
+    </assert>
+    <assert test="if (.//kml:LookAt/kml:TimeSpan)
+      then starts-with(@version,'2.3')
+      else true()">
+      <annotation>
+        <documentation>kml:LookAt is not a valid child of kml:LookAt in versions of KML prior to 2.3.0.</documentation>
       </annotation>
     </assert>
   </complexType>
@@ -769,10 +861,6 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
       <element ref="kml:message" minOccurs="0"/>
       <element ref="kml:linkName" minOccurs="0"/>
       <element ref="kml:linkDescription" minOccurs="0"/>
-      <!--
-        TODO: We are deprecating the use of Snippet, which is of SnippetType.
-        What about linkSnippet, which is of also of that type?
-      -->
       <element ref="kml:linkSnippet" minOccurs="0"/>
       <element ref="kml:expires" minOccurs="0"/>
       <element ref="kml:Update" minOccurs="0"/>
@@ -831,9 +919,13 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
       <element ref="kml:SimpleFieldExtension" minOccurs="0"
         maxOccurs="unbounded"/>
     </all>
-    <!-- TODO: Would the use of anyAtomicType or anySimpleType negate the need for @type? -->
     <attribute name="type" type="string"/>
-    <attribute name="name" type="string"/>
+    <attribute name="name" type="string"/>    
+    <attribute name="uom" type="anyURI">
+      <annotation>
+        <documentation>The symbol for the unit of measure for the kml:SimpleField values.</documentation>
+      </annotation>      
+    </attribute>
     <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
   <element name="SimpleFieldExtension" abstract="true"/>
@@ -845,12 +937,13 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
       <element ref="kml:SimpleArrayFieldExtension" minOccurs="0"
         maxOccurs="unbounded"/>
     </all>
-    <!--
-      TODO:
-      Would the use of anyAtomicType or anySimpleType negate the need for @type?
-    -->
     <attribute name="type" type="string"/>
     <attribute name="name" type="string"/>
+    <attribute name="uom" type="anyURI">
+      <annotation>
+        <documentation>The symbol for the unit of measure for the kml:SimpleArrayData values.</documentation>
+      </annotation>      
+    </attribute>
     <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
   <element name="SimpleArrayFieldExtension" abstract="true"/>
@@ -910,8 +1003,6 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
           <element ref="kml:NetworkLinkObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
         </all>     
-        <!-- To avoid multiple sub groups in Url/Link, use assert to allow only one -->
-        <assert test="not(./Url and ./Link)"/>
       </extension>
     </complexContent>
   </complexType>
@@ -926,7 +1017,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
     <complexContent>
       <extension base="kml:AbstractObjectType">
         <all>
-          <element ref="kml:AbstractBoundingBoxGroup" minOccurs="0"/>
+          <element ref="kml:AbstractExtentGroup" minOccurs="0"/>
           <element ref="kml:Lod" minOccurs="0"/>
           <element ref="kml:RegionSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
@@ -985,14 +1076,14 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <element name="LodObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
 
-  <element name="Icon" type="kml:BasicLinkType"
+  <element name="Icon" type="kml:LinkType"
     substitutionGroup="kml:AbstractObjectGroup"/>
   <element name="Link" type="kml:LinkType"
-    substitutionGroup="kml:AbstractObjectGroup kml:AbstractLinkGroup"/>
+    substitutionGroup="kml:AbstractLinkGroup"/>
   <element name="Url" type="kml:LinkType" 
-    substitutionGroup="kml:AbstractObjectGroup kml:AbstractLinkGroup">
+    substitutionGroup="kml:AbstractLinkGroup">
     <annotation>
-      <documentation>Url deprecated in 2.2</documentation>
+      <documentation>kml:Url was deprecated in KML 2.2</documentation>
     </annotation>
   </element>
   <complexType name="LinkType" final="#all">
@@ -1196,7 +1287,16 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
           <element ref="kml:TrackObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
         </all>
-        <assert test="count(./when) = count(./coord)"/>
+        <assert test="count(./when) = count(./coord)">
+          <annotation>
+            <documentation>kml:Track must have an equal number of kml:when and kml:coord elements.</documentation>
+          </annotation>
+        </assert>
+        <assert test="if(./angles) then count(./angles) = count(./when) else true()">
+          <annotation>
+            <documentation>If kml:angles appears in kml:Track there must be an equal number of kml:angles and kml:when elements.</documentation>
+          </annotation>
+        </assert>
       </extension>
     </complexContent>
   </complexType>
@@ -1343,7 +1443,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
         <all>
           <element ref="kml:altitude" minOccurs="0"/>
           <group ref="kml:AltitudeModeGroup"/>
-          <element ref="kml:AbstractBoundingBoxGroup" minOccurs="0"/>
+          <element ref="kml:AbstractExtentGroup" minOccurs="0"/>
           <element ref="kml:GroundOverlaySimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:GroundOverlayObjectExtensionGroup" minOccurs="0"
@@ -1351,7 +1451,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
         </all>
         <assert test="not(./LatLonAltBox)">
           <annotation>
-            <documentation>LatLonAltBox is not a valid bounding box type for GroundOverlay. Use LatLonBox or LatLonQuad instead.</documentation>
+            <documentation>kml:LatLonAltBox is prohibited in kml:GroundOverlay. Use kml:LatLonBox or kml:LatLonQuad instead.</documentation>
           </annotation>
         </assert>
       </extension>
@@ -1362,31 +1462,30 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <element name="GroundOverlayObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
 
-  <!-- TODO: Remove the use of AbstractBoundingBox. Extension mechanism with multiple subsitition is sufficent. -->
-  <element name="AbstractBoundingBoxGroup" type="kml:AbstractBoundingBoxType"
+  <element name="AbstractExtentGroup" type="kml:AbstractExtentType"
     abstract="true" substitutionGroup="kml:AbstractObjectGroup"/>
-  <complexType name="AbstractBoundingBoxType" abstract="true">
+  <complexType name="AbstractExtentType" abstract="true">
     <complexContent>
       <extension base="kml:AbstractObjectType">
         <all>
-          <element ref="kml:AbstractBoundingBoxSimpleExtensionGroup"
+          <element ref="kml:AbstractExtentSimpleExtensionGroup"
             minOccurs="0" maxOccurs="unbounded"/>
-          <element ref="kml:AbstractBoundingBoxObjectExtensionGroup"
+          <element ref="kml:AbstractExtentObjectExtensionGroup"
             minOccurs="0" maxOccurs="unbounded"/>
         </all>
       </extension>
     </complexContent>
   </complexType>
-  <element name="AbstractBoundingBoxSimpleExtensionGroup" abstract="true"
+  <element name="AbstractExtentSimpleExtensionGroup" abstract="true"
     type="anySimpleType"/>
-  <element name="AbstractBoundingBoxObjectExtensionGroup" abstract="true"
+  <element name="AbstractExtentObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
 
   <element name="LatLonQuad" type="kml:LatLonQuadType"
-    substitutionGroup="kml:AbstractBoundingBoxGroup"/>
+    substitutionGroup="kml:AbstractExtentGroup"/>
   <complexType name="LatLonQuadType" final="#all">
     <complexContent>
-      <extension base="kml:AbstractBoundingBoxType">
+      <extension base="kml:AbstractExtentType">
         <all>
           <element ref="kml:coordinates" minOccurs="0"/>
           <element ref="kml:LatLonQuadSimpleExtensionGroup"
@@ -1403,7 +1502,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
     substitutionGroup="kml:AbstractObjectGroup"/>
 
   <element name="AbstractLatLonBoxGroup" type="kml:AbstractLatLonBoxType"
-    substitutionGroup="kml:AbstractBoundingBoxGroup" abstract="true"/>
+    substitutionGroup="kml:AbstractExtentGroup" abstract="true"/>
   <complexType name="AbstractLatLonBoxType" abstract="true">
    <annotation>
     <documentation><![CDATA[
@@ -1417,7 +1516,7 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
 ]]></documentation>
    </annotation>
    <complexContent>
-      <extension base="kml:AbstractBoundingBoxType">
+      <extension base="kml:AbstractExtentType">
         <all>
           <element ref="kml:north" minOccurs="0"/>
           <element ref="kml:south" minOccurs="0"/>
@@ -1763,17 +1862,17 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <element name="PolyStyleObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
 
-  <!--
-    TODO: You can't style the mini balloons of a <Track> with BalloonStyle.
-    Only the main balloon associated with the icon. Should this be fixed?
-  -->
   <element name="BalloonStyle" type="kml:BalloonStyleType"
     substitutionGroup="kml:AbstractSubStyleGroup"/>
   <complexType name="BalloonStyleType" final="#all">
     <complexContent>
       <extension base="kml:AbstractSubStyleType">
         <all>
-          <element ref="kml:AbstractBgColorGroup" minOccurs="0"/>
+          <element ref="kml:AbstractBgColorGroup" minOccurs="0">
+            <annotation>
+              <documentation>kml:color was deprecated in the context of BalloonStyle in KML 2.1</documentation>
+            </annotation>
+          </element>
           <element ref="kml:textColor" minOccurs="0"/>
           <element ref="kml:text" minOccurs="0"/>
           <element ref="kml:abstractDisplayMode" minOccurs="0"/>
@@ -1888,26 +1987,11 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <element name="UpdateExtensionGroup" abstract="true"/>
 
   <element name="Create" type="kml:CreateType" substitutionGroup="kml:AbstractUpdateOptionGroup"/>
-  <!--
-    TODO:
-    What about creating new a new <Track> in <MultiTrack>?
-    What about creating new a AbstractGeometry in <MultiGeometry>?
-    This is allowed in Google Earth, even through MultiTrack is not an
-    AbstractContainerGroup.
-  -->
   <complexType name="CreateType">
     <all>
       <element ref="kml:AbstractContainerGroup" minOccurs="0"
         maxOccurs="unbounded"/>
-      <!--
-        Added MultiGeo & MultiTrack, because Google Earth already supports this
-        and it'a sensical feature. Since these elements are not in
-        AbstractContainerGroup, they aren't schema-valid targets of kml:Create 
-        
-        However, in Google Earth 6.x, this works with MultiTrack, but doesn't
-        work with MultiGeometry. The new geometry is added to the DOM, but
-        Earth doesn't render it.
-      -->
+      <!-- TODO(sean): Get Earth to support Create for MultiGeometry. -->
       <element ref="kml:MultiTrack" minOccurs="0" maxOccurs="unbounded"/>
       <element ref="kml:MultiGeometry" minOccurs="0" maxOccurs="unbounded"/>
     </all>
@@ -1915,18 +1999,11 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   </complexType>
 
   <element name="Delete" type="kml:DeleteType" substitutionGroup="kml:AbstractUpdateOptionGroup"/>
-  <!--
-    TODO:
-    What about deleting new a <Track> in <MultiTrack>?
-    What about deleting a AbstractGeometry in <MultiGeometry>?
-    This is allowed in Google Earth, even through MultiTrack is not an
-    AbstractContainerGroup.
-  -->
   <complexType name="DeleteType">
     <all>
       <element ref="kml:AbstractFeatureGroup" minOccurs="0"
         maxOccurs="unbounded"/>
-      <!-- TODO: Test to see if it's possible to delete a AbstractGeometryGroup from a feature, including something in a MultiTrack/Geometry. -->
+      <!-- TODO(sean): Make sure Earth support deleting geometries from geom containers. -->
       <element ref="kml:AbstractGeometryGroup" minOccurs="0" maxOccurs="unbounded"/>
     </all>
     <anyAttribute namespace="##other" processContents="lax"/>
