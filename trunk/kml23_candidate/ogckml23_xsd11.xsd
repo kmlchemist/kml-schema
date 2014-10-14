@@ -396,16 +396,6 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <element name="AltitudeModeObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
 
-  <!--
-    TODO: There's a type collision between kml:x & kml:y and gx:x & gx:y
-    because the former elements are doubles and the later are integers.
-    Renaming gx:x & gx:w to something unique for the time being.
-  -->
-  <element name="gridX" type="integer" default="0"/>
-  <element name="gridY" type="integer" default="0"/>
-  <element name="gridW" type="integer" default="-1"/>
-  <element name="gridH" type="integer" default="-1"/>
-
   <element name="AbstractObjectGroup" type="kml:AbstractObjectType"
     abstract="true"/>
   <complexType name="AbstractObjectType" abstract="true">
@@ -914,7 +904,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
         <all>
           <element ref="kml:refreshVisibility" minOccurs="0"/>
           <element ref="kml:flyToView" minOccurs="0"/>
-          <element ref="kml:AbstractBasicLinkGroup" minOccurs="0"/>
+          <element ref="kml:AbstractLinkGroup" minOccurs="0"/>
           <element ref="kml:NetworkLinkSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:NetworkLinkObjectExtensionGroup" minOccurs="0"
@@ -995,70 +985,17 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <element name="LodObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
 
-  <element name="Icon" type="kml:IconLinkType"
+  <element name="Icon" type="kml:BasicLinkType"
     substitutionGroup="kml:AbstractObjectGroup"/>
-  <complexType name="IconLinkType" final="#all">
-    <complexContent>
-      <extension base="kml:LinkType">
-        <all>
-          <!--
-            TODO: IconStyle/Icon and AbstractOverlay/Icon are different but
-            IconStyle/Icon also needs to support gridX/Y/W/H!
-          -->
-          <!--
-            TODO: XSD 1.1
-            We could also use <assert> to control which elements are valid
-            in locations where IconLinkType is used.
-          -->
-          <element ref="kml:gridX" minOccurs="0"/>
-          <element ref="kml:gridY" minOccurs="0"/>
-          <element ref="kml:gridW" minOccurs="0"/>
-          <element ref="kml:gridH" minOccurs="0"/>
-          <element ref="kml:IconLinkTypeSimpleExtensionGroup" minOccurs="0"
-            maxOccurs="unbounded"/>
-          <element ref="kml:IconLinkTypeObjectExtensionGroup" minOccurs="0"
-            maxOccurs="unbounded"/>
-        </all>
-      </extension>
-    </complexContent>
-  </complexType>
-  <element name="IconLinkTypeSimpleExtensionGroup" abstract="true"
-    type="anySimpleType"/>
-  <element name="IconLinkTypeObjectExtensionGroup" abstract="true"
-    substitutionGroup="kml:AbstractObjectGroup"/>
-
-  <!--
-    TODO: XSD 1.1
-    If we want to avoid multiple substitution groups for Link/Url, we can use
-    <assert> to prevent both Url and Link from appearing in NetworkLink.
-    
-    We need kml:AbstractObjectGroup for Link/Url so that it can appear in
-    Update/Change. However, we also need an subGroup because of deprecation
-    of Url vs. Link (for choice/all replacement). This could be bad. See: http://lists.w3.org/Archives/Public/xmlschema-dev/2012Aug/0034.html
-    
-    The multiple substitution group solution would look like this:
-      <element name="Link" type="kml:LinkType"
-        substitutionGroup="kml:AbstractObjectGroup kml:AbstractLinkGroup"/>
-      <element name="Url" type="kml:LinkType"
-        substitutionGroup="kml:AbstractObjectGroup kml:AbstractLinkGroup">
-        <annotation>
-          <documentation>Url deprecated in 2.2</documentation>
-        </annotation>
-      </element>
-  -->
   <element name="Link" type="kml:LinkType"
-    substitutionGroup="kml:AbstractBasicLinkGroup"/>
+    substitutionGroup="kml:AbstractObjectGroup kml:AbstractLinkGroup"/>
   <element name="Url" type="kml:LinkType" 
-    substitutionGroup="kml:AbstractBasicLinkGroup">
+    substitutionGroup="kml:AbstractObjectGroup kml:AbstractLinkGroup">
     <annotation>
       <documentation>Url deprecated in 2.2</documentation>
     </annotation>
   </element>
-  <!--
-    TODO: We can't make LinkType final, because IconLinkType extends it!
-    Are there policies against this at OGC?
-  -->
-  <complexType name="LinkType">
+  <complexType name="LinkType" final="#all">
     <complexContent>
       <extension base="kml:BasicLinkType">
         <all>
@@ -1406,24 +1343,17 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
         <all>
           <element ref="kml:altitude" minOccurs="0"/>
           <group ref="kml:AltitudeModeGroup"/>
-          <!--
-            TODO: This has the undersirable consequence that LatLonAltBox is also
-            valid in GroundOverlay. However, in Google Earth 6.1, using
-            LatLonAltBox seems to work fine!
-
-            XSD 1.1: Could also use <assert> to restrict what works here and what doesn't.
-
-            The other option is to use a <choice> between LatLonBox and
-            LatLonQuad. But this also means that new types of bounding boxes
-            (e.g. those that refer to tile system tile ids) must be added
-            to the extension group instead of via substitution group.
-          -->
           <element ref="kml:AbstractBoundingBoxGroup" minOccurs="0"/>
           <element ref="kml:GroundOverlaySimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:GroundOverlayObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
         </all>
+        <assert test="not(./LatLonAltBox)">
+          <annotation>
+            <documentation>LatLonAltBox is not a valid bounding box type for GroundOverlay. Use LatLonBox or LatLonQuad instead.</documentation>
+          </annotation>
+        </assert>
       </extension>
     </complexContent>
   </complexType>
@@ -1736,27 +1666,7 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
         <all>
           <element ref="kml:scale" minOccurs="0"/>
           <element ref="kml:heading" minOccurs="0"/>
-          <!--
-            TODO: KML 2.2 locally defined IconsStyle/Icon as a BasicLinkType and
-            a globally defined Icon as a LinkType for AbstractOverlays.
-            Because we need to add gridX/Y/W/H to both Icon elements we can
-            either:
-              1. Add grid* elements to IconBasicLinkSytle and IconLinkStyle
-                 which each extend BasicLinkType and LinkType
-              2. Create a new IconType which has grid* elements and to which
-                 LinkType's existing view* and refresh* elements must be added.
-              3. Use the same globally defined Icon for both IconStyle and
-                 AbstractOverlay.
-
-            #3 seems like a preferrable solution, as it's much simplier. But it
-            also means that IconStyle/Icon will have elements that have no meaning
-            in some implementations (like Google Earth).
-
-            If we use option #1, we need to use the following Icon element
-            declaration:
-            <element name="Icon" type="kml:IconLinkType" minOccurs="0"/>
-          -->
-          <element ref="kml:Icon" minOccurs="0"/>
+          <element name="Icon" type="kml:BasicLinkType" minOccurs="0"/>
           <element ref="kml:hotSpot" minOccurs="0"/>
           <element ref="kml:IconStyleSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
@@ -1771,11 +1681,6 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <element name="IconStyleObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
 
-  <!--
-    TODO: We can't make BasicLinkType final, because IconLinkType extends it!
-  -->
-  <element name="AbstractBasicLinkGroup" type="kml:BasicLinkType"
-    substitutionGroup="kml:AbstractObjectGroup" abstract="true"/>
   <complexType name="BasicLinkType">
     <complexContent>
       <extension base="kml:AbstractObjectType">
@@ -1793,39 +1698,6 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
     type="anySimpleType"/>
   <element name="BasicLinkObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
-
-  <!--
-    TODO: This is the type we'd need to use if we choose option #2 in the
-    comment in the IconType declaration.
-
-    TODO: IconStyle/Icon and AbstractOverlay/Icon are different but
-    IconStyle/Icon also needs to support gridX/Y/W/H!
-
-  <complexType name="BasicIconLinkType" final="#all">
-    <complexContent>
-      <extension base="kml:BasicLinkType">
-        <all>
-          <element ref="kml:gridX" minOccurs="0"/>
-          <element ref="kml:gridY" minOccurs="0"/>
-          <element ref="kml:gridW" minOccurs="0"/>
-          <element ref="kml:gridH" minOccurs="0"/>
-          <element ref="kml:BasicIconLinkTypeSimpleExtensionGroup" minOccurs="0"
-            maxOccurs="unbounded"/>
-          <element ref="kml:BasicIconLinkTypeObjectExtensionGroup" minOccurs="0"
-            maxOccurs="unbounded"/>
-          <element ref="kml:CrossIconPropertiesSimpleExtensionGroup" minOccurs="0"
-            maxOccurs="unbounded"/>
-          <element ref="kml:CrossIconPropertiesObjectExtensionGroup" minOccurs="0"
-            maxOccurs="unbounded"/>
-        </all>
-      </extension>
-    </complexContent>
-  </complexType>
-  <element name="BasicIconLinkTypeSimpleExtensionGroup" abstract="true"
-    type="anySimpleType"/>
-  <element name="BasicIconLinkTypeObjectExtensionGroup" abstract="true"
-    substitutionGroup="kml:AbstractObjectGroup"/>
-  -->
 
   <element name="LabelStyle" type="kml:LabelStyleType"
     substitutionGroup="kml:AbstractColorStyleGroup"/>
