@@ -1024,6 +1024,11 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
           <element ref="kml:RegionObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
         </all>
+        <assert test="not(./LatLonBox or ./LatLonQuad) ">
+          <annotation>
+            <documentation>kml:LatLonBox and kml:LatLonQuad are prohibited in kml:Region. Use kml:LatLonAltBox instead.</documentation>
+          </annotation>
+        </assert>
       </extension>
     </complexContent>
   </complexType>
