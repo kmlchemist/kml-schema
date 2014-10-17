@@ -1024,9 +1024,14 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
           <element ref="kml:RegionObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
         </all>
-        <assert test="not(./LatLonBox or ./LatLonQuad) ">
+        <assert test="not(./kml:LatLonBox) ">
           <annotation>
-            <documentation>kml:LatLonBox and kml:LatLonQuad are prohibited in kml:Region. Use kml:LatLonAltBox instead.</documentation>
+            <documentation>kml:LatLonBox is prohibited in kml:Region. Use kml:LatLonAltBox instead.</documentation>
+          </annotation>
+        </assert>
+        <assert test="not(./kml:LatLonQuad) ">
+          <annotation>
+            <documentation>kml:LatLonQuad is prohibited in kml:Region. Use kml:LatLonAltBox instead.</documentation>
           </annotation>
         </assert>
       </extension>
@@ -1292,12 +1297,12 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
           <element ref="kml:TrackObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
         </all>
-        <assert test="count(./when) = count(./coord)">
+        <assert test="count(./kml:when) = count(./kml:coord)">
           <annotation>
             <documentation>kml:Track must have an equal number of kml:when and kml:coord elements.</documentation>
           </annotation>
         </assert>
-        <assert test="if(./angles) then count(./angles) = count(./when) else true()">
+        <assert test="if(./kml:angles) then count(./kml:angles) = count(./kml:when) else true()">
           <annotation>
             <documentation>If kml:angles appears in kml:Track there must be an equal number of kml:angles and kml:when elements.</documentation>
           </annotation>
@@ -1454,7 +1459,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
           <element ref="kml:GroundOverlayObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
         </all>
-        <assert test="not(./LatLonAltBox)">
+        <assert test="not(./kml:LatLonAltBox)">
           <annotation>
             <documentation>kml:LatLonAltBox is prohibited in kml:GroundOverlay. Use kml:LatLonBox or kml:LatLonQuad instead.</documentation>
           </annotation>
