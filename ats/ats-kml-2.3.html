@@ -27,7 +27,7 @@
       <table class="borderless" style="border: none;">
         <tr>
           <td>Date:</td>
-          <td>2014-10-17</td>
+          <td>2014-10-24</td>
         </tr>
         <tr>
           <td>Document identifier:</td>
@@ -163,6 +163,7 @@
             <li><a href="#atc-228">ATC-228</a>: FlyTo duration</li>
             <li><a href="#atc-229">ATC-229</a>: Wait duration</li>
             <li><a href="#atc-230">ATC-230</a>: AnimatedUpdate duration</li>
+            <li><a href="#atc-231">ATC-231</a>: Entity references in BalloonStyle text</li>
           </ol>
         </li>
         <li><a href="#level-3">Conformance Level 3</a>
@@ -183,16 +184,17 @@
 
     <section id="intro" data-type="sect1">
       <h1>Scope</h1>
-      <p>This document specifies an abstract test suite (ATS) consisting of a set 
-      of implementation-independent test cases that provide a basis for verifying 
-      the structure and content of OGC KML 2.3 instance documents. The ATS may 
-      be realized by an executable test suite (ETS) that assesses the degree of 
-      conformance exhibited by a KML document.</p>
+      <p>This document specifies an abstract test suite (ATS) consisting of a set of 
+      implementation-independent test cases that provide a basis for validating the 
+      structure and content of OGC KML 2.3 resources. The ATS may be realized by an 
+      executable test suite (ETS) that assesses the degree of conformance exhibited 
+      by a KML document.</p>
 
       <p>Three conformance levels are defined; these indicate the relative importance 
-      or priority of a particular set of requirements. The highest level (CL3) indicates 
-      full conformance, but a given application or user community may stipulate that a 
-      lower level of conformance is acceptable.</p>
+      or priority of a particular set of constraints. The highest level (CL3) indicates 
+      full conformance, but a given application or user community may choose to enforce 
+      a lower level of conformance.</p>
+
       <dl>
         <dt><dfn>Level 1</dfn> (CL1)</dt>
         <dd>Includes test cases covering requirements that must be satisfied 
@@ -220,7 +222,7 @@
         <tbody>
           <tr>
             <td>kml</td>
-            <td>http://www.opengis.net/kml/2.3</td>
+            <td>http://www.opengis.net/kml/2.2</td>
           </tr>
           <tr>
             <td>xsd</td>
@@ -1912,6 +1914,39 @@ http://server.example.org/bigphoto/$[level]/row_$[x]_column_$[y].jpg</pre>
           <li>Test type: Capability</li>
         </ol>
       </div>
+      <div id="atc-231" class="atc">
+        <h2>ATC-231: Entity references in BalloonStyle text</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-231</code></li>
+          <li>Purpose: Verify that replacement text values exist for any entity references appearing 
+          in a kml:BalloonStyle/kml:text element. The references are constructed as follows:
+            <ol class="list2">
+              <li>$[name]: refers to either an element or an attribute of the containing feature, 
+              or to one of its extended data elements (//kml:Data/@name).</li>
+              <li>$[name/displayName]: refers to the kml:displayName element in an extended 
+              data element (//kml:Data/@name) belonging to the feature.</li>
+              <li>$[schemaName/fieldName]: refers to a descendant kml:SimpleData element that 
+              is defined by a kml:SimpleField element matching this XPath expression: 
+                <code>kml:Schema[@name=$schemaName]/kml:SimpleField[@name=$fieldName]</code>.</li>
+              <li>$[schemaName/fieldName/displayName]: refers to the kml:displayName element 
+              in a kml:Schema element matching this XPath expression: 
+                <code>kml:Schema[@name=$schemaName]/kml:SimpleField[@name=$fieldName]/displayName</code>.</li>
+            </ol>
+          </li>
+          <li>Method: Pass if all entity references can be dereferenced; fail otherwise. The source 
+          of values for the replacement text includes the ancestor feature being styled and any 
+          kml:Schema elements that are associated with it.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 6.5</li>
+              <li>KML Reference - <a target="_blank" 
+              href="https://developers.google.com/kml/documentation/kmlreference#balloonstyle">
+              BalloonStyle</a></li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
     </section>
 
     <section id="level-3" data-type="sect1">
@@ -1937,7 +1972,7 @@ http://server.example.org/bigphoto/$[level]/row_$[x]_column_$[y].jpg</pre>
           curve. This means that the exterior boundary of the surface runs counterclockwise 
           when viewed from the side of the surface indicated by the upward normal (the 
           "top" of the surface); interior boundaries are clockwise.
-            <figure>
+            <figure id="fig1" title="Polygon orientation">
               <img src="fig1-polygon.svg" alt="SVG image not displayed" />
             </figure>
           </li>
@@ -2030,7 +2065,7 @@ kml:maxLodPixels - kml:minLodPixels</pre>
           </li>
           <li><p>Method: Pass if the assertion is satisfied; fail otherwise. The fade range is 
           depicted in the following figure.</p>
-            <figure>
+            <figure id="fig2" title="Visibility of a region">
               <img src="fig2-lod.svg" alt="SVG image not displayed" />
             </figure>
           </li>
