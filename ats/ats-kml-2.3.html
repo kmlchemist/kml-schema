@@ -27,7 +27,7 @@
       <table class="borderless" style="border: none;">
         <tr>
           <td>Date:</td>
-          <td>2014-10-24</td>
+          <td>2014-10-29</td>
         </tr>
         <tr>
           <td>Document identifier:</td>
@@ -109,26 +109,25 @@
             <li><a href="#atc-128">ATC-128</a>: Data element has distinct name</li>
             <li><a href="#atc-129">ATC-129</a>: Valid texture alias</li>
             <li><a href="#atc-130">ATC-130</a>: Feature metadata - atom:author</li>
-            <li><a href="#atc-131">ATC-131</a>: Feature metadata - atom:link</li>
-            <li><a href="#atc-132">ATC-132</a>: Model orientation not empty</li>
-            <li><a href="#atc-133">ATC-133</a>: GroundOverlay with altitude</li>
-            <li><a href="#atc-134">ATC-134</a>: Model referents</li>
-            <li><a href="#atc-135">ATC-135</a>: PhotoOverlay</li>
-            <li><a href="#atc-136">ATC-136</a>: Mode-specific feature style</li>
-            <li><a href="#atc-137">ATC-137</a>: ItemIcon refers to image resource</li>
-            <li><a href="#atc-138">ATC-138</a>: LookAt viewpoint</li>
-            <li><a href="#atc-139">ATC-139</a>: Region visibility (LOD)</li>
-            <li><a href="#atc-140">ATC-140</a>: Link reference</li>
-            <li><a href="#atc-141">ATC-141</a>: Region</li>
-            <li><a href="#atc-142">ATC-142</a>: Tour playlist</li>
-            <li><a href="#atc-143">ATC-143</a>: FlyTo view</li>
-            <li><a href="#atc-144">ATC-144</a>: TourControl not empty</li>
-            <li><a href="#atc-145">ATC-145</a>: SoundCue refers to audio resource</li>
-            <li><a href="#atc-146">ATC-146</a>: AnimatedUpdate referent</li>
-            <li><a href="#atc-147">ATC-147</a>: Track positions</li>
-            <li><a href="#atc-148">ATC-148</a>: Track temporal values</li>
-            <li><a href="#atc-149">ATC-149</a>: Track orientations</li>
-            <li><a href="#atc-150">ATC-150</a>: LatLonQuad coordinates</li>
+            <li><a href="#atc-131">ATC-131</a>: Model orientation not empty</li>
+            <li><a href="#atc-132">ATC-132</a>: GroundOverlay with altitude</li>
+            <li><a href="#atc-133">ATC-133</a>: Model referents</li>
+            <li><a href="#atc-134">ATC-134</a>: PhotoOverlay</li>
+            <li><a href="#atc-135">ATC-135</a>: Mode-specific feature style</li>
+            <li><a href="#atc-136">ATC-136</a>: ItemIcon refers to image resource</li>
+            <li><a href="#atc-137">ATC-137</a>: LookAt viewpoint</li>
+            <li><a href="#atc-138">ATC-138</a>: Region visibility (LOD)</li>
+            <li><a href="#atc-139">ATC-139</a>: Link reference</li>
+            <li><a href="#atc-140">ATC-140</a>: Region</li>
+            <li><a href="#atc-141">ATC-141</a>: Tour playlist</li>
+            <li><a href="#atc-142">ATC-142</a>: FlyTo view</li>
+            <li><a href="#atc-143">ATC-143</a>: TourControl not empty</li>
+            <li><a href="#atc-144">ATC-144</a>: SoundCue refers to audio resource</li>
+            <li><a href="#atc-145">ATC-145</a>: AnimatedUpdate referent</li>
+            <li><a href="#atc-146">ATC-146</a>: Track positions</li>
+            <li><a href="#atc-147">ATC-147</a>: Track temporal values</li>
+            <li><a href="#atc-148">ATC-148</a>: Track orientations</li>
+            <li><a href="#atc-149">ATC-149</a>: LatLonQuad coordinates</li>
           </ol>
         </li>
         <li><a href="#level-2">Conformance Level 2</a>
@@ -164,6 +163,7 @@
             <li><a href="#atc-229">ATC-229</a>: Wait duration</li>
             <li><a href="#atc-230">ATC-230</a>: AnimatedUpdate duration</li>
             <li><a href="#atc-231">ATC-231</a>: Entity references in BalloonStyle text</li>
+            <li><a href="#atc-232">ATC-232</a>: Feature metadata - atom:link</li>
           </ol>
         </li>
         <li><a href="#level-3">Conformance Level 3</a>
@@ -934,30 +934,9 @@
         </ol>
       </div>
       <div id="atc-131" class="atc">
-        <h2>ATC-131: Feature metadata - atom:link</h2>
+        <h2>ATC-131: Model orientation not empty</h2>
         <ol>
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-131</code></li>
-          <li>Purpose: Check that the value of the atom:link/@rel attribute is "related".</li>
-          <li>Method: Pass if the assertion is satisfied; fail otherwise. If the attribute 
-          is not present, the link must be interpreted as if @rel = "alternate" (i.e. the 
-          referent is an alternate version of the resource). The value "related" simply 
-          denotes a generic relationship. The atom:link element applies to all child features 
-          in a container unless overridden.</li>
-          <li>References:
-            <ul>
-              <li>OGC 12-007, cl. 9.1.3.5</li>
-              <li>The Atom Syndication Format - <a target="_blank" 
-              href="http://tools.ietf.org/html/rfc4287#section-4.2.7">The "atom:link" Element</a> 
-              (RFC 4287)</li>
-            </ul>
-          </li>
-          <li>Test type: Capability</li>
-        </ol>
-      </div>
-      <div id="atc-132" class="atc">
-        <h2>ATC-132: Model orientation not empty</h2>
-        <ol>
-          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-132</code></li>
           <li>Purpose: Verify that if a kml:Orientation element is not a descendant of kml:Update, 
           then it contains at least one of the following elements: kml:heading, kml:tilt, or 
           kml:roll.</li>
@@ -970,10 +949,10 @@
           <li>Test type: Capability</li>
         </ol>
       </div>
-      <div id="atc-133" class="atc">
-        <h2>ATC-133: GroundOverlay with altitude</h2>
+      <div id="atc-132" class="atc">
+        <h2>ATC-132: GroundOverlay with altitude</h2>
         <ol>
-          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-133</code></li>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-132</code></li>
           <li>Purpose: Verify that a kml:GroundOverlay with an kml:altitudeMode value of "absolute" 
           includes a kml:altitude element.</li>
           <li>Method: Pass if the assertion is satisfied; fail otherwise.</li>
@@ -985,10 +964,10 @@
           <li>Test type: Capability</li>
         </ol>
       </div>
-      <div id="atc-134" class="atc">
-        <h2>ATC-134: Model referents</h2>
+      <div id="atc-133" class="atc">
+        <h2>ATC-133: Model referents</h2>
         <ol>
-          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-134</code></li>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-133</code></li>
           <li>Purpose: Check that a kml:Model element adheres to all of the following constraints 
           if it is not a descendant of kml:Update:
             <ol class="list2">
@@ -1013,10 +992,10 @@
           <li>Test type: Capability</li>
         </ol>
       </div>
-      <div id="atc-135" class="atc">
-        <h2>ATC-135: PhotoOverlay</h2>
+      <div id="atc-134" class="atc">
+        <h2>ATC-134: PhotoOverlay</h2>
         <ol>
-          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-135</code></li>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-134</code></li>
           <li>Purpose: Check that if a kml:PhotoOverlay element is not a descendant of kml:Update, 
           then it has all of the following child elements: kml:Icon, kml:ViewVolume, kml:Point, 
           and kml:Camera.</li>
@@ -1029,10 +1008,10 @@
           <li>Test type: Capability</li>
         </ol>
       </div>
-      <div id="atc-136" class="atc">
-        <h2>ATC-136: Mode-specific feature style</h2>
+      <div id="atc-135" class="atc">
+        <h2>ATC-135: Mode-specific feature style</h2>
         <ol>
-          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-136</code></li>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-135</code></li>
           <li>Purpose: Check that if a kml:Pair element is not a descendant of kml:Update, then it 
           contains the following elements:
             <ol class="list2">
@@ -1051,10 +1030,10 @@
           <li>Test type: Capability</li>
         </ol>
       </div>
-      <div id="atc-137" class="atc">
-        <h2>ATC-137: ItemIcon refers to image resource</h2>
+      <div id="atc-136" class="atc">
+        <h2>ATC-136: ItemIcon refers to image resource</h2>
         <ol>
-          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-137</code></li>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-136</code></li>
           <li>Purpose: Check that if a kml:ItemIcon element is not a descendant of kml:Update, 
           then it satisfies all of the following constraints: 
             <ol class="list2">
@@ -1077,10 +1056,10 @@
           <li>Test type: Capability</li>
         </ol>
       </div>
-      <div id="atc-138" class="atc">
-        <h2>ATC-138: LookAt viewpoint</h2>
+      <div id="atc-137" class="atc">
+        <h2>ATC-137: LookAt viewpoint</h2>
         <ol>
-          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-138</code></li>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-137</code></li>
           <li>Purpose: Check that a kml:LookAt element satisfies all of the following constraints:
             <ol class="list2">
               <li>if it is not a descendant of kml:Update, it contains all of the following 
@@ -1103,10 +1082,10 @@
           <li>Test type: Capability</li>
         </ol>
       </div>
-      <div id="atc-139" class="atc">
-        <h2>ATC-139: Region visibility (LOD)</h2>
+      <div id="atc-138" class="atc">
+        <h2>ATC-138: Region visibility (LOD)</h2>
         <ol>
-          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-139</code></li>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-138</code></li>
           <li>Purpose: Check that a kml:Lod element satisfies all of the following constraints:
             <ol class="list2">
               <li>if it is not a descendant of kml:Update, it contains the kml:minLodPixels 
@@ -1140,10 +1119,10 @@ else
           <li>Test type: Capability</li>
         </ol>
       </div>
-      <div id="atc-140" class="atc">
-        <h2>ATC-140: Link reference</h2>
+      <div id="atc-139" class="atc">
+        <h2>ATC-139: Link reference</h2>
         <ol>
-          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-140</code></li>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-139</code></li>
           <li>Purpose: Check that if a kml:Link or a kml:Icon element (both of type 
           kml:LinkType) is not a descendant of kml:Update, then it contains a kml:href 
           child element.</li>
@@ -1158,10 +1137,10 @@ else
           <li>Test type: Capability</li>
         </ol>
       </div>
-      <div id="atc-141" class="atc">
-        <h2>ATC-141: Region</h2>
+      <div id="atc-140" class="atc">
+        <h2>ATC-140: Region</h2>
         <ol>
-          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-141</code></li>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-140</code></li>
           <li>Purpose: Confirm that if a kml:Region element is not a descendant of kml:Update, 
           it contains the kml:LatLonAltBox and kml:Lod elements.</li>
           <li>Method: Pass if the assertion is satisfied; fail otherwise. These elements 
@@ -1174,10 +1153,10 @@ else
           <li>Test type: Capability</li>
         </ol>
       </div>
-      <div id="atc-142" class="atc">
-        <h2>ATC-142: Tour playlist</h2>
+      <div id="atc-141" class="atc">
+        <h2>ATC-141: Tour playlist</h2>
         <ol>
-          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-142</code></li>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-141</code></li>
           <li>Purpose: Verify that if a kml:Tour element is not a descendant of kml:Update, 
           then it has a kml:Playlist child element that contains one or more tour primitives.</li>
           <li>Method: Pass if the assertion is satisfied; fail otherwise. A virtual tour 
@@ -1191,10 +1170,10 @@ else
           <li>Test type: Capability</li>
         </ol>
       </div>
-      <div id="atc-143" class="atc">
-        <h2>ATC-143: FlyTo view</h2>
+      <div id="atc-142" class="atc">
+        <h2>ATC-142: FlyTo view</h2>
         <ol>
-          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-143</code></li>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-142</code></li>
           <li>Purpose: Verify that a kml:FlyTo element contains a child view element 
           (kml:Camera or kml:LookAt).</li>
           <li>Method: Pass if the assertion is satisfied; fail otherwise. A view element 
@@ -1210,10 +1189,10 @@ else
           <li>Test type: Capability</li>
         </ol>
       </div>
-      <div id="atc-144" class="atc">
-        <h2>ATC-144: TourControl not empty</h2>
+      <div id="atc-143" class="atc">
+        <h2>ATC-143: TourControl not empty</h2>
         <ol>
-          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-144</code></li>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-143</code></li>
           <li>Purpose: Verify that if a kml:TourControl element is not a descendant of kml:Update, 
           then it contains a child kml:playMode element.</li>
           <li>Method: Pass if the assertion is satisfied; fail otherwise. This element may be 
@@ -1226,10 +1205,10 @@ else
           <li>Test type: Capability</li>
         </ol>
       </div>
-      <div id="atc-145" class="atc">
-        <h2>ATC-145: SoundCue refers to audio resource</h2>
+      <div id="atc-144" class="atc">
+        <h2>ATC-144: SoundCue refers to audio resource</h2>
         <ol>
-          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-145</code></li>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-144</code></li>
           <li>Purpose: Check that if a kml:SoundCue element is not a descendant of 
           kml:Update, then it has a kml:href child element that refers to an audio 
           resource (media type <code>audio/*</code>).</li>
@@ -1255,10 +1234,10 @@ else
           <li>Test type: Capability</li>
         </ol>
       </div>
-      <div id="atc-146" class="atc">
-        <h2>ATC-146: AnimatedUpdate referent</h2>
+      <div id="atc-145" class="atc">
+        <h2>ATC-145: AnimatedUpdate referent</h2>
         <ol>
-          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-146</code></li>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-145</code></li>
           <li>Purpose: Check that the value of the kml:AnimatedUpdate/kml:Update/kml:targetHref 
           element satisfies one of the following cases:
             <ol class="list2">
@@ -1280,10 +1259,10 @@ else
           <li>Test type: Capability</li>
         </ol>
       </div>
-      <div id="atc-147" class="atc">
-        <h2>ATC-147: Track positions</h2>
+      <div id="atc-146" class="atc">
+        <h2>ATC-146: Track positions</h2>
         <ol>
-          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-147</code></li>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-146</code></li>
           <li>Purpose: Verify that the coordinates specifying the track positions (kml:coord) 
           consist of space-delimited numeric values in the applicable coordinate reference 
           system (CRS).</li>
@@ -1302,10 +1281,10 @@ else
           <li>Test type: Capability</li>
         </ol>
       </div>
-      <div id="atc-148" class="atc">
-        <h2>ATC-148: Track temporal values</h2>
+      <div id="atc-147" class="atc">
+        <h2>ATC-147: Track temporal values</h2>
         <ol>
-          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-148</code></li>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-147</code></li>
           <li>Purpose: Check that for every temporal value (kml:when) in a kml:Track there 
           is a position (kml:coord) value. That is, the following XPath expression must be 
           true: count(kml:when) = count(kml:coord).
@@ -1321,10 +1300,10 @@ else
           <li>Test type: Capability</li>
         </ol>
       </div>
-      <div id="atc-149" class="atc">
-        <h2>ATC-149: Track orientations</h2>
+      <div id="atc-148" class="atc">
+        <h2>ATC-148: Track orientations</h2>
         <ol>
-          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-149</code></li>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-148</code></li>
           <li>Purpose: Verify that each orientation element contained by a track (kml:angles) 
           satisfies the following constraints:
             <ol class="list2">
@@ -1345,10 +1324,10 @@ else
           <li>Test type: Capability</li>
         </ol>
       </div>
-      <div id="atc-150" class="atc">
-        <h2>ATC-150: LatLonQuad coordinates</h2>
+      <div id="atc-149" class="atc">
+        <h2>ATC-149: LatLonQuad coordinates</h2>
         <ol>
-          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-150</code></li>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-149</code></li>
           <li>Purpose: Verify that the coordinates of a LatLonQuad element contained by 
           a GroundOverlay feature satisfies the following constraints:
             <ol class="list2">
@@ -1942,6 +1921,27 @@ http://server.example.org/bigphoto/$[level]/row_$[x]_column_$[y].jpg</pre>
               <li>KML Reference - <a target="_blank" 
               href="https://developers.google.com/kml/documentation/kmlreference#balloonstyle">
               BalloonStyle</a></li>
+            </ul>
+          </li>
+          <li>Test type: Capability</li>
+        </ol>
+      </div>
+      <div id="atc-232" class="atc">
+        <h2>ATC-232: Feature metadata - atom:link</h2>
+        <ol>
+          <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-232</code></li>
+          <li>Purpose: Check that the value of the atom:link/@rel attribute is "related".</li>
+          <li>Method: Pass if the assertion is satisfied; fail otherwise. If the attribute 
+          is not present, the link must be interpreted as if @rel = "alternate" (i.e. the 
+          referent is an alternate version of the resource). The value "related" simply 
+          denotes a generic relationship. The atom:link element applies to all child features 
+          in a container unless overridden.</li>
+          <li>References:
+            <ul>
+              <li>OGC 12-007, cl. 9.1.3.5</li>
+              <li>The Atom Syndication Format - <a target="_blank" 
+              href="http://tools.ietf.org/html/rfc4287#section-4.2.7">The "atom:link" Element</a> 
+              (RFC 4287)</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
