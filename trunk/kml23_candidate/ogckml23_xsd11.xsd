@@ -624,7 +624,6 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
           <element ref="kml:SimpleArrayDataExtension" minOccurs="0" maxOccurs="unbounded"/>
         </all>
         <attribute name="name" type="string"/>
-        <anyAttribute namespace="##other" processContents="lax"/>
       </extension>
     </complexContent>
   </complexType>
