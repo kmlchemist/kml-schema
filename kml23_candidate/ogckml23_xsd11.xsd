@@ -342,12 +342,9 @@ Specifies the north latitude value in decimal degrees in the interval: -180 < no
    </annotation>
   </element>
   <element name="open" type="boolean" default="0"/>
-  <element name="outerColor" type="kml:colorType" default="ffffffff"/>
-  <element name="outerWidth" type="kml:outerWidthType" default="0.0"/>
   <element name="outline" type="boolean" default="1"/>
   <element name="overlayXY" type="kml:vec2Type"/>
   <element name="phoneNumber" type="string"/>
-  <element name="physicalWidth" type="float" default="0.0"/>
   <element name="abstractPlayMode" abstract="true" type="kml:enumBaseType"/>
   <element name="playMode" type="kml:playModeEnumType" default="pause"
     substitutionGroup="kml:abstractPlayMode"/>
