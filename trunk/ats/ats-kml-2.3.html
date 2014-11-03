@@ -27,7 +27,7 @@
       <table class="borderless" style="border: none;">
         <tr>
           <td>Date:</td>
-          <td>2014-10-29</td>
+          <td>2014-11-03</td>
         </tr>
         <tr>
           <td>Document identifier:</td>
@@ -125,7 +125,7 @@
             <li><a href="#atc-144">ATC-144</a>: SoundCue refers to audio resource</li>
             <li><a href="#atc-145">ATC-145</a>: AnimatedUpdate referent</li>
             <li><a href="#atc-146">ATC-146</a>: Track positions</li>
-            <li><a href="#atc-147">ATC-147</a>: Track temporal values</li>
+            <li><a href="#atc-147">ATC-147</a>: Track properties constitute parallel array</li>
             <li><a href="#atc-148">ATC-148</a>: Track orientations</li>
             <li><a href="#atc-149">ATC-149</a>: LatLonQuad coordinates</li>
           </ol>
@@ -266,7 +266,7 @@
           all remaining tests are skipped.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 7.1.2</li>
+              <li>OGC 12-007, 7.1.2</li>
             </ul>
           </li>
           <li>Test type: Basic</li>
@@ -281,7 +281,7 @@
           <li>Method: Pass if the document satisfies all schema constraints; fail otherwise.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. A: KML Schemas</li>
+              <li>OGC 12-007, 5.3</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -300,10 +300,10 @@
           in Annex B of the OGC KML specification.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 16.9: kml:coordinatesType</li>
-              <li>OGC 12-007, cl. B: KML Coordinate Reference System Definition</li>
-              <li>XML Schema Part 2: Datatypes Second Edition - <a target="_blank" 
-              href="http://www.w3.org/TR/xmlschema-2/#decimal">decimal</a></li>
+              <li>OGC 12-007, 16.10: kml:coordinatesType</li>
+              <li>OGC 12-007, Annex B: KML Coordinate Reference System Definition</li>
+              <li>W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes - <a target="_blank" 
+              href="http://www.w3.org/TR/xmlschema11-2/#decimal">decimal</a></li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -324,7 +324,7 @@
           <li>Method: Pass if all assertions are satisfied; fail otherwise.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 15.2.2</li>
+              <li>OGC 12-007, 15.2.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -340,9 +340,9 @@
           gYear. A time zone indicator is allowed.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 15.3.2</li>
-              <li><a target="_blank" href="http://www.w3.org/TR/xmlschema-2/">XML Schema Part 2: 
-              Datatypes Second Edition</a></li>
+              <li>OGC 12-007, 15.3.2</li>
+              <li>W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes - <a target="_blank" 
+              href="http://www.w3.org/TR/xmlschema11-2/#built-in-primitive-datatypes">Primitive Datatypes</a></li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -366,8 +366,8 @@
           of RFC 3986.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 6.5</li>
-              <li>OGC 12-007, cl. 9.1.3.13</li>
+              <li>OGC 12-007, 6.4: Shared Styles</li>
+              <li>OGC 12-007, 9.1.3.14</li>
               <li>XPointer Framework - <a target="_blank" 
               href="http://www.w3.org/TR/xptr-framework/#shorthand">Shorthand Pointer</a></li>
               <li>RFC 3986 - <a target="_blank" 
@@ -392,7 +392,7 @@
           kml:Style and kml:StyleMap elements that appear as children of a kml:Document element.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 6.5</li>
+              <li>OGC 12-007, 6.4: Shared Styles</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -417,7 +417,7 @@
           verify that a region has a non-zero extent (a 3D envelope).</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 9.15.2</li>
+              <li>OGC 12-007, 9.19.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -439,9 +439,9 @@
           adheres to all applicable constraints; fail otherwise.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 13.1.3.3</li>
+              <li>OGC 12-007, cl. 13.1.3.2</li>
+              <li>OGC 12-007, cl. 13.1.3.4</li>
               <li>OGC 12-007, cl. 13.1.3.5</li>
-              <li>OGC 12-007, cl. 13.1.3.6</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -505,9 +505,9 @@
           have correct referents; fail otherwise.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 9.12.3.3</li>
-              <li>OGC 12-007, cl. 10.9.3.4</li>
-              <li>OGC 12-007, cl. 11.1.3.3</li>
+              <li>OGC 12-007, 9.15.3.3</li>
+              <li>OGC 12-007, 10.9.3.8</li>
+              <li>OGC 12-007, 11.1.3.3</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -530,7 +530,7 @@
           ellipsoid. These checks verify that a bounding box has a non-zero area.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 11.3.2</li>
+              <li>OGC 12-007, 11.3.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -548,7 +548,7 @@
           it forms the boundary of a polygon), and kml:Polygon.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 10.4.2</li>
+              <li>OGC 12-007, 10.4.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -565,7 +565,7 @@
           boundary of a polygon), and kml:Polygon.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 10.6.2</li>
+              <li>OGC 12-007, 10.6.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -580,7 +580,7 @@
           <li>Method: Pass if the assertion is satisfied; fail otherwise.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 10.3.2</li>
+              <li>OGC 12-007, 10.3.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -595,7 +595,7 @@
           <li>Method: Pass if the assertion is satisfied; fail otherwise.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 10.7.3.3</li>
+              <li>OGC 12-007, 10.7.3.7</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -615,7 +615,7 @@
           <li>Method: Pass if the assertions are satisfied; fail otherwise.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 10.5.3.3</li>
+              <li>OGC 12-007, 10.5.3.7</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -640,7 +640,7 @@
           expression: <code>//kml:Polygon[not(ancestor::kml:Update)]</code>.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 10.8.2</li>
+              <li>OGC 12-007, 10.8.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -657,7 +657,8 @@
           kml:IconStyle and <em>kml:AbstractOverlayType</em> contexts.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 13.1.2</li>
+              <li>OGC 12-007, 12.13.2</li>
+              <li>OGC 12-007, 13.1.2</li>
               <li>IANA Media Type Register - <a target="_blank" 
               href="http://www.iana.org/assignments/media-types/media-types.xhtml#image">
               image types</a></li>
@@ -678,8 +679,7 @@
           angle relative to the view vector.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 11.5.2</li>
-              <li>OGC 12-007, cl. 11.6.2</li>
+              <li>OGC 12-007, 11.5.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -696,7 +696,7 @@
           referenced KML resource.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 13.2.3.1</li>
+              <li>OGC 12-007, 13.4.3.1</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -717,7 +717,7 @@
           relevant context is <code>//<em>kml:AbstractObjectType</em>[not(ancestor::kml:Update)]</code>.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 8.1.3.1</li>
+              <li>OGC 12-007, 8.1.4.1</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -734,7 +734,7 @@
           with a network link (kml:NetworkLink/kml:Link/kml:href).</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 13.3.3.1</li>
+              <li>OGC 12-007, 13.5.3.1</li>
               <li>KML Reference - <a target="_blank" href="https://developers.google.com/kml/documentation/updates">Updates</a></li>
             </ul>
           </li>
@@ -756,7 +756,7 @@
           of all kml:Create, kml:Delete and kml:Change elements comprising the update.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 13.3.2</li>
+              <li>OGC 12-007, 13.5.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -774,7 +774,7 @@
           device.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 9.1.3.8</li>
+              <li>OGC 12-007, cl. 9.1.3.9</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -789,7 +789,7 @@
           referenced by kml:SchemaData elements that contain custom data.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 9.8.2</li>
+              <li>OGC 12-007, 9.10.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -812,18 +812,21 @@
                   <li>xsd:float</li>
                   <li>xsd:double</li>
                   <li>xsd:boolean</li>
+                  <li>xsd:date</li>
+                  <li>xsd:dateTime</li>
                 </ul>
               </li>
             </ol>
           </li>
-          <li>Method: Pass if all assertions are satisfied; fail otherwise.</li>
+          <li>Method: Pass if all assertions are satisfied; fail otherwise. A type that is validly derived 
+          from a simple XSD datatype is also acceptable.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 9.9.2</li>
-              <li>OGC 12-007, cl. 9.9.4.2</li>
-              <li>XML Schema Part 2: Datatypes - <a target="_blank" 
-              href="http://www.w3.org/TR/xmlschema-2/#built-in-datatypes">Built-in 
-              datatypes</a></li>
+              <li>OGC 12-007, 9.11.2</li>
+              <li>OGC 12-007, 9.11.4.1</li>
+              <li>W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes - <a target="_blank" 
+              href="http://www.w3.org/TR/xmlschema11-2/#built-in-datatypes">Built-in Datatypes and 
+              Their Definitions</a></li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -850,8 +853,8 @@
           KML feature.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 9.4.2</li>
-              <li>OGC 12-007, cl. 9.5.2</li>
+              <li>OGC 12-007, 9.5.2</li>
+              <li>OGC 12-007, 9.6.2</li>
               <li>Uniform Resource Identifier (URI): Generic Syntax - <a target="_blank" 
               href="http://tools.ietf.org/html/rfc3986#section-3.5">Fragment</a> (RFC 
               3986)</li>
@@ -870,7 +873,7 @@
           element represents an untyped name-value pair.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 9.3.2</li>
+              <li>OGC 12-007, 9.4.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -894,7 +897,7 @@
           as a COLLADA file.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 10.14.3</li>
+              <li>OGC 12-007, 10.14.3</li>
               <li><a target="_blank" href="http://www.khronos.org/files/collada_spec_1_5.pdf">COLLADA 
               1.5.0 Specification</a> (April 2008)</li>
             </ul>
@@ -919,7 +922,7 @@
           child feature members; it may be overridden on a per-feature basis.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 9.1.3.4</li>
+              <li>OGC 12-007, 9.1.3.5</li>
               <li>The Atom Syndication Format - <a target="_blank" 
               href="http://tools.ietf.org/html/rfc4287#section-3.2">Person Constructs</a> 
               (RFC 4287)</li>
@@ -943,7 +946,7 @@
           <li>Method: Pass if the assertion is satisfied; fail otherwise.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 10.11.2</li>
+              <li>OGC 12-007, 10.11.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -958,7 +961,7 @@
           <li>Method: Pass if the assertion is satisfied; fail otherwise.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 9.16.2</li>
+              <li>OGC 12-007, 9.20.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -982,7 +985,7 @@
           files (<code>model/vnd.collada+xml</code>).</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 10.9.2</li>
+              <li>OGC 12-007, 10.9.2</li>
               <li>KML Reference - <a target="_blank" 
               href="https://developers.google.com/kml/documentation/kmlreference#model">Model</a></li>
               <li>KML Developer's Guide - <a target="_blank" 
@@ -1002,7 +1005,7 @@
           <li>Method: Pass if all assertions are satisfied; fail otherwise.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 11.5.2</li>
+              <li>OGC 12-007, 11.5.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -1024,7 +1027,7 @@
           two values are defined in kml:styleStateEnumType: "normal" (default) and "highlight".</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 12.4.2</li>
+              <li>OGC 12-007, 12.4.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -1048,7 +1051,7 @@
           that uses it.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 12.14.2</li>
+              <li>OGC 12-007, 12.19.2</li>
               <li>KML Reference - <a target="_blank" 
               href="https://developers.google.com/kml/documentation/kmlreference#itemicon">ItemIcon</a></li>
             </ul>
@@ -1073,8 +1076,8 @@
           positions a "virtual camera" in relation to the feature that is being viewed.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 14.3.2</li>
-              <li>OGC 12-007, cl. 14.3.3</li>
+              <li>OGC 12-007, 14.3.2</li>
+              <li>OGC 12-007, 14.3.3</li>
               <li>KML Reference - <a target="_blank" 
               href="https://developers.google.com/kml/documentation/kmlreference#lookat">LookAt</a></li>
             </ul>
@@ -1109,7 +1112,7 @@ else
           </li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 9.18.2</li>
+              <li>OGC 12-007, 9.22.2</li>
               <li>KML Reference - <a target="_blank" 
               href="https://developers.google.com/kml/documentation/kmlreference#lod">Lod</a></li>
               <li>KML Developer's Guide - <a target="_blank"
@@ -1131,7 +1134,7 @@ else
           (see <a href="#atc-110">ATC-110</a>).</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 13.1.2</li>
+              <li>OGC 12-007, 13.1.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -1147,7 +1150,7 @@ else
           are used to determine whether or not a region is considered to be "active".</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 9.13.2</li>
+              <li>OGC 12-007, 9.16.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -1164,7 +1167,7 @@ else
           can substitute for <em>kml:AbstractTourPrimitiveGroup</em>.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 9.20.2</li>
+              <li>OGC 12-007, 9.23.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -1180,7 +1183,7 @@ else
           must substitute for <em>kml:AbstractViewGroup</em>.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 9.23.2</li>
+              <li>OGC 12-007, 9.27.2</li>
               <li>KML Developer's Guide - <a target="_blank"
               href="https://developers.google.com/kml/documentation/touring#flyto">FlyTo 
               and flyToMode</a></li>
@@ -1194,12 +1197,14 @@ else
         <ol>
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-143</code></li>
           <li>Purpose: Verify that if a kml:TourControl element is not a descendant of kml:Update, 
-          then it contains a child kml:playMode element.</li>
+          then it contains a child kml:playMode element (or an allowable substitution).</li>
           <li>Method: Pass if the assertion is satisfied; fail otherwise. This element may be 
           used to insert a user-controlled pause.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 9.25.2</li>
+              <li>OGC 12-007, 9.30.2</li>
+              <li>KML Reference - <a target="_blank" 
+              href="https://developers.google.com/kml/documentation/kmlreference#gxtourcontrol">TourControl</a></li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -1222,7 +1227,7 @@ else
           </li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 9.24.2</li>
+              <li>OGC 12-007, 9.29.2</li>
               <li>KML Developer's Guide - Touring in KML - <a target="_blank"
               href="https://developers.google.com/kml/documentation/touring#sound">Adding 
               sound</a></li>
@@ -1250,7 +1255,7 @@ else
           at any time.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 9.22.2</li>
+              <li>OGC 12-007, 9.26.3.2</li>
               <li>KML Reference - <a target="_blank" 
               href="https://developers.google.com/kml/documentation/kmlreference#gxanimatedupdate">
               AnimatedUpdate</a></li>
@@ -1270,11 +1275,11 @@ else
           may be used to describe the time-varying position of a Placemark feature that 
           represents a moving object. In the default CRS (see Annex B), the coordinate 
           tuple values are longitude, latitude, and altitude. An empty kml:coord element 
-          is permitted to indicate missing position data. The estimated position may be 
+          is permitted to indicate missing position data; the estimated position may be 
           determined using some interpolation method.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 10.15.3</li>
+              <li>OGC 12-007, 10.15.3.8</li>
               <li>OGC 12-007, Annex B</li>
             </ul>
           </li>
@@ -1282,7 +1287,7 @@ else
         </ol>
       </div>
       <div id="atc-147" class="atc">
-        <h2>ATC-147: Track temporal values</h2>
+        <h2>ATC-147: Track properties constitute parallel array</h2>
         <ol>
           <li>Identifier: <code>http://www.opengis.net/spec/KML/2.3/conf/level-1/atc-147</code></li>
           <li>Purpose: Check that for every temporal value (kml:when) in a kml:Track there 
@@ -1294,7 +1299,7 @@ else
           for an object that moves slowly or one whose position is observed infrequently.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 10.15.3</li>
+              <li>OGC 12-007, 10.15.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -1318,7 +1323,7 @@ else
           position.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 10.15.3</li>
+              <li>OGC 12-007, 10.15.3.9</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -1342,7 +1347,7 @@ else
           element).</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, cl. 11.4.2</li>
+              <li>OGC 12-007, 11.4.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
