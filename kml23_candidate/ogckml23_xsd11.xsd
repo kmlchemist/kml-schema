@@ -264,7 +264,7 @@
     default="clampToGround"/>
   <element name="seaFloorAltitudeMode"
     type="kml:seaFloorAltitudeModeEnumType"/>
-  <element name="altitudeOffset" type="double"/>
+  <element name="altitudeOffset" type="double" default="0.0"/>
   <element name="angles" type="string"/>
   <element name="balloonVisibility" type="boolean" default="true"/>
   <element name="begin" type="kml:dateTimeType"/>
