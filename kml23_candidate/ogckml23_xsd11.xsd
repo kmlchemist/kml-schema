@@ -1936,9 +1936,6 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
       <extension base="kml:AbstractColorStyleType">
         <all>
           <element ref="kml:width" minOccurs="0"/>
-          <element ref="kml:outerColor" minOccurs="0"/>
-          <element ref="kml:outerWidth" minOccurs="0"/>
-          <element ref="kml:physicalWidth" minOccurs="0"/>
           <element ref="kml:LineStyleSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:LineStyleObjectExtensionGroup" minOccurs="0"
@@ -2157,17 +2154,17 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
           <element ref="kml:duration" minOccurs="0"/>
           <element ref="kml:Update" minOccurs="0"/>
           <element ref="kml:delayedStart" minOccurs="0"/>
-          <element ref="kml:AnimatedUpdateTypeSimpleExtensionGroup" minOccurs="0"
+          <element ref="kml:AnimatedUpdateSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-          <element ref="kml:AnimatedUpdateTypeObjectExtensionGroup" minOccurs="0"
+          <element ref="kml:AnimatedUpdateObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
         </all>
       </extension>
     </complexContent>
   </complexType>
-  <element name="AnimatedUpdateTypeSimpleExtensionGroup" abstract="true"
+  <element name="AnimatedUpdateSimpleExtensionGroup" abstract="true"
     type="anySimpleType"/>
-  <element name="AnimatedUpdateTypeObjectExtensionGroup" abstract="true"
+  <element name="AnimatedUpdateObjectExtensionGroup" abstract="true"
     substitutionGroup="kml:AbstractObjectGroup"/>
 
   <element name="FlyTo" type="kml:FlyToType"
