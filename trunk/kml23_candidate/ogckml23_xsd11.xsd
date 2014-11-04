@@ -843,6 +843,111 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
         <documentation>kml:LookAt is not a valid child of kml:LookAt in versions of KML prior to 2.3.0.</documentation>
       </annotation>
     </assert>
+   <assert test="if (.//kml:SimpleArrayField)
+    then starts-with(@version,'2.3')
+    else true()">
+    <annotation>
+     <documentation>kml:SimpleArrayField is not allowed in versions of KML prior to 2.3.0.</documentation>
+    </annotation>
+   </assert>   
+   <assert test="if (.//kml:SimpleField/@uom)
+    then starts-with(@version,'2.3')
+    else true()">
+    <annotation>
+     <documentation>Attribute 'uom' is not a valid child of kml:SimpleField in versions of KML prior to 2.3.0.</documentation>
+    </annotation>
+   </assert>   
+   <assert test="if (.//kml:Data/@uom)
+    then starts-with(@version,'2.3')
+    else true()">
+    <annotation>
+     <documentation>Attribute 'uom' is not a valid child of kml:Data in versions of KML prior to 2.3.0.</documentation>
+    </annotation>
+   </assert>   
+   <assert test="if (.//kml:Camera/kml:horizFov)
+    then starts-with(@version,'2.3')
+    else true()">
+    <annotation>
+     <documentation>kml:horizFov is not a valid child of kml:Camera in versions of KML prior to 2.3.0.</documentation>
+    </annotation>
+   </assert>   
+   <assert test="if (.//kml:LookAt/kml:horizFov)
+    then starts-with(@version,'2.3')
+    else true()">
+    <annotation>
+     <documentation>kml:horizFov is not a valid child of kml:LookAt in versions of KML prior to 2.3.0.</documentation>
+    </annotation>
+   </assert>   
+   <assert test="if (.//kml:Create/kml:MultiTrack)
+    then starts-with(@version,'2.3')
+    else true()">
+    <annotation>
+     <documentation>kml:MultiTrack is not a valid child of kml:Create in versions of KML prior to 2.3.0.</documentation>
+    </annotation>
+   </assert>   
+   <assert test="if (.//kml:Create/kml:MultiGeometry)
+    then starts-with(@version,'2.3')
+    else true()">
+    <annotation>
+     <documentation>kml:MultiGeometry is not a valid child of kml:Create in versions of KML prior to 2.3.0.</documentation>
+    </annotation>
+   </assert>   
+   <assert test="if (.//kml:Delete/kml:MultiGeometry)
+    then starts-with(@version,'2.3')
+    else true()">
+    <annotation>
+     <documentation>kml:MultiGeometry is not a valid child of kml:Delete in versions of KML prior to 2.3.0.</documentation>
+    </annotation>
+   </assert>   
+   <assert test="if (.//kml:Delete/kml:Point)
+    then starts-with(@version,'2.3')
+    else true()">
+    <annotation>
+     <documentation>kml:Point is not a valid child of kml:Delete in versions of KML prior to 2.3.0.</documentation>
+    </annotation>
+   </assert>   
+   <assert test="if (.//kml:Delete/kml:LineString)
+    then starts-with(@version,'2.3')
+    else true()">
+    <annotation>
+     <documentation>kml:LineString is not a valid child of kml:Delete in versions of KML prior to 2.3.0.</documentation>
+    </annotation>
+   </assert>   
+   <assert test="if (.//kml:Delete/kml:LinearRing)
+    then starts-with(@version,'2.3')
+    else true()">
+    <annotation>
+     <documentation>kml:LinearRing is not a valid child of kml:Delete in versions of KML prior to 2.3.0.</documentation>
+    </annotation>
+   </assert>   
+   <assert test="if (.//kml:Delete/kml:Polygon)
+    then starts-with(@version,'2.3')
+    else true()">
+    <annotation>
+     <documentation>kml:Polygon is not a valid child of kml:Delete in versions of KML prior to 2.3.0.</documentation>
+    </annotation>
+   </assert>   
+   <assert test="if (.//kml:Delete/kml:Model)
+    then starts-with(@version,'2.3')
+    else true()">
+    <annotation>
+     <documentation>kml:Model is not a valid child of kml:Delete in versions of KML prior to 2.3.0.</documentation>
+    </annotation>
+   </assert>   
+   <assert test="if (.//kml:Delete/kml:Track)
+    then starts-with(@version,'2.3')
+    else true()">
+    <annotation>
+     <documentation>kml:Track is not a valid child of kml:Delete in versions of KML prior to 2.3.0.</documentation>
+    </annotation>
+   </assert>   
+   <assert test="if (.//kml:Delete/kml:MultiTrack)
+    then starts-with(@version,'2.3')
+    else true()">
+    <annotation>
+     <documentation>kml:MultiTrack is not a valid child of kml:Delete in versions of KML prior to 2.3.0.</documentation>
+    </annotation>
+   </assert>
   </complexType>
   <element name="KmlSimpleExtensionGroup" abstract="true" type="anySimpleType"/>
   <element name="KmlObjectExtensionGroup" abstract="true"
