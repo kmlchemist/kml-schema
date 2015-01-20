@@ -27,7 +27,7 @@
       <table class="borderless" style="border: none;">
         <tr>
           <td>Date:</td>
-          <td>2014-11-04</td>
+          <td>2015-01-20</td>
         </tr>
         <tr>
           <td>Document identifier:</td>
@@ -35,7 +35,7 @@
         </tr>
         <tr>
           <td>Reference number of document:</td>
-          <td>14-068</td>
+          <td>14-068r1</td>
         </tr>
         <tr>
           <td>Version:</td>
@@ -72,117 +72,120 @@
       http://www.opengeospatial.org/legal/</a>.</p>
     </section>
 
-    <nav data-type="toc">
-      <h1>Contents</h1>
-      <ol>
-        <li><a href="#intro">Scope</a></li>
-        <li><a href="#ref">References</a></li>
-        <li><a href="#level-1">Conformance Level 1</a>
-          <ol>
-            <li><a href="#atc-101">ATC-101</a>: Document element</li>
-            <li><a href="#atc-102">ATC-102</a>: Schema validity</li>
-            <li><a href="#atc-103">ATC-103</a>: Valid geometry coordinates</li>
-            <li><a href="#atc-104">ATC-104</a>: TimeSpan interval</li>
-            <li><a href="#atc-105">ATC-105</a>: TimeStamp value</li>
-            <li><a href="#atc-106">ATC-106</a>: Valid style reference</li>
-            <li><a href="#atc-107">ATC-107</a>: Shared styles</li>
-            <li><a href="#atc-108">ATC-108</a>: Region extent</li>
-            <li><a href="#atc-109">ATC-109</a>: Link properties</li>
-            <li><a href="#atc-110">ATC-110</a>: Link referent</li>
-            <li><a href="#atc-111">ATC-111</a>: Valid bounding box</li>
-            <li><a href="#atc-112">ATC-112</a>: Geometry extrusion</li>
-            <li><a href="#atc-113">ATC-113</a>: Geometry tessellation</li>
-            <li><a href="#atc-114">ATC-114</a>: Point coordinates</li>
-            <li><a href="#atc-115">ATC-115</a>: LineString coordinates</li>
-            <li><a href="#atc-116">ATC-116</a>: LinearRing coordinates</li>
-            <li><a href="#atc-117">ATC-117</a>: Polygon boundary elements</li>
-            <li><a href="#atc-118">ATC-118</a>: Icon element refers to image</li>
-            <li><a href="#atc-119">ATC-119</a>: PhotoOverlay field of view</li>
-            <li><a href="#atc-120">ATC-120</a>: NetworkLinkControl refresh interval</li>
-            <li><a href="#atc-121">ATC-121</a>: KML object content</li>
-            <li><a href="#atc-122">ATC-122</a>: Update referent</li>
-            <li><a href="#atc-123">ATC-123</a>: Update targets</li>
-            <li><a href="#atc-124">ATC-124</a>: Phone number</li>
-            <li><a href="#atc-125">ATC-125</a>: Schema identifier</li>
-            <li><a href="#atc-126">ATC-126</a>: SimpleField definition</li>
-            <li><a href="#atc-127">ATC-127</a>: SchemaData content</li>
-            <li><a href="#atc-128">ATC-128</a>: Data element has distinct name</li>
-            <li><a href="#atc-129">ATC-129</a>: Valid texture alias</li>
-            <li><a href="#atc-130">ATC-130</a>: Feature metadata - atom:author</li>
-            <li><a href="#atc-131">ATC-131</a>: Model orientation not empty</li>
-            <li><a href="#atc-132">ATC-132</a>: GroundOverlay with altitude</li>
-            <li><a href="#atc-133">ATC-133</a>: Model referents</li>
-            <li><a href="#atc-134">ATC-134</a>: PhotoOverlay</li>
-            <li><a href="#atc-135">ATC-135</a>: Mode-specific feature style</li>
-            <li><a href="#atc-136">ATC-136</a>: ItemIcon refers to image resource</li>
-            <li><a href="#atc-137">ATC-137</a>: LookAt viewpoint</li>
-            <li><a href="#atc-138">ATC-138</a>: Region visibility (LOD)</li>
-            <li><a href="#atc-139">ATC-139</a>: Link reference</li>
-            <li><a href="#atc-140">ATC-140</a>: Region</li>
-            <li><a href="#atc-141">ATC-141</a>: Tour playlist</li>
-            <li><a href="#atc-142">ATC-142</a>: FlyTo view</li>
-            <li><a href="#atc-143">ATC-143</a>: TourControl not empty</li>
-            <li><a href="#atc-144">ATC-144</a>: SoundCue refers to audio resource</li>
-            <li><a href="#atc-145">ATC-145</a>: AnimatedUpdate referent</li>
-            <li><a href="#atc-146">ATC-146</a>: Track positions</li>
-            <li><a href="#atc-147">ATC-147</a>: Track properties constitute parallel array</li>
-            <li><a href="#atc-148">ATC-148</a>: Track orientations</li>
-            <li><a href="#atc-149">ATC-149</a>: LatLonQuad coordinates</li>
-          </ol>
-        </li>
-        <li><a href="#level-2">Conformance Level 2</a>
-          <ol>
-            <li><a href="#atc-201">ATC-201</a>: PolyStyle not empty</li>
-            <li><a href="#atc-202">ATC-202</a>: 3D coordinates</li>
-            <li><a href="#atc-203">ATC-203</a>: Scale element not empty</li>
-            <li><a href="#atc-204">ATC-204</a>: Document element not empty</li>
-            <li><a href="#atc-205">ATC-205</a>: viewFormat element not empty</li>
-            <li><a href="#atc-206">ATC-206</a>: httpQuery element not empty</li>
-            <li><a href="#atc-207">ATC-207</a>: LinearRing in polygon boundary</li>
-            <li><a href="#atc-208">ATC-208</a>: Data element not empty</li>
-            <li><a href="#atc-209">ATC-209</a>: ResourceMap aliases</li>
-            <li><a href="#atc-210">ATC-210</a>: Link refresh mode</li>
-            <li><a href="#atc-211">ATC-211</a>: PhotoOverlay with large image</li>
-            <li><a href="#atc-212">ATC-212</a>: GroundOverlay extent</li>
-            <li><a href="#atc-213">ATC-213</a>: Camera position</li>
-            <li><a href="#atc-214">ATC-214</a>: Model location</li>
-            <li><a href="#atc-215">ATC-215</a>: Overlay has image</li>
-            <li><a href="#atc-216">ATC-216</a>: ScreenOverlay specifies point on screen</li>
-            <li><a href="#atc-217">ATC-217</a>: BalloonStyle not empty</li>
-            <li><a href="#atc-218">ATC-218</a>: ExtendedData not empty</li>
-            <li><a href="#atc-219">ATC-219</a>: Folder not empty</li>
-            <li><a href="#atc-220">ATC-220</a>: IconStyle not empty</li>
-            <li><a href="#atc-221">ATC-221</a>: Image tiling</li>
-            <li><a href="#atc-222">ATC-222</a>: LabelStyle not empty</li>
-            <li><a href="#atc-223">ATC-223</a>: ListStyle not empty</li>
-            <li><a href="#atc-224">ATC-224</a>: Style not empty</li>
-            <li><a href="#atc-225">ATC-225</a>: MultiGeometry not empty</li>
-            <li><a href="#atc-226">ATC-226</a>: Placemark has geometry</li>
-            <li><a href="#atc-227">ATC-227</a>: StyleMap content</li>
-            <li><a href="#atc-228">ATC-228</a>: FlyTo duration</li>
-            <li><a href="#atc-229">ATC-229</a>: Wait duration</li>
-            <li><a href="#atc-230">ATC-230</a>: AnimatedUpdate duration</li>
-            <li><a href="#atc-231">ATC-231</a>: Entity references in BalloonStyle text</li>
-            <li><a href="#atc-232">ATC-232</a>: Feature metadata - atom:link</li>
-          </ol>
-        </li>
-        <li><a href="#level-3">Conformance Level 3</a>
-          <ol>
-            <li><a href="#atc-301">ATC-301</a>: Polygon boundary orientation</li>
-            <li><a href="#atc-302">ATC-302</a>: LinearRing is closed and simple</li>
-            <li><a href="#atc-303">ATC-303</a>: BalloonStyle with color (deprecated)</li>
-            <li><a href="#atc-304">ATC-304</a>: Metadata element (deprecated)</li>
-            <li><a href="#atc-305">ATC-305</a>: Model scale factors</li>
-            <li><a href="#atc-306">ATC-306</a>: LOD fade range</li>
-            <li><a href="#atc-307">ATC-307</a>: Model orientation is fully specified</li>
-            <li><a href="#atc-308">ATC-308</a>: Snippet element (deprecated)</li>
-            <li><a href="#atc-309">ATC-309</a>: Url element (deprecated)</li>
-          </ol>
-        </li>
-      </ol>
-    </nav>
+    <section id="contents">
+      <nav data-type="toc">
+        <h1>Contents</h1>
+        <ol>
+          <li><a href="#intro">Scope</a></li>
+          <li><a href="#ref">References</a></li>
+          <li><a href="#level-1">Conformance Level 1</a>
+            <ol>
+              <li><a href="#atc-101">ATC-101</a>: Document element</li>
+              <li><a href="#atc-102">ATC-102</a>: Schema validity</li>
+              <li><a href="#atc-103">ATC-103</a>: Valid geometry coordinates</li>
+              <li><a href="#atc-104">ATC-104</a>: TimeSpan interval</li>
+              <li><a href="#atc-105">ATC-105</a>: TimeStamp value</li>
+              <li><a href="#atc-106">ATC-106</a>: Valid style reference</li>
+              <li><a href="#atc-107">ATC-107</a>: Shared styles</li>
+              <li><a href="#atc-108">ATC-108</a>: Region extent</li>
+              <li><a href="#atc-109">ATC-109</a>: Link properties</li>
+              <li><a href="#atc-110">ATC-110</a>: Link referent</li>
+              <li><a href="#atc-111">ATC-111</a>: Valid bounding box</li>
+              <li><a href="#atc-112">ATC-112</a>: Geometry extrusion</li>
+              <li><a href="#atc-113">ATC-113</a>: Geometry tessellation</li>
+              <li><a href="#atc-114">ATC-114</a>: Point coordinates</li>
+              <li><a href="#atc-115">ATC-115</a>: LineString coordinates</li>
+              <li><a href="#atc-116">ATC-116</a>: LinearRing coordinates</li>
+              <li><a href="#atc-117">ATC-117</a>: Polygon boundary elements</li>
+              <li><a href="#atc-118">ATC-118</a>: Icon element refers to image</li>
+              <li><a href="#atc-119">ATC-119</a>: PhotoOverlay field of view</li>
+              <li><a href="#atc-120">ATC-120</a>: NetworkLinkControl refresh interval</li>
+              <li><a href="#atc-121">ATC-121</a>: KML object content</li>
+              <li><a href="#atc-122">ATC-122</a>: Update referent</li>
+              <li><a href="#atc-123">ATC-123</a>: Update targets</li>
+              <li><a href="#atc-124">ATC-124</a>: Phone number</li>
+              <li><a href="#atc-125">ATC-125</a>: Schema identifier</li>
+              <li><a href="#atc-126">ATC-126</a>: SimpleField definition</li>
+              <li><a href="#atc-127">ATC-127</a>: SchemaData content</li>
+              <li><a href="#atc-128">ATC-128</a>: Data element has distinct name</li>
+              <li><a href="#atc-129">ATC-129</a>: Valid texture alias</li>
+              <li><a href="#atc-130">ATC-130</a>: Feature metadata - atom:author</li>
+              <li><a href="#atc-131">ATC-131</a>: Model orientation not empty</li>
+              <li><a href="#atc-132">ATC-132</a>: GroundOverlay with altitude</li>
+              <li><a href="#atc-133">ATC-133</a>: Model referents</li>
+              <li><a href="#atc-134">ATC-134</a>: PhotoOverlay</li>
+              <li><a href="#atc-135">ATC-135</a>: Mode-specific feature style</li>
+              <li><a href="#atc-136">ATC-136</a>: ItemIcon refers to image resource</li>
+              <li><a href="#atc-137">ATC-137</a>: LookAt viewpoint</li>
+              <li><a href="#atc-138">ATC-138</a>: Region visibility (LOD)</li>
+              <li><a href="#atc-139">ATC-139</a>: Link reference</li>
+              <li><a href="#atc-140">ATC-140</a>: Region</li>
+              <li><a href="#atc-141">ATC-141</a>: Tour playlist</li>
+              <li><a href="#atc-142">ATC-142</a>: FlyTo view</li>
+              <li><a href="#atc-143">ATC-143</a>: TourControl not empty</li>
+              <li><a href="#atc-144">ATC-144</a>: SoundCue refers to audio resource</li>
+              <li><a href="#atc-145">ATC-145</a>: AnimatedUpdate referent</li>
+              <li><a href="#atc-146">ATC-146</a>: Track positions</li>
+              <li><a href="#atc-147">ATC-147</a>: Track properties constitute parallel array</li>
+              <li><a href="#atc-148">ATC-148</a>: Track orientations</li>
+              <li><a href="#atc-149">ATC-149</a>: LatLonQuad coordinates</li>
+            </ol>
+          </li>
+          <li><a href="#level-2">Conformance Level 2</a>
+            <ol>
+              <li><a href="#atc-201">ATC-201</a>: PolyStyle not empty</li>
+              <li><a href="#atc-202">ATC-202</a>: 3D coordinates</li>
+              <li><a href="#atc-203">ATC-203</a>: Scale element not empty</li>
+              <li><a href="#atc-204">ATC-204</a>: Document element not empty</li>
+              <li><a href="#atc-205">ATC-205</a>: viewFormat element not empty</li>
+              <li><a href="#atc-206">ATC-206</a>: httpQuery element not empty</li>
+              <li><a href="#atc-207">ATC-207</a>: LinearRing in polygon boundary</li>
+              <li><a href="#atc-208">ATC-208</a>: Data element not empty</li>
+              <li><a href="#atc-209">ATC-209</a>: ResourceMap aliases</li>
+              <li><a href="#atc-210">ATC-210</a>: Link refresh mode</li>
+              <li><a href="#atc-211">ATC-211</a>: PhotoOverlay with large image</li>
+              <li><a href="#atc-212">ATC-212</a>: GroundOverlay extent</li>
+              <li><a href="#atc-213">ATC-213</a>: Camera position</li>
+              <li><a href="#atc-214">ATC-214</a>: Model location</li>
+              <li><a href="#atc-215">ATC-215</a>: Overlay has image</li>
+              <li><a href="#atc-216">ATC-216</a>: ScreenOverlay specifies point on screen</li>
+              <li><a href="#atc-217">ATC-217</a>: BalloonStyle not empty</li>
+              <li><a href="#atc-218">ATC-218</a>: ExtendedData not empty</li>
+              <li><a href="#atc-219">ATC-219</a>: Folder not empty</li>
+              <li><a href="#atc-220">ATC-220</a>: IconStyle not empty</li>
+              <li><a href="#atc-221">ATC-221</a>: Image tiling</li>
+              <li><a href="#atc-222">ATC-222</a>: LabelStyle not empty</li>
+              <li><a href="#atc-223">ATC-223</a>: ListStyle not empty</li>
+              <li><a href="#atc-224">ATC-224</a>: Style not empty</li>
+              <li><a href="#atc-225">ATC-225</a>: MultiGeometry not empty</li>
+              <li><a href="#atc-226">ATC-226</a>: Placemark has geometry</li>
+              <li><a href="#atc-227">ATC-227</a>: StyleMap content</li>
+              <li><a href="#atc-228">ATC-228</a>: FlyTo duration</li>
+              <li><a href="#atc-229">ATC-229</a>: Wait duration</li>
+              <li><a href="#atc-230">ATC-230</a>: AnimatedUpdate duration</li>
+              <li><a href="#atc-231">ATC-231</a>: Entity references in BalloonStyle text</li>
+              <li><a href="#atc-232">ATC-232</a>: Feature metadata - atom:link</li>
+            </ol>
+          </li>
+          <li><a href="#level-3">Conformance Level 3</a>
+            <ol>
+              <li><a href="#atc-301">ATC-301</a>: Polygon boundary orientation</li>
+              <li><a href="#atc-302">ATC-302</a>: LinearRing is closed and simple</li>
+              <li><a href="#atc-303">ATC-303</a>: BalloonStyle with color (deprecated)</li>
+              <li><a href="#atc-304">ATC-304</a>: Metadata element (deprecated)</li>
+              <li><a href="#atc-305">ATC-305</a>: Model scale factors</li>
+              <li><a href="#atc-306">ATC-306</a>: LOD fade range</li>
+              <li><a href="#atc-307">ATC-307</a>: Model orientation is fully specified</li>
+              <li><a href="#atc-308">ATC-308</a>: Snippet element (deprecated)</li>
+              <li><a href="#atc-309">ATC-309</a>: Url element (deprecated)</li>
+            </ol>
+          </li>
+          <li><a href="#annex-A">Annex A</a>: Revision history</li>
+        </ol>
+      </nav>
+    </section>
 
-    <section id="intro" data-type="sect1">
+    <section id="scope" data-type="sect1">
       <h1>Scope</h1>
       <p>This document specifies an abstract test suite (ATS) consisting of a set of 
       implementation-independent test cases that provide a basis for validating the 
@@ -1648,7 +1651,7 @@ http://server.example.org/bigphoto/$[level]/row_$[x]_column_$[y].jpg</pre>
           relative to the screen origin (lower left corner).</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, 11.11.2</li>
+              <li>OGC 12-007, 11.10.2</li>
             </ul>
           </li>
           <li>Test type: Capability</li>
@@ -1724,7 +1727,7 @@ http://server.example.org/bigphoto/$[level]/row_$[x]_column_$[y].jpg</pre>
           <li>Method: Pass if all assertions are satisfied; fail otherwise.</li>
           <li>References:
             <ul>
-              <li>OGC 12-007, 11.9.2</li>
+              <li>OGC 12-007, 11.8.2</li>
               <li>KML Reference - <a target="_blank" 
               href="https://developers.google.com/kml/documentation/kmlreference#imagepyramid">ImagePyramid</a></li>
               <li>KML Developer's Guide - <a target="_blank" 
@@ -2131,6 +2134,37 @@ kml:maxLodPixels - kml:minLodPixels</pre>
           <li>Test type: Capability</li>
         </ol>
       </div>
+    </section>
+
+    <section id="annex-A" data-type="sect1">
+      <h1>Annex A: Revision history</h1>
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Release</th>
+            <th>Authors</th>
+            <th>Sections modified</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2015-01-DD</td>
+            <td>14-068r1</td>
+            <td>R. Martell</td>
+            <td>ATC-216, ATC-221, Annex A</td>
+            <td>Proposed specification released for TC review</td>
+          </tr>
+          <tr>
+            <td>2014-11-04</td>
+            <td>14-068</td>
+            <td>R. Martell</td>
+            <td>All</td>
+            <td>Candidate specification released for public comment</td>
+          </tr>
+        </tbody>
+      </table>
     </section>
   </body>
 </html>
