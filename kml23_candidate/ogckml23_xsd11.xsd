@@ -878,13 +878,6 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
      <documentation>kml:horizFov is not a valid child of kml:LookAt in versions of KML prior to 2.3.0.</documentation>
     </annotation>
    </assert>   
-   <assert test="if (.//kml:Create/kml:MultiTrack)
-    then starts-with(@version,'2.3')
-    else true()">
-    <annotation>
-     <documentation>kml:MultiTrack is not a valid child of kml:Create in versions of KML prior to 2.3.0.</documentation>
-    </annotation>
-   </assert>   
    <assert test="if (.//kml:Create/kml:MultiGeometry)
     then starts-with(@version,'2.3')
     else true()">
@@ -934,20 +927,6 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
      <documentation>kml:Model is not a valid child of kml:Delete in versions of KML prior to 2.3.0.</documentation>
     </annotation>
    </assert>   
-   <assert test="if (.//kml:Delete/kml:Track)
-    then starts-with(@version,'2.3')
-    else true()">
-    <annotation>
-     <documentation>kml:Track is not a valid child of kml:Delete in versions of KML prior to 2.3.0.</documentation>
-    </annotation>
-   </assert>   
-   <assert test="if (.//kml:Delete/kml:MultiTrack)
-    then starts-with(@version,'2.3')
-    else true()">
-    <annotation>
-     <documentation>kml:MultiTrack is not a valid child of kml:Delete in versions of KML prior to 2.3.0.</documentation>
-    </annotation>
-   </assert>
   </complexType>
   <element name="KmlSimpleExtensionGroup" abstract="true" type="anySimpleType"/>
   <element name="KmlObjectExtensionGroup" abstract="true"
