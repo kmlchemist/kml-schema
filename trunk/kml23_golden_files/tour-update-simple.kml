@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" version="2.3">
+  <Document>
+    <Style id="sn_ylw-pushpin">
+      <IconStyle id="mystyle">
+        <scale>1.1</scale>
+        <Icon id="icontochange">
+          <href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+        </Icon>
+        <hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+      </IconStyle>
+    </Style>
+    <Style id="sh_ylw-pushpin">
+      <IconStyle>
+        <scale>1.3</scale>
+        <Icon>
+          <href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
+        </Icon>
+        <hotSpot x="20" y="2" xunits="pixels" yunits="pixels"/>
+      </IconStyle>
+    </Style>
+    <StyleMap id="msn_ylw-pushpin">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#sn_ylw-pushpin</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#sh_ylw-pushpin</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Folder>
+      <Placemark id="pm1">
+        <name>Watch as my name changes</name>
+        <description>dfsfgdsfgsdfg</description>
+        <LookAt>
+          <longitude>-78.17408862860144</longitude>
+          <latitude>35.30477101636992</latitude>
+          <altitude>0</altitude>
+          <heading>12.25829278781874</heading>
+          <tilt>47.82300120222428</tilt>
+          <range>1309910.257020473</range>
+        </LookAt>
+        <styleUrl>#msn_ylw-pushpin</styleUrl>
+        <Point id="mypoint">
+          <coordinates>-78.17408862860144,35.30477101636992,0</coordinates>
+        </Point>
+      </Placemark>
+      <ScreenOverlay id="overlay1">
+        <name>World Map Overlay</name>
+        <visibility>1</visibility>
+        <Icon>
+          <href>http://www.armageddonpills.com/concept3d/Images/worldmapoverlay.png</href>
+        </Icon>
+        <overlayXY x="0" y="-0.1" xunits="fraction" yunits="fraction"/>
+        <screenXY x="0" y="0" xunits="fraction" yunits="fraction"/>
+        <rotationXY x="0" y="0" xunits="fraction" yunits="fraction"/>
+        <size x="175" y="146" xunits="pixels" yunits="pixels"/>
+      </ScreenOverlay>
+      <Tour id="tour-sdf">
+        <name>sdf</name>
+        <Playlist>
+          <FlyTo>
+            <Camera>
+              <longitude>-87.0</longitude>
+              <latitude>27.83889854559159</latitude>
+              <altitude>944199.6111319931</altitude>
+              <heading>11.30021422914442</heading>
+              <tilt>40.19726017273012</tilt>
+              <roll>-2.544443745170813e-14</roll>
+              <altitudeMode>absolute</altitudeMode>
+            </Camera>
+          </FlyTo>
+          <AnimatedUpdate>
+            <duration>5.0</duration>
+            <Update>
+              <targetHref/>
+              <Change>
+                <IconStyle targetId="mystyle">
+                  <scale>10.0</scale>
+                </IconStyle>
+              </Change>
+            </Update>
+          </AnimatedUpdate>
+          <FlyTo>
+            <duration>5.0</duration>
+            <Camera>
+              <longitude>-80.0</longitude>
+              <latitude>27.83889854559159</latitude>
+              <altitude>944199.6111319931</altitude>
+              <heading>11.30021422914442</heading>
+              <tilt>40.19726017273012</tilt>
+              <roll>-2.544443745170813e-14</roll>
+              <altitudeMode>absolute</altitudeMode>
+            </Camera>
+          </FlyTo>
+          <AnimatedUpdate>
+            <duration>20.0</duration>
+            <Update>
+              <targetHref/>
+              <Change>
+                <Point targetId="mypoint">
+                  <coordinates>-50.17408862860144,30.30477101636992,0</coordinates>
+                </Point>
+              </Change>
+            </Update>
+          </AnimatedUpdate>
+          <AnimatedUpdate>
+            <duration>0.1</duration>
+            <Update>
+              <targetHref/>
+              <Change>
+                <Placemark targetId="pm1">
+                  <name>From This...</name>
+                </Placemark>
+              </Change>
+            </Update>
+          </AnimatedUpdate>
+          <Wait>
+            <duration>1.0</duration>
+          </Wait>
+          <AnimatedUpdate>
+            <duration>3.0</duration>
+            <Update>
+              <targetHref/>
+              <Change>
+                <IconStyle targetId="mystyle">
+                  <scale>0.5</scale>
+                </IconStyle>
+              </Change>
+            </Update>
+          </AnimatedUpdate>
+          <AnimatedUpdate>
+            <duration>0.1</duration>
+            <Update>
+              <targetHref/>
+              <Change>
+                <Icon targetId="icontochange">
+                  <href>http://maps.google.com/mapfiles/kml/shapes/caution.png</href>
+                </Icon>
+              </Change>
+            </Update>
+          </AnimatedUpdate>
+          <AnimatedUpdate>
+            <duration>0.1</duration>
+            <Update>
+              <targetHref/>
+              <Change>
+                <ScreenOverlay targetId="overlay1">
+                  <visibility>0</visibility>
+                </ScreenOverlay>
+              </Change>
+            </Update>
+          </AnimatedUpdate>
+          <Wait>
+            <duration>1.0</duration>
+          </Wait>
+          <AnimatedUpdate>
+            <duration>0.1</duration>
+            <Update>
+              <targetHref/>
+              <Change>
+                <Placemark targetId="pm1">
+                  <name>To This!</name>
+                </Placemark>
+              </Change>
+            </Update>
+          </AnimatedUpdate>
+          <AnimatedUpdate>
+            <duration>0.1</duration>
+            <Update>
+              <targetHref/>
+              <Change>
+                <ScreenOverlay targetId="overlay1">
+                  <visibility>1</visibility>
+                </ScreenOverlay>
+              </Change>
+            </Update>
+          </AnimatedUpdate>
+          <Wait>
+            <duration>1.0</duration>
+          </Wait>
+          <AnimatedUpdate>
+            <duration>0.1</duration>
+            <Update>
+              <targetHref/>
+              <Change>
+                <ScreenOverlay targetId="overlay1">
+                  <visibility>0</visibility>
+                </ScreenOverlay>
+              </Change>
+            </Update>
+          </AnimatedUpdate>
+          <Wait>
+            <duration>1.0</duration>
+          </Wait>
+          <AnimatedUpdate>
+            <duration>0.1</duration>
+            <Update>
+              <targetHref/>
+              <Change>
+                <ScreenOverlay targetId="overlay1">
+                  <visibility>1</visibility>
+                </ScreenOverlay>
+              </Change>
+            </Update>
+          </AnimatedUpdate>
+          <FlyTo>
+            <duration>10.0</duration>
+            <Camera>
+              <longitude>-60.0</longitude>
+              <latitude>27.83889854559159</latitude>
+              <altitude>944199.6111319931</altitude>
+              <heading>11.30021422914442</heading>
+              <tilt>40.19726017273012</tilt>
+              <roll>-2.544443745170813e-14</roll>
+              <altitudeMode>absolute</altitudeMode>
+            </Camera>
+          </FlyTo>
+        </Playlist>
+      </Tour>
+    </Folder>
+  </Document>
+</kml>

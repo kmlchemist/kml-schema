@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" version="2.3">
+
+<NetworkLinkControl>
+  <Update>
+    <targetHref>someHref</targetHref>
+    <Change>
+      <!-- Use in Update/Change is fine -->
+      <LatLonQuad targetId="someId">
+        <coordinates>-1,-1 2,-2 3,3 -4,4</coordinates>
+      </LatLonQuad>
+    </Change>
+  </Update>
+</NetworkLinkControl>
+
+<Document>
+
+  <!-- Example showing some elements from all substitution groups -->
+  <GroundOverlay id="go">
+    <!-- Elements from Feature -->
+    <name>go</name>
+    <visibility>0</visibility>
+    <Snippet maxLines="4"/>
+    <description/>
+    <!-- Elements from Overlay -->
+    <drawOrder>100</drawOrder>
+    <Icon>
+      <href>http://www.google.com/intl/en_ALL/images/logo.gif</href>
+    </Icon>
+    <!-- Elements from GroundOverlay -->
+    <altitude>500000</altitude>
+    <altitudeMode>absolute</altitudeMode>
+    <!-- New element from GroundOverlayObjectExtensionGroup -->
+    <LatLonQuad id="coombeFTW">
+      <coordinates>-1,-1 2,-2 3,3 -4,4</coordinates>
+    </LatLonQuad>
+  </GroundOverlay>
+
+  <!-- It is valid to have both LatLonQuad and LatLonBox. If both,
+       LatLonQuad wins -->
+  <GroundOverlay>
+    <LatLonBox>
+      <north>1</north>
+      <south>-1</south>
+      <east>1</east>
+      <west>-1</west>
+      <rotation>0</rotation>
+    </LatLonBox>
+    <LatLonQuad>
+      <coordinates>-1,-1,0 2,-2,0 3,3,0 -4,4,0</coordinates>
+    </LatLonQuad>
+  </GroundOverlay>
+
+  <!-- Missing coordinates is meaningless but schema-valid -->
+  <GroundOverlay>
+    <LatLonQuad/>
+  </GroundOverlay>
+
+  <!-- Empty coordinates are meaningless but schema-valid -->
+  <GroundOverlay>
+    <LatLonQuad>
+      <coordinates/>
+    </LatLonQuad>
+  </GroundOverlay>
+
+  <!-- There must be four and only four coordinate tuples. Three are
+       schema-valid but will not draw anything -->
+  <GroundOverlay>
+    <LatLonQuad>
+      <coordinates>-1,-1 2,-2 3,3</coordinates>
+    </LatLonQuad>
+  </GroundOverlay>
+
+  <!-- There must be four and only four coordinate tuples. Five are
+       schema-valid but will not draw anything -->
+  <GroundOverlay>
+    <LatLonQuad>
+      <coordinates>-1,-1 2,-2 3,3, -4,4 100,100</coordinates>
+    </LatLonQuad>
+  </GroundOverlay>
+
+</Document>
+
+</kml>
+

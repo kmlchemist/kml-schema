@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" version="2.3">
+
+  <Document>
+    <name>balloonVisibility Example</name>
+    <open>1</open>
+
+    <Tour>
+      <name>Play me</name>
+      <Playlist>
+
+        <FlyTo>
+          <duration>8.0</duration>
+          <!-- bounce is the default flyToMode -->
+          <LookAt>
+            <longitude>-119.748584</longitude>
+            <latitude>33.736266</latitude>
+            <altitude>0</altitude>
+            <heading>-9.295926</heading>
+            <tilt>84.0957450</tilt>
+            <range>4469.850414</range>
+            <seaFloorAltitudeMode>relativeToSeaFloor</seaFloorAltitudeMode>
+          </LookAt>
+        </FlyTo>
+
+        <AnimatedUpdate>
+          <duration>0.0</duration>
+          <Update>
+            <targetHref/>
+            <Change>
+              <Placemark targetId="underwater1">
+                <balloonVisibility>1</balloonVisibility>
+              </Placemark>
+            </Change>
+          </Update>
+        </AnimatedUpdate>
+
+        <Wait>
+          <duration>4.0</duration>
+        </Wait>
+
+        <AnimatedUpdate>
+          <duration>0.0</duration>
+          <Update>
+            <targetHref/>
+            <Change>
+              <Placemark targetId="underwater1">
+                <balloonVisibility>0</balloonVisibility>
+              </Placemark>
+            </Change>
+          </Update>
+        </AnimatedUpdate>
+
+        <FlyTo>
+          <duration>3</duration>
+          <flyToMode>smooth</flyToMode>
+          <LookAt>
+            <longitude>-119.782630</longitude>
+            <latitude>33.862855</latitude>
+            <altitude>0</altitude>
+            <heading>-9.314858</heading>
+            <tilt>84.117317</tilt>
+            <range>6792.665540</range>
+            <seaFloorAltitudeMode>relativeToSeaFloor</seaFloorAltitudeMode>
+          </LookAt>
+        </FlyTo>
+
+        <AnimatedUpdate>
+          <duration>0.0</duration>
+          <Update>
+            <targetHref/>
+            <Change>
+              <Placemark targetId="underwater2">
+                <balloonVisibility>1</balloonVisibility>
+              </Placemark>
+            </Change>
+          </Update>
+        </AnimatedUpdate>
+
+        <Wait>
+          <duration>4.0</duration>
+        </Wait>
+
+        <AnimatedUpdate>
+          <duration>0.0</duration>
+          <Update>
+            <targetHref/>
+            <Change>
+              <Placemark targetId="underwater2">
+                <balloonVisibility>0</balloonVisibility>
+              </Placemark>
+            </Change>
+          </Update>
+        </AnimatedUpdate>
+
+        <FlyTo>
+          <duration>3</duration>
+          <flyToMode>smooth</flyToMode>
+          <LookAt>
+            <longitude>-119.849578</longitude>
+            <latitude>33.968515</latitude>
+            <altitude>0</altitude>
+            <heading>-173.948935</heading>
+            <tilt>23.063392</tilt>
+            <range>3733.666023</range>
+            <altitudeMode>relativeToGround</altitudeMode>
+          </LookAt>
+        </FlyTo>
+
+        <AnimatedUpdate>
+          <duration>0.0</duration>
+          <Update>
+            <targetHref/>
+            <Change>
+              <Placemark targetId="onland">
+                <balloonVisibility>1</balloonVisibility>
+              </Placemark>
+            </Change>
+          </Update>
+        </AnimatedUpdate>
+
+        <Wait>
+          <duration>4.0</duration>
+        </Wait>
+
+      </Playlist>
+    </Tour>
+
+    <Placemark id="underwater1">
+      <name>Underwater off the California Coast</name>
+      <description>
+        The tour begins near the Santa Cruz Canyon,
+        off the coast of California, USA.
+      </description>
+      <Point>
+        <seaFloorAltitudeMode>clampToSeaFloor</seaFloorAltitudeMode>
+        <coordinates>-119.749531,33.715059,0</coordinates>
+      </Point>
+    </Placemark>
+
+    <Placemark id="underwater2">
+      <name>Still swimming...</name>
+      <description>We're about to leave the ocean, and visit the coast...</description>
+      <Point>
+        <seaFloorAltitudeMode>clampToSeaFloor</seaFloorAltitudeMode>
+        <coordinates>-119.779550,33.829268,0</coordinates>
+      </Point>
+    </Placemark>
+
+    <Placemark id="onland">
+      <name>The end</name>
+      <description>
+        <![CDATA[The end of our simple tour.
+        Use &lt;balloonVisibility&gt;1&lt;/balloonVisibility&gt;
+        to show description balloons.]]>
+      </description>
+      <Point>
+        <coordinates>-119.849578,33.968515,0</coordinates>
+      </Point>
+    </Placemark>
+
+  </Document>
+</kml>

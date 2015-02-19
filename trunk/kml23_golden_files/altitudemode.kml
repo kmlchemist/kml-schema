@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- xmlns updated to http://earth.google.com/kml/2.3 -->
+<kml xmlns="http://earth.google.com/kml/2.2" version="2.3">
+  <!--
+    In order to preserve backwards compatibility, Earth needs to
+    provide both <altitudeMode> and <gx:altitudeMode>, that way
+    old clients that don't understand the seafloor/bathy data
+    can still display something reasonable.
+
+    KML 2.3 would need to provide the same mechanism, to provide
+    backards compatibility with old clients. Hence, the creation
+    of <seaFloorAltitudeMode>.
+
+    See:
+    https://code.google.com/p/kml-schema/source/detail?r=34
+   -->
+  <Document>
+    <Placemark>
+      <name>clamped to ground/seafloor 2.3</name>
+      <Point>
+        <extrude>1</extrude>
+        <altitudeMode>clampToGround</altitudeMode>
+        <seaFloorAltitudeMode>clampToSeaFloor</seaFloorAltitudeMode>
+        <coordinates>0,0,10000</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>relative to ground/seafloor 2.3</name>
+      <Point>
+        <extrude>1</extrude>
+        <altitudeMode>relativeToGround</altitudeMode>
+        <seaFloorAltitudeMode>relativeToSeaFloor</seaFloorAltitudeMode>
+        <coordinates>0,0,10000</coordinates>
+      </Point>
+    </Placemark>
+  </Document>
+</kml>

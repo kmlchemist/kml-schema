@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- xmlns updated to http://earth.google.com/kml/2.3 -->
+<kml xmlns="http://earth.google.com/kml/2.2" version="2.3"
+     xmlns:foobar="http://www.foo.com/">
+  <!--
+    This tests the addition of extensionOtherAttributes in the XSD. It
+    allows for the addition of attributes in arbitrary namespaces to all complex
+    elements in KML. See:
+    https://code.google.com/p/kml-schema/source/diff?spec=svn27&r=28&format=side
+      &path=/trunk/kml23_candidate/ogckml23.xsd
+      &old_path=/trunk/kml23_candidate/ogckml23.xsd&old=26
+   -->
+
+  <NetworkLinkControl foobar:attrib="bar">
+    <!--
+      This NLC section doesn't point to a real file, it can't be tested as
+      written.
+    -->
+    <Update>
+      <targetHref>http://somehost.com/somefile.kml</targetHref>
+
+      <Create foobar:attrib="bar">
+        <Folder targetId="folder1" foobar:attrib="bar">
+          <Placemark foobar:attrib="bar">
+            <name>Placemark 2</name>
+            <Point foobar:attrib="bar">
+              <coordinates>-123.114642,49.285201,0</coordinates>
+            </Point>
+          </Placemark>
+        </Folder>
+      </Create>
+
+      <Delete foobar:attrib="bar">
+        <Placemark targetId="pt2" foobar:attrib="bar"/>
+      </Delete>
+
+      <Change foobar:attrib="bar">
+        <Placemark targetId="pt2" foobar:attrib="bar">
+          <name>new</name>
+        </Placemark>
+      </Change>
+
+    </Update>
+  </NetworkLinkControl>
+
+  <Document foobar:attrib="bar">
+    <name>Sample KML file WITH 2.3 style extension attributes</name>
+    <Schema name="TrailHead" id="TrailHead" foobar:attrib="bar">
+      <SimpleField type="string" name="TrailName" foobar:attrib="bar">
+        <displayName>
+          <![CDATA[&lt;i&gt;Trail Name in italics&lt;/i&gt;]]>
+        </displayName>
+      </SimpleField>
+      <SimpleField type="double" name="TrailLengthMiles" foobar:attrib="bar">
+        <displayName>Trail Length in Miles</displayName>
+      </SimpleField>
+    </Schema>
+    <Schema name="ScenicVistaType" id="ScenicVistaId" foobar:attrib="bar">
+      <SimpleField type="string" name="VistaName" foobar:attrib="bar">
+        <displayName>Vista Name</displayName>
+      </SimpleField>
+      <SimpleField type="int" name="Rating" foobar:attrib="bar">
+        <displayName>Rating in Stars</displayName>
+      </SimpleField>
+    </Schema>
+
+    <ScreenOverlay foobar:attrib="bar">
+      <name>ScreenOverlay.1</name>
+      <drawOrder>3</drawOrder>
+      <Icon foobar:attrib="bar">
+        <href>http://www.google.com/images/logo.gif</href>
+      </Icon>
+      <overlayXY x="0.0" xunits="fraction" y="-1" yunits="fraction" foobar:attrib="bar" />
+      <screenXY x="0.0" xunits="fraction" y="-1" yunits="fraction" foobar:attrib="bar" />
+      <size x="0.9" xunits="fraction" y="0.8" yunits="fraction" foobar:attrib="bar" />
+    </ScreenOverlay>
+
+    <GroundOverlay foobar:attrib="bar">
+      <name>GroundOverlay 2 (green)</name>
+      <color>ff00ff00</color>
+      <drawOrder>0</drawOrder>
+      <altitude>100</altitude>
+      <LatLonBox foobar:attrib="bar">
+        <north>10.0</north>
+        <south>8.0</south>
+        <east>2.0</east>
+        <west>-2.0</west>
+      </LatLonBox>
+    </GroundOverlay>
+
+    <Placemark foobar:attrib="bar">
+      <name>ExtendedData Test</name>
+      <Snippet maxLines="2" foobar:attrib="bar">ladeda</Snippet>
+      <Point foobar:attrib="bar">
+        <coordinates>10,10</coordinates>
+      </Point>
+    </Placemark>
+
+    <Placemark foobar:attrib="bar">
+      <name>ExtendedData Test</name>
+      <Snippet maxLines="2" foobar:attrib="bar">ladeda</Snippet>
+      <LineString foobar:attrib="bar">
+        <coordinates>10,10 0,0 2,2</coordinates>
+      </LineString>
+    </Placemark>
+
+    <Placemark foobar:attrib="bar">
+      <name>Poylgon</name>
+      <Polygon foobar:attrib="bar">
+        <tessellate>1</tessellate>
+        <altitudeMode>absolute</altitudeMode>
+        <outerBoundaryIs foobar:attrib="bar">
+          <LinearRing foobar:attrib="bar">
+            <coordinates> -112.3372510731295,36.14888505105317,1784
+                -112.3356128688403,36.14781540589019,1784 -112.3368169371048,36.14658677734382,1784
+                -112.3384408457543,36.14762778914076,1784 -112.3372510731295,36.14888505105317,1784
+            </coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+        <innerBoundaryIs foobar:attrib="bar">
+          <LinearRing foobar:attrib="bar">
+            <coordinates> -112.337838102321,36.14769974650945,1784
+                -112.3370763495471,36.14718900712396,1784 -112.3363715140701,36.14787933852372,1784
+                -112.3372446729405,36.14832895567845,1784
+              -112.337838102321,36.14769974650945,1784</coordinates>
+          </LinearRing>
+        </innerBoundaryIs>
+      </Polygon>
+    </Placemark>
+
+    <Placemark foobar:attrib="bar">
+      <name>ExtendedData Test</name>
+      <Snippet maxLines="2" foobar:attrib="bar">ladeda</Snippet>
+      <ExtendedData xmlns:foo="http://foo.com" foobar:attrib="bar">
+        <Data name="SomeRandomThing" foobar:attrib="bar">
+          <displayName>SomeRandomThing</displayName>
+          <value>99</value>
+        </Data>
+        <Data name="xxx" foobar:attrib="bar">
+          <displayName>some other randomg thing!</displayName>
+          <value>www.google.com</value>
+        </Data>
+        <SchemaData id="schema-data-123" schemaUrl="#TrailHead" foobar:attrib="bar">
+          <SimpleData name="TrailName" foobar:attrib="bar">A Great Trail</SimpleData>
+          <SimpleData name="TrailLengthMiles" foobar:attrib="bar">3.6</SimpleData>
+        </SchemaData>
+        <SchemaData id="schema-data-456" schemaUrl="#ScenicVistaId" foobar:attrib="bar">
+          <SimpleData name="VistaName" foobar:attrib="bar">Pretty Overlook        </SimpleData>
+          <SimpleData name="Rating" foobar:attrib="bar">3        </SimpleData>
+        </SchemaData>
+        <foo:blah>barf</foo:blah>
+        <foo:boof a="B&amp;W">boodoo</foo:boof>
+      </ExtendedData>
+      <Point foobar:attrib="bar">
+        <coordinates>0,0,0</coordinates>
+      </Point>
+    </Placemark>
+
+  </Document>
+</kml>

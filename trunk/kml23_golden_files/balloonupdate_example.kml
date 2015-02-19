@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" version="2.3">
+
+<Document>
+  <name>balloonUpdate example</name>
+  <open>1</open>
+
+  <Placemark id="sachsenring">
+    <name>Sachsenring</name>
+    <description>
+      The Sachsenring racing circuit is home to the German round
+      of the MotoGP motorcycle racing championship.
+    </description>
+    <Point>
+      <coordinates>12.688,50.792,0</coordinates>
+    </Point>
+  </Placemark>
+
+  <Tour>
+    <name>Play me!</name>
+    <Playlist>
+
+      <FlyTo>
+        <duration>4</duration>
+        <!-- <flyToMode>bounce</flyToMode> is the default -->
+        <LookAt>
+          <longitude>12.690</longitude>
+          <latitude>50.792</latitude>
+          <range>1000</range>
+        </LookAt>
+      </FlyTo>
+
+      <AnimatedUpdate>
+        <duration>0.0</duration>
+        <Update>
+          <targetHref/>
+          <Change>
+            <Placemark targetId="sachsenring">
+              <balloonVisibility>1</balloonVisibility>
+            </Placemark>
+          </Change>
+        </Update>
+      </AnimatedUpdate>
+
+      <Wait>
+        <duration>5</duration>
+      </Wait>
+
+    </Playlist>
+  </Tour>
+
+</Document>
+</kml>
