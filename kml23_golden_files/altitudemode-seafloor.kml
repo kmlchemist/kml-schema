@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  altitudeMode is either clampToSeaFloor, relativeToSeaFloor
+  seaFloorAltitudeMode is one of clampToGround, relativeToGround, absolute
+
+  Both elements can be used to provide backwards compatibility for KML 2.2
+  compliant implementations.
+-->
+<kml xmlns="http://www.opengis.net/kml/2.2" version="2.3">
+  <Document>
+    <Placemark>
+      <Point>
+        <altitudeMode>absolute</altitudeMode>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <LookAt>
+        <longitude>-30</longitude>
+        <latitude>30</latitude>
+        <altitude>1230</altitude>
+        <altitudeMode>relativeToGround</altitudeMode>
+        <seaFloorAltitudeMode>relativeToSeaFloor</seaFloorAltitudeMode>
+      </LookAt>
+      <Point>
+        <extrude>1</extrude>
+        <altitudeMode>relativeToGround</altitudeMode>
+        <seaFloorAltitudeMode>relativeToSeaFloor</seaFloorAltitudeMode>
+        <coordinates>-1.3,68.3</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <LookAt>
+        <altitudeMode>relativeToGround</altitudeMode>
+        <seaFloorAltitudeMode>relativeToSeaFloor</seaFloorAltitudeMode>
+      </LookAt>
+      <MultiGeometry>
+        <LineString>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <seaFloorAltitudeMode>clampToSeaFloor</seaFloorAltitudeMode>
+          <coordinates>-84,25 -92.25</coordinates>
+        </LineString>
+        <LinearRing>
+          <altitudeMode>relativeToGround</altitudeMode>
+          <seaFloorAltitudeMode>relativeToSeaFloor</seaFloorAltitudeMode>
+        </LinearRing>
+        <Polygon>
+          <altitudeMode>clampToGround</altitudeMode>
+          <seaFloorAltitudeMode>clampToSeaFloor</seaFloorAltitudeMode>
+          <outerBoundaryIs>
+            <LinearRing>
+              <tessellate>1</tessellate>
+              <coordinates>-102,11 -107,29 -112,14 -102.11</coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+        <Model>
+          <altitudeMode>relativeToGround</altitudeMode>
+          <seaFloorAltitudeMode>relativeToSeaFloor</seaFloorAltitudeMode>
+          <Location>
+            <longitude>110</longitude>
+            <latitude>-15</latitude>
+          </Location>
+        </Model>
+      </MultiGeometry>
+    </Placemark>
+    <GroundOverlay>
+      <Camera>
+        <altitudeMode>clampToGround</altitudeMode>
+        <seaFloorAltitudeMode>clampToSeaFloor</seaFloorAltitudeMode>
+      </Camera>
+      <Icon>
+        <href>shipwreck.jpg</href>
+      </Icon>
+      <altitudeMode>clampToGround</altitudeMode>
+      <seaFloorAltitudeMode>clampToSeaFloor</seaFloorAltitudeMode>
+      <LatLonBox>
+      </LatLonBox>
+    </GroundOverlay>
+    <NetworkLink>
+      <Region>
+        <LatLonAltBox>
+          <minAltitude>1000</minAltitude>
+          <maxAltitude>2000</maxAltitude>
+          <altitudeMode>relativeToGround</altitudeMode>
+          <seaFloorAltitudeMode>relativeToSeaFloor</seaFloorAltitudeMode>
+        </LatLonAltBox>
+      </Region>
+      <Link>
+        <href>underwater.kml</href>
+      </Link>
+    </NetworkLink>
+  </Document>
+</kml>

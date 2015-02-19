@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" version="2.3">
+
+<Tour>
+  <name>FlyTo Example</name>
+  <Playlist>
+    <FlyTo>
+      <duration>10.0</duration>
+      <!-- the default flyToMode is bounce -->
+      <LookAt>
+        <longitude>86.926202</longitude>
+        <latitude>27.826411</latitude>
+        <altitude>0</altitude>
+        <heading>-12.554629</heading>
+        <tilt>65.867840</tilt>
+        <range>9515.828600</range>
+        <altitudeMode>relativeToGround</altitudeMode>
+      </LookAt>
+    </FlyTo>
+
+    <FlyTo>
+      <duration>2.3</duration>
+      <flyToMode>smooth</flyToMode>
+      <LookAt>
+        <longitude>86.911913</longitude>
+        <latitude>27.941433</latitude>
+        <altitude>0</altitude>
+        <heading>-12.561309</heading>
+        <tilt>65.863904</tilt>
+        <range>7179.968053</range>
+        <altitudeMode>relativeToGround</altitudeMode>
+      </LookAt>
+    </FlyTo>
+
+    <FlyTo>
+      <duration>1.2</duration>
+      <flyToMode>smooth</flyToMode>
+      <LookAt>
+        <longitude>86.868715</longitude>
+        <latitude>27.968099</latitude>
+        <altitude>0</altitude>
+        <heading>49.211499</heading>
+        <tilt>70.444895</tilt>
+        <range>9795.644864</range>
+        <altitudeMode>relativeToGround</altitudeMode>
+      </LookAt>
+    </FlyTo>
+
+    <FlyTo>
+      <duration>2.0</duration>
+      <flyToMode>smooth</flyToMode>
+      <LookAt>
+        <longitude>86.916283</longitude>
+        <latitude>28.009960</latitude>
+        <altitude>0</altitude>
+        <heading>120.879978</heading>
+        <tilt>70.154433</tilt>
+        <range>8451.447173</range>
+        <altitudeMode>relativeToGround</altitudeMode>
+      </LookAt>
+    </FlyTo>
+
+    <FlyTo>
+      <duration>2.2</duration>
+      <flyToMode>smooth</flyToMode>
+      <LookAt>
+        <longitude>86.958159</longitude>
+        <latitude>27.948515</latitude>
+        <altitude>0</altitude>
+        <heading>-45.938924</heading>
+        <tilt>69.150296</tilt>
+        <range>6854.148629</range>
+        <altitudeMode>relativeToGround</altitudeMode>
+      </LookAt>
+    </FlyTo>
+
+    <FlyTo>
+      <duration>4.0</duration>
+      <LookAt>
+        <longitude>86.868761</longitude>
+        <latitude>28.0370178</latitude>
+        <altitude>0</altitude>
+        <heading>-45.965671</heading>
+        <tilt>69.213892</tilt>
+        <range>8889.655986</range>
+        <altitudeMode>relativeToGround</altitudeMode>
+      </LookAt>
+    </FlyTo>
+
+    <FlyTo>
+      <duration>2.5</duration>
+      <LookAt>
+        <longitude>86.807978</longitude>
+        <latitude>28.034873</latitude>
+        <altitude>0</altitude>
+        <heading>-45.975336</heading>
+        <tilt>69.232121</tilt>
+        <range>4854.937087</range>
+        <altitudeMode>relativeToGround</altitudeMode>
+      </LookAt>
+    </FlyTo>
+
+    <FlyTo>
+      <duration>4.1</duration>
+      <LookAt>
+        <longitude>86.878103</longitude>
+        <latitude>28.002714</latitude>
+        <altitude>0</altitude>
+        <heading>128.692417</heading>
+        <tilt>79.483954</tilt>
+        <range>150000</range>
+        <altitudeMode>relativeToGround</altitudeMode>
+      </LookAt>
+    </FlyTo>
+
+  </Playlist>
+</Tour>
+</kml>

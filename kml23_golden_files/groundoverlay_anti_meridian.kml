@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- xmlns updated to http://earth.google.com/kml/2.3 -->
+<kml xmlns="http://earth.google.com/kml/2.2" version="2.3">
+  <!--
+    This allows east/west values between -360 and 360 to support overlays that
+    cross the antimeridian. Should already be supported in Earth. See:
+    https://code.google.com/p/kml-schema/source/diff?spec=svn30&r=30&format=side
+      &path=/trunk/kml23_candidate/ogckml23.xsd
+        &old_path=/trunk/kml23_candidate/ogckml23.xsd&old=29
+   -->
+  <Document>
+    <GroundOverlay>
+      <name>Doesn't cross the anti-meridian</name>
+      <color>ff00ff00</color>
+      <drawOrder>0</drawOrder>
+      <altitude>100</altitude>
+      <LatLonBox>
+        <north>10</north>
+        <south>0</south>
+        <east>-170</east>
+        <west>170</west>
+      </LatLonBox>
+    </GroundOverlay>
+
+    <GroundOverlay>
+      <name>Crosses the anti-meridian</name>
+      <color>ff00ff00</color>
+      <drawOrder>0</drawOrder>
+      <altitude>100</altitude>
+      <LatLonBox>
+        <north>25</north>
+        <south>15</south>
+        <east>-170</east>
+        <west>-350</west>
+      </LatLonBox>
+    </GroundOverlay>
+
+    <GroundOverlay>
+      <name>Crosses the anti-meridian the other way</name>
+      <color>ff00ff00</color>
+      <drawOrder>0</drawOrder>
+      <altitude>100</altitude>
+      <LatLonBox>
+        <north>-5</north>
+        <south>-15</south>
+        <east>170</east>
+        <west>350</west>
+      </LatLonBox>
+    </GroundOverlay>
+
+  </Document>
+</kml>

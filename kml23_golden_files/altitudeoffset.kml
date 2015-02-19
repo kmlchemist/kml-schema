@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" version="2.3">
+  <NetworkLinkControl>
+    <Update>
+      <targetHref>http://example.com/ao.kml#nlcexam</targetHref>
+      <Change>
+        <LineString targetId="nlcexamls">
+          <altitudeOffset>500</altitudeOffset>
+        </LineString>
+      </Change>
+    </Update>
+  </NetworkLinkControl>
+  <Document>
+    <Placemark id="lsctg">
+      <LineString>
+        <altitudeOffset>10</altitudeOffset>
+        <altitudeMode>clampToGround</altitudeMode>
+        <coordinates>1,0,0 1,1,0 1,2,0 1,3,0 1,4,0 1,5,0</coordinates>
+      </LineString>
+    </Placemark>
+    <Placemark id="lsrtg">
+      <LineString>
+        <altitudeOffset>20</altitudeOffset>
+        <altitudeMode>relativeToGround</altitudeMode>
+        <coordinates>2,0,0 2,1,0 2,2,0 2,3,0 2,4,0 2,5,0</coordinates>
+      </LineString>
+    </Placemark>
+    <Placemark id="lsa">
+      <LineString>
+        <altitudeOffset>100</altitudeOffset>
+        <altitudeMode>absolute</altitudeMode>
+        <coordinates>3,0,0 3,1,0 3,2,0 3,3,0 3,4,0 3,5,0</coordinates>
+      </LineString>
+    </Placemark>
+    <Placemark id="lad">
+      <LineString>
+        <altitudeMode>clampToGround</altitudeMode>
+        <coordinates>1,0,0 1,1,0 1,2,0 1,3,0 1,4,0 1,5,0</coordinates>
+      </LineString>
+    </Placemark>
+    <Placemark id="polyctg">
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <altitudeOffset>10</altitudeOffset>
+            <altitudeMode>clampToGround</altitudeMode>
+            <coordinates>1,0,0 1,1,0 1,2,0 1,3,0 1,4,0 1,5,0</coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+    <Placemark id="polyrtg">
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <altitudeOffset>10</altitudeOffset>
+            <altitudeMode>relativeToGround</altitudeMode>
+            <coordinates>2,0,0 2,1,0 2,2,0 2,3,0 2,4,0 2,5,0</coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+    <Placemark id="polya">
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <altitudeOffset>10</altitudeOffset>
+            <altitudeMode>absolute</altitudeMode>
+            <coordinates>3,0,0 3,1,0 3,2,0 3,3,0 3,4,0 3,5,0</coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+    <Placemark id="polyd">
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <altitudeMode>clampToGround</altitudeMode>
+            <coordinates>4,0,0 4,1,0 4,2,0 4,3,0 4,4,0 4,5,0</coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+  </Document>
+</kml>

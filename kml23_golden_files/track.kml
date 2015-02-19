@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" version="2.3">
+  <Document>
+    <Schema name="mySchema" id="testSchema">
+      <SimpleArrayField name="bar" type="string">
+        <displayName>test</displayName>
+      </SimpleArrayField>
+      <SimpleArrayField name="saloon" type="int">
+        <displayName>quiz</displayName>
+      </SimpleArrayField>
+    </Schema>
+    <Placemark>
+      <name>Track Test File</name>
+      <Track>
+        <extrude>1</extrude>
+        <tessellate>0</tessellate>
+        <when>2010-01-01</when>
+        <when>2010-01-02</when>
+        <coord>-123 33 222</coord>
+        <coord>-123 34 222</coord>
+        <coord>-123 35 222</coord>
+        <angles>33 44 2</angles>
+        <angles>33 44 3</angles>
+        <angles>33 44 4</angles>
+        <Model id="testModel1">
+          <altitudeMode>relativeToGround</altitudeMode>
+          <Location>
+            <longitude>-118.9813220168456</longitude>
+            <latitude>39.55375305703105</latitude>
+            <altitude>1223</altitude>
+          </Location>
+          <Orientation>
+            <heading>45.0</heading>
+            <tilt>10.0</tilt>
+            <roll>0.0</roll>
+          </Orientation>
+          <Scale>
+            <x>1.0</x>
+            <y>1.0</y>
+            <z>1.0</z>
+          </Scale>
+          <Link>
+            <href>house.dae</href>
+          </Link>
+        </Model>
+        <ExtendedData>
+          <SchemaData schemaUrl="#testSchema">
+            <SimpleArrayData name="bar">
+              <value>This</value>
+              <value>That</value>
+              <value>The other thing</value>
+            </SimpleArrayData>
+          </SchemaData>
+          <SchemaData schemaUrl="#testSchema">
+            <SimpleArrayData name="bar">
+              <value>1</value>
+              <value>37</value>
+              <value>17</value>
+            </SimpleArrayData>
+          </SchemaData>
+        </ExtendedData>
+      </Track>
+    </Placemark>
+    <Placemark>
+      <name>MultiTrack test placemark</name>
+      <MultiTrack>
+        <altitudeMode>clampToGround</altitudeMode>
+        <interpolate>true</interpolate>
+        <Track>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <when>2010-01-03</when>
+          <when>2010-01-04</when>
+          <coord>-122 34 223</coord>
+          <coord>-125 34 180</coord>
+          <coord>-124 34 90</coord>
+          <ExtendedData>
+            <SchemaData schemaUrl="#testSchema">
+              <SimpleArrayData name="bar">
+                <value>This</value>
+                <value>That</value>
+                <value>The other thing</value>
+              </SimpleArrayData>
+            </SchemaData>
+            <SchemaData schemaUrl="#testSchema">
+              <SimpleArrayData name="bar">
+                <value>1</value>
+                <value>37</value>
+                <value>17</value>
+              </SimpleArrayData>
+            </SchemaData>
+            <!--Uncomment once we figure out ArrayData schema issues
+            <ArrayData name="someData">
+              <value>Something</value>
+              <value>Michael</value>
+              <value>42</value>
+            </ArrayData>
+            <ArrayData name="anArray">
+              <value>54</value>
+              <value>99</value>
+              <value>10</value>
+            </ArrayData>
+            -->
+          </ExtendedData>
+        </Track>
+        <Track>
+          <when>2010-06-15T07:40:42Z</when>
+          <when>2010-06-15T07:40:51Z</when>
+          <when>2010-06-15T07:41:08Z</when>
+          <when>2010-06-15T07:41:12Z</when>
+          <coord>36.811455 -1.289832 1712</coord>
+          <coord>36.811762 -1.289537 1712</coord>
+          <coord>36.811945 -1.28926 1711</coord>
+          <coord>36.812193 -1.288995 1711</coord>
+        </Track>
+        <Track>
+          <when>2010-06-14T17:09:57Z</when>
+          <when>2010-06-14T17:10:22Z</when>
+          <when>2010-06-14T17:10:29Z</when>
+          <when>2010-06-14T17:10:41Z</when>
+          <when>2010-06-14T17:10:56Z</when>
+          <coord>36.790853 -1.292353 1730</coord>
+          <coord>36.790495 -1.290252 1750</coord>
+          <coord>36.79046 -1.289948 1750</coord>
+          <coord>36.790422 -1.28961 1753</coord>
+          <coord>36.790318 -1.289055 1754</coord>
+        </Track>
+      </MultiTrack>
+    </Placemark>
+    <Placemark>
+      <name>Track Test File</name>
+      <Track>
+        <extrude>1</extrude>
+        <tessellate>0</tessellate>
+        <seaFloorAltitudeMode>clampToSeaFloor</seaFloorAltitudeMode>
+        <when>2010-01-01</when>
+        <when>2010-01-02</when>
+        <coord>-123 33 222</coord>
+        <coord>-123 34 222</coord>
+        <coord>-123 35 222</coord>
+        <angles>33 44 2</angles>
+        <angles>33 44 3</angles>
+        <angles>33 44 4</angles>
+        <Model id="testModel2">
+          <altitudeMode>relativeToGround</altitudeMode>
+          <Location>
+            <longitude>-118.9813220168456</longitude>
+            <latitude>39.55375305703105</latitude>
+            <altitude>1223</altitude>
+          </Location>
+          <Orientation>
+            <heading>45.0</heading>
+            <tilt>10.0</tilt>
+            <roll>0.0</roll>
+          </Orientation>
+          <Scale>
+            <x>1.0</x>
+            <y>1.0</y>
+            <z>1.0</z>
+          </Scale>
+          <Link>
+            <href>house.dae</href>
+          </Link>
+        </Model>
+      </Track>
+    </Placemark>
+    <Placemark>
+      <name>Track Test File</name>
+      <Track>
+        <extrude>1</extrude>
+        <tessellate>0</tessellate>
+        <altitudeMode>absolute</altitudeMode>
+        <when>2010-01-01</when>
+        <when>2010-01-02</when>
+        <coord>-123 33 222</coord>
+        <coord>-123 34 222</coord>
+        <coord>-123 35 222</coord>
+        <angles>33 44 2</angles>
+        <angles>33 44 3</angles>
+        <angles>33 44 4</angles>
+        <Model id="testModel3">
+          <altitudeMode>relativeToGround</altitudeMode>
+          <Location>
+            <longitude>-118.9813220168456</longitude>
+            <latitude>39.55375305703105</latitude>
+            <altitude>1223</altitude>
+          </Location>
+          <Orientation>
+            <heading>45.0</heading>
+            <tilt>10.0</tilt>
+            <roll>0.0</roll>
+          </Orientation>
+          <Scale>
+            <x>1.0</x>
+            <y>1.0</y>
+            <z>1.0</z>
+          </Scale>
+          <Link>
+            <href>house.dae</href>
+          </Link>
+        </Model>
+      </Track>
+    </Placemark>
+  </Document>
+</kml>

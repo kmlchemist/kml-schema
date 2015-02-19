@@ -1,0 +1,25 @@
+<kml xmlns="http://www.opengis.net/kml/2.2" version="2.3">
+  <Document>
+    <!-- This flies to the given range in space-time.
+      The time slider UI is initialized to the given range,
+      thus all Features with TimeStamps/TimeSpans within
+      this range (and view) are visible.
+      -->
+    <LookAt>
+      <TimeSpan id="lookat-timespan">
+        <begin>2000-07-08T17:52:02Z</begin>
+        <end>2018-07-09T02:01:57Z</end>
+      </TimeSpan>
+      <longitude>-122</longitude>
+      <latitude>37</latitude>
+    </LookAt>
+    <Placemark>
+      <!-- This flies to a given _instant_ in time -->
+      <Camera>
+        <TimeStamp id="camera-timestamp">
+            <when>1990-08-04</when>
+        </TimeStamp>
+      </Camera>
+    </Placemark>
+  </Document>
+</kml>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" version="2.3">
+
+  <Document>
+    <name>AnimatedUpdate example</name>
+    <open>1</open>
+
+    <Style id="style">
+      <IconStyle id="iconstyle">
+        <scale>1.0</scale>
+      </IconStyle>
+    </Style>
+
+    <Placemark id="mountainpin1">
+      <name>New Zealand's Southern Alps</name>
+      <styleUrl>#style</styleUrl>
+      <Point>
+        <coordinates>170.144,-43.605,0</coordinates>
+      </Point>
+    </Placemark>
+
+    <Tour>
+      <name>Play me!</name>
+      <Playlist>
+
+        <!-- The order and duration of TourPrimitives is important;
+             in this example, the AnimatedUpdate needs
+             6.5 seconds to complete. The FlyTo provides 4.1,
+             and the Wait 2.4, giving the update time to
+             complete before the Tour ends. AnimatedUpdates
+             don't hold Tours open, but FlyTos and Waits do.
+
+             For more information, refer to:
+             http://code.google.com/apis/kml/documentation/touring.html#tourtimelines
+        -->
+
+        <AnimatedUpdate>
+          <duration>6.5</duration>
+          <Update>
+            <targetHref></targetHref>
+            <Change>
+              <IconStyle targetId="iconstyle">
+                <scale>10.0</scale>
+              </IconStyle>
+            </Change>
+          </Update>
+          <delayedStart>1.0</delayedStart>
+        </AnimatedUpdate>
+
+        <FlyTo>
+          <duration>4.1</duration>
+          <Camera>
+            <longitude>170.157</longitude>
+            <latitude>-43.671</latitude>
+            <altitude>9700</altitude>
+            <heading>-6.333</heading>
+            <tilt>33.5</tilt>
+            <roll>0</roll>
+          </Camera>
+        </FlyTo>
+
+        <Wait>
+          <duration>2.4</duration>  <!-- waiting for the AnimatedUpdate to complete -->
+        </Wait>
+
+      </Playlist>
+    </Tour>
+  </Document>
+</kml>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" version="2.3">
+<GroundOverlay>
+  <name>Google</name>
+  <Icon>
+    <href>http://www.google.com/intl/en_ALL/images/logo.gif</href>
+  </Icon>
+  <altitude>500000</altitude>
+  <altitudeMode>absolute</altitudeMode>
+  <LatLonQuad id="coombeFTW">
+    <!-- note that altitude in coordinates is ignored -->
+    <coordinates>-1,-1,0 2,-2,0 3,3,0 -4,4,0</coordinates>
+  </LatLonQuad>
+</GroundOverlay>
+</kml>
+
