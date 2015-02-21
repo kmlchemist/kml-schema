@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- xmlns updated to http://earth.google.com/kml/2.3 -->
 <kml xmlns="http://www.opengis.net/kml/2.2" version="2.3">
   <!--
     In order to preserve backwards compatibility, Earth needs to
