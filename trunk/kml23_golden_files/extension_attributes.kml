@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- xmlns updated to http://earth.google.com/kml/2.3 -->
-<kml xmlns="http://earth.google.com/kml/2.2" version="2.3"
+<kml xmlns="http://www.opengis.net/kml/2.2" version="2.3"
      xmlns:foobar="http://www.foo.com/">
   <!--
     This tests the addition of extensionOtherAttributes in the XSD. It
