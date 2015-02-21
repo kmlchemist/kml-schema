@@ -16,6 +16,7 @@
         <tessellate>0</tessellate>
         <when>2010-01-01</when>
         <when>2010-01-02</when>
+        <when>2010-01-03</when>
         <coord>-123 33 222</coord>
         <coord>-123 34 222</coord>
         <coord>-123 35 222</coord>
@@ -69,8 +70,9 @@
         <Track>
           <extrude>0</extrude>
           <tessellate>1</tessellate>
-          <when>2010-01-03</when>
           <when>2010-01-04</when>
+          <when>2010-01-05</when>
+          <when>2010-01-06</when>
           <coord>-122 34 223</coord>
           <coord>-125 34 180</coord>
           <coord>-124 34 90</coord>
@@ -135,6 +137,7 @@
         <seaFloorAltitudeMode>clampToSeaFloor</seaFloorAltitudeMode>
         <when>2010-01-01</when>
         <when>2010-01-02</when>
+        <when>2010-01-03</when>
         <coord>-123 33 222</coord>
         <coord>-123 34 222</coord>
         <coord>-123 35 222</coord>
@@ -172,6 +175,7 @@
         <altitudeMode>absolute</altitudeMode>
         <when>2010-01-01</when>
         <when>2010-01-02</when>
+        <when>2010-01-03</when>
         <coord>-123 33 222</coord>
         <coord>-123 34 222</coord>
         <coord>-123 35 222</coord>
