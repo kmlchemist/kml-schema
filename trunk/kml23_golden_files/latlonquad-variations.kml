@@ -36,21 +36,6 @@
     </LatLonQuad>
   </GroundOverlay>
 
-  <!-- It is valid to have both LatLonQuad and LatLonBox. If both,
-       LatLonQuad wins -->
-  <GroundOverlay>
-    <LatLonBox>
-      <north>1</north>
-      <south>-1</south>
-      <east>1</east>
-      <west>-1</west>
-      <rotation>0</rotation>
-    </LatLonBox>
-    <LatLonQuad>
-      <coordinates>-1,-1,0 2,-2,0 3,3,0 -4,4,0</coordinates>
-    </LatLonQuad>
-  </GroundOverlay>
-
   <!-- Missing coordinates is meaningless but schema-valid -->
   <GroundOverlay>
     <LatLonQuad/>
