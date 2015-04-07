@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2" version="2.3">
-  <!--
-    In order to preserve backwards compatibility, Earth needs to
-    provide both <altitudeMode> and <gx:altitudeMode>, that way
-    old clients that don't understand the seafloor/bathy data
+ <!--
+    In order to preserve backwards compatibility, KML
+    provides both <altitudeMode> and <seaFloorAltitudeMode>, that way
+    old clients that don't understand the seafloor/bathymetry data
     can still display something reasonable.
-
-    KML 2.3 would need to provide the same mechanism, to provide
-    backards compatibility with old clients. Hence, the creation
-    of <seaFloorAltitudeMode>.
-
-    See:
-    https://code.google.com/p/kml-schema/source/detail?r=34
    -->
-  <Document>
+ <Document>
     <Placemark>
       <name>clamped to ground/seafloor 2.3</name>
       <Point>
