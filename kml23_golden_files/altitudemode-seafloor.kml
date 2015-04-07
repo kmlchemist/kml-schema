@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  altitudeMode is either clampToSeaFloor, relativeToSeaFloor
-  seaFloorAltitudeMode is one of clampToGround, relativeToGround, absolute
+  altitudeMode is one of clampToGround, relativeToGround, absolute
+  seaFloorAltitudeMode is either clampToSeaFloor, relativeToSeaFloor
 
   Both elements can be used to provide backwards compatibility for KML 2.2
-  compliant implementations.
+  conformant implementations.
 -->
 <kml xmlns="http://www.opengis.net/kml/2.2" version="2.3">
   <Document>
