@@ -1,66 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema"
-  elementFormDefault="qualified"
-  targetNamespace="http://www.w3.org/2005/Atom"
-  xmlns:atom="http://www.w3.org/2005/Atom" version="1.0.0">
-
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+ elementFormDefault="qualified"
+ targetNamespace="http://www.w3.org/2005/Atom" 
+ xmlns:atom="http://www.w3.org/2005/Atom"
+ version="1.1.0">
+ 
+ <annotation>
+  <documentation>This version (1.1.0) of atom-author-link.xsd (used by KML 2.3) replaces atom-author-link.xsd v1.0.0 (used by KML 2.2), which did not comply with RFC 4287 ("Person constructs MUST contain exactly one "atom:name" element."). This version of the schema rectifies this non-compliance with RFC 4287.</documentation>
+  <documentation source="http://tools.ietf.org/html/rfc4287">
+   The content model for an Atom document is specified in terms of the XML infoset; 
+   there is no official schema. The RELAX NG grammar appearing in Appendix B is 
+   informative. This XML Schema attempts to follow RFC 4287 as faithfully as 
+   possible.</documentation>
+ </annotation>
+ 
+ <element name="author" type="atom:atomPersonConstruct"/>
+ <complexType name="atomPersonConstruct">
   <annotation>
-    <appinfo>atom-author-link.xsd 2008-01-23</appinfo>
-    <documentation>There is no official atom XSD. This XSD is created based on:
-      http://atompub.org/2005/08/17/atom.rnc. A subset of Atom as used in the
-      ogckml22.xsd is defined here. </documentation>
+   <appinfo source="http://tools.ietf.org/html/rfc4287#section-3.2">
+    atomPersonConstruct = 
+    atomCommonAttributes, 
+    (element atom:name { text } 
+    &amp; element atom:uri { atomUri }?
+    &amp; element atom:email { atomEmailAddress }? 
+    &amp; extensionElement*)
+   </appinfo>
+   <documentation>Can't accommodate extension elements within &lt;all&gt; 
+    compositor using XSD 1.0. Also, since an IRI is a generalization of a URI 
+    (e.g. it may contain Unicode characters) the xsd:anyURI datatype is 
+    inadequate.</documentation>
   </annotation>
-
-  <!-- Person Construct -->
-  <complexType name="atomPersonConstruct">
-    <choice minOccurs="0" maxOccurs="unbounded">
-      <element ref="atom:name"/>
-      <element ref="atom:uri"/>
-      <element ref="atom:email"/>
-    </choice>
+  <all>
+   <element name="name" type="string"/>
+   <element name="uri" type="string" minOccurs="0"/>
+   <element name="email" type="atom:atomEmailAddress" minOccurs="0"/>
+  </all>
+  <anyAttribute namespace="##other" processContents="skip"/>
+ </complexType>
+ 
+ <element name="link">
+  <complexType>
+   <annotation>
+    <appinfo source="http://tools.ietf.org/html/rfc4287#section-4.2.7">
+     element atom:link {
+     atomCommonAttributes, 
+     attribute href { atomUri }, 
+     attribute rel { atomNCName | atomUri }?,
+     attribute type { atomMediaType }?, 
+     attribute hreflang { atomLanguageTag }?, 
+     attribute title { text }?, 
+     attribute length { text }?, 
+     undefinedContent 
+     }
+    </appinfo>
+   </annotation>
+   <sequence>
+    <any namespace="##other" processContents="skip" minOccurs="0" maxOccurs="unbounded"/>
+   </sequence>
+   <attribute name="href" type="string" use="required" />
+   <attribute name="rel" type="string"/>
+   <attribute name="type" type="atom:atomMediaType"/>
+   <attribute name="hreflang" type="language"/>
+   <attribute name="title" type="string"/>
+   <attribute name="length" type="nonNegativeInteger"/>
+   <anyAttribute namespace="##other" processContents="skip"/>
   </complexType>
-
-  <element name="name" type="string"/>
-  <element name="uri" type="string"/>
-  <element name="email" type="atom:atomEmailAddress"/>
-
-  <!-- atom:author -->
-  <element name="author" type="atom:atomPersonConstruct"/>
-
-  <!-- atom:link -->
-  <element name="link">
-    <complexType>
-
-      <attribute name="href" use="required"/>
-      <attribute name="rel"/>
-      <attribute name="type" type="atom:atomMediaType"/>
-      <attribute name="hreflang" type="atom:atomLanguageTag"/>
-      <attribute name="title"/>
-      <attribute name="length"/>
-
-    </complexType>
-
-  </element>
-
-  <!-- Whatever a media type is, it contains at least one slash -->
-  <simpleType name="atomMediaType">
-    <restriction base="string">
-      <pattern value=".+/.+"/>
-    </restriction>
-  </simpleType>
-
-  <!-- As defined in RFC 3066 -->
-  <simpleType name="atomLanguageTag">
-    <restriction base="string">
-      <pattern value="[A-Za-z]{1,8}(-[A-Za-z0-9]{1,8})*"/>
-    </restriction>
-  </simpleType>
-
-  <!-- Whatever an email address is, it contains at least one @ -->
-  <simpleType name="atomEmailAddress">
-    <restriction base="string">
-      <pattern value=".+@.+"/>
-    </restriction>
-  </simpleType>
-
+ </element>
+ 
+ <simpleType name="atomMediaType">
+  <annotation>
+   <documentation source="http://www.iana.org/assignments/media-types/">
+    Media type of resource should appear in the official IANA register.
+   </documentation>
+  </annotation>
+  <restriction base="string">
+   <pattern value=".+/.+"/>
+  </restriction>
+ </simpleType>
+ 
+ <simpleType name="atomEmailAddress">
+  <annotation>
+   <documentation>Address may not correspond to an actual mailbox.</documentation>
+  </annotation>
+  <restriction base="string">
+   <pattern value=".+@.+"/>
+  </restriction>
+ </simpleType>
+ 
 </schema>
