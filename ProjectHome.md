@@ -1,0 +1,1 @@
+Proposed changes to KML 2.2 schema
